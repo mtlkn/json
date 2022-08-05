@@ -1,0 +1,58 @@
+{
+    "query": {
+        "bool": {
+            "must": {
+                "query_string": {
+                    "query": "${query}",
+                    "fields": [
+                        "headline",
+                        "title",
+                        "summary",
+                        "dateline",
+                        "byline",
+                        "main.body",
+                        "caption.body",
+                        "prontotransrefs",
+                        "versions.headline",
+                        "versions.title",
+                        "versions.summary",
+                        "versions.dateline",
+                        "versions.byline",
+                        "versions.body"
+                    ]
+                }
+            },
+            "filter": [
+                {
+                    "term": {
+                        "type": "text"
+                    }
+                },
+                {
+                    "term": {
+                        "prontostatus": "${prontostatus}"
+                    }
+                },
+                {
+                    "range": {
+                        "lastmodified.datetime": "${lastmodified}"
+                    }
+                },
+                {
+                    "term": {
+                        "flag": "${flag}"
+                    }
+                }
+            ],
+            "must_not": {
+                "term": {
+                    "prontostatus": "prep"
+                }
+            }
+        }
+    },
+    "_source": "${source}",
+    "size": "${size}",
+    "from": "${from}",
+    "sort": "${sort}"
+}

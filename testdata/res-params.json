@@ -1,0 +1,56 @@
+{
+    "query": {
+        "bool": {
+            "must": {
+                "query_string": {
+                    "query": "michael jordan",
+                    "fields": [
+                        "headline",
+                        "title",
+                        "summary",
+                        "dateline",
+                        "byline",
+                        "main.body",
+                        "caption.body",
+                        "prontotransrefs",
+                        "versions.headline",
+                        "versions.title",
+                        "versions.summary",
+                        "versions.dateline",
+                        "versions.byline",
+                        "versions.body"
+                    ]
+                }
+            },
+            "filter": [
+                {
+                    "term": {
+                        "type": "text"
+                    }
+                },
+                {
+                    "term": {
+                        "prontostatus": "published"
+                    }
+                },
+                {
+                    "range": {
+                        "lastmodified.datetime": {
+                            "gte": "now-30d"
+                        }
+                    }
+                },
+                {
+                    "term": {
+                        "flag": true
+                    }
+                }
+            ],
+            "must_not": {
+                "term": {
+                    "prontostatus": "prep"
+                }
+            }
+        }
+    }
+}

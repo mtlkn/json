@@ -1,0 +1,9 @@
+{
+    "type": "text",
+    "prontostatus": "published",
+    "lastmodified": {
+        "gte": "now-30d"
+    },
+    "query": "michael jordan",
+    "flag": true
+}
