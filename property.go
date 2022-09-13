@@ -1,127 +1,121 @@
 package json
 
 import (
-	"fmt"
+	"errors"
 )
 
 type Property struct {
-	Name   string
-	Value  Value
-	namep  []Parameter //name parameters
-	valuep []Parameter //value parameters
+	n    []byte // parsed name bytes
+	name string
+	v    []byte // parsed value bytes
+	val  *Value
 }
 
-func Field(name string, value Value) Property {
-	return Property{
-		Name:  name,
-		Value: value,
+func NewProperty(name string, value interface{}) *Property {
+	return &Property{
+		name: name,
+		val:  New(value),
 	}
 }
 
-func (jp *Property) GetString() (v string, ok bool) {
-	return StringValue(jp.Value)
+// shortcut for NewProperty
+func P(name string, value interface{}) *Property {
+	return NewProperty(name, value)
 }
 
-func (jp *Property) GetStrings() ([]string, bool) {
-	ja, ok := jp.GetArray()
-	if !ok {
-		return nil, false
+func (p *Property) Name() string {
+	if p.name == "" && len(p.n) > 1 {
+		p.name = BytesToString(p.n[1 : len(p.n)-1])
+	}
+	return p.name
+}
+
+func (p *Property) Value() *Value {
+	if p.val == nil {
+		p.val = &Value{
+			buf: p.v,
+		}
+	}
+	return p.val
+}
+
+func (rd *reader) parseProperty() (*Property, error) {
+	if !rd.SkipSpace() {
+		return nil, errors.New("missing closing }")
 	}
 
-	return ja.GetStrings()
-}
-
-func (jp *Property) GetInt() (v int, ok bool) {
-	return IntValue(jp.Value)
-}
-
-func (jp *Property) GetInts() ([]int, bool) {
-	ja, ok := jp.GetArray()
-	if !ok {
-		return nil, false
+	if rd.b == '}' {
+		return nil, nil
 	}
 
-	return ja.GetInts()
-}
-
-func (jp *Property) GetFloat() (v float64, ok bool) {
-	return FloatValue(jp.Value)
-}
-
-func (jp *Property) GetFloats() ([]float64, bool) {
-	ja, ok := jp.GetArray()
-	if !ok {
-		return nil, false
+	if rd.b != '"' {
+		return nil, errors.New("missing property openning quote")
 	}
 
-	return ja.GetFloats()
-}
+	p := new(Property)
+	l := rd.i
 
-func (jp *Property) GetBool() (v bool, ok bool) {
-	return BoolValue(jp.Value)
-}
-
-func (jp *Property) GetObject() (v *Object, ok bool) {
-	return ObjectValue(jp.Value)
-}
-
-func (jp *Property) GetObjects() ([]*Object, bool) {
-	ja, ok := jp.GetArray()
-	if !ok {
-		return nil, false
-	}
-
-	return ja.GetObjects()
-}
-
-func (jp *Property) GetArray() (v *Array, ok bool) {
-	return ArrayValue(jp.Value)
-}
-
-//used when a first byte is '"'
-func (p *byteParser) ParseProperty(parameterized bool) (*Property, error) {
-	var (
-		jp  Property
-		err error
-	)
-	jp.Name, jp.namep, err = p.ParsePropertyName(parameterized)
-	if err != nil {
-		return &jp, err
-	}
-
-	if p.Byte != ':' {
-		return nil, fmt.Errorf("parsing property at %d: expected [ : ], found %s", p.Index, string(p.Byte))
-	}
-
-	jp.Value, jp.valuep, err = p.ParseValue(parameterized)
-	if err != nil {
-		return &jp, fmt.Errorf("parsing \"%s\" property at %d: %s", jp.Name, p.Index, err.Error())
-	}
-	return &jp, nil
-}
-
-func (p *byteParser) ParsePropertyName(parameterized bool) (string, []Parameter, error) {
-	var (
-		idx    = p.Index
-		params []Parameter
-	)
-	for {
-		err := p.Read()
-		if err != nil {
-			return "", params, fmt.Errorf("parsing property name at %d: %s", idx, err.Error())
+	for rd.Read() {
+		if rd.b != '"' || rd.buf[rd.i-1] == '\\' {
+			continue
 		}
 
-		if p.Byte == '"' {
-			name := string(p.Bytes[idx+1 : p.Index])
-			return name, params, p.SkipWS()
-		} else if p.Byte == '$' && parameterized {
-			param, err := p.ParseParameter(idx)
-			if param.Value != nil {
-				params = append(params, param)
+		p.n = rd.buf[l : rd.i+1]
+
+		if !rd.SkipSpace() || rd.b != ':' {
+			return nil, errors.New("missing property colon punctuation")
+		}
+
+		if !rd.SkipSpace() || rd.b == ',' || rd.b == '}' {
+			return nil, errors.New("missing property value")
+		}
+
+		skip := true
+
+		switch rd.b {
+		case '"':
+			l = rd.i
+			for rd.Read() {
+				if rd.b == '"' && rd.buf[rd.i-1] != '\\' {
+					p.v = rd.buf[l : rd.i+1]
+					break
+				}
 			}
+		case '{':
+			jo, err := rd.parseObject()
 			if err != nil {
-				return "", params, fmt.Errorf("parsing property name at %d: %s", idx, err.Error())
+				return nil, err
+			}
+			p.val = &Value{
+				typ: OBJECT,
+				val: jo,
+			}
+		case '[':
+			ja, err := rd.parseArray()
+			if err != nil {
+				return nil, err
+			}
+			p.val = &Value{
+				typ: ARRAY,
+				val: ja,
+			}
+		default:
+			l = rd.i
+			for rd.Read() {
+				skip = IsSpace(rd.b)
+				if rd.b == ',' || rd.b == '}' || skip {
+					p.v = rd.buf[l:rd.i]
+					break
+				}
 			}
 		}
+
+		if skip && !rd.SkipSpace() {
+			return nil, errors.New("missing closing }")
+		} else {
+			break
+		}
 	}
+
+	return p, nil
 }

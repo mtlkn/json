@@ -1,457 +1,300 @@
 package json
 
 import (
-	"fmt"
+	"errors"
+	"io"
 	"strings"
 )
 
 type Object struct {
 	Properties []*Property
-	fields     map[string]int
-	params     bool
-	text       string
+	names      map[string]int
 }
 
-func New(props ...Property) *Object {
-	var jo Object
-	if len(props) > 0 {
-		for _, prop := range props {
-			jo.Add(prop.Name, prop.Value)
-		}
-	}
-	return &jo
-}
-
-func ParseObject(data []byte) (*Object, error) {
-	return parseObject(data, false, false)
-}
-
-//ParseObjectSafe parses JSON object ignoring prefix non-ASCII characters
-func ParseObjectSafe(data []byte) (*Object, error) {
-	return parseObject(data, false, true)
-}
-
-//ParseObjectWithParameters parses parameterized JSON object
-func ParseObjectWithParameters(data []byte) (*Object, error) {
-	return parseObject(data, true, false)
-}
-
-func parseObject(data []byte, parameterized bool, safe bool) (*Object, error) {
-	var (
-		p   = newParser(data)
-		err error
-	)
-
-	if safe {
-		err = p.EnsureJSON()
-	} else {
-		err = p.SkipWS()
-	}
-	if err != nil {
-		return nil, err
-	}
-	if p.Byte != '{' {
-		return nil, fmt.Errorf("parsing JSON object; expect '{', found '%s'", string(p.Byte))
-	}
-	return p.ParseObject(parameterized)
-}
-
-func (jo *Object) Add(field string, value Value) {
-	if value.Type() == ObjectType && jo == value {
-		value, _ = copyValue(value)
+func NewObject(properties ...*Property) *Object {
+	jo := &Object{
+		names: make(map[string]int),
 	}
 
-	jo.addProperty(&Property{
-		Name:  field,
-		Value: value,
-	})
-}
-
-func (jo *Object) addProperty(jp *Property) {
-	jo.text = ""
-
-	if jo.fields == nil {
-		jo.fields = make(map[string]int)
-	}
-
-	idx, ok := jo.fields[jp.Name]
-	if ok {
-		jo.Properties[idx] = jp
-		return
-	}
-
-	jo.fields[jp.Name] = len(jo.Properties)
-	jo.Properties = append(jo.Properties, jp)
-}
-
-func (jo *Object) Remove(field string) {
-	sz := len(jo.fields)
-	if sz == 0 {
-		return
-	}
-
-	idx, ok := jo.fields[field]
-	if !ok {
-		return
-	}
-
-	delete(jo.fields, field)
-
-	jo.text = ""
-
-	props := make([]*Property, len(jo.fields))
-
-	for i := 0; i < len(jo.Properties); i++ {
-		if i == idx {
-			continue
-		}
-
-		jp := jo.Properties[i]
-
-		k := i
-		if i > idx {
-			k--
-		}
-
-		props[k] = jp
-		jo.fields[jp.Name] = k
-	}
-
-	jo.Properties = props
-}
-
-func (jo *Object) GetProperty(field string) (*Property, bool) {
-	if len(jo.fields) == 0 {
-		return nil, false
-	}
-
-	idx, ok := jo.fields[field]
-	if !ok {
-		return nil, false
-	}
-
-	return jo.Properties[idx], true
-}
-
-func (jo *Object) GetValue(field string) (Value, bool) {
-	jp, ok := jo.GetProperty(field)
-	if !ok {
-		return nil, false
-	}
-	return jp.Value, true
-}
-
-func (jo *Object) GetString(field string) (string, bool) {
-	jp, ok := jo.GetProperty(field)
-	if !ok {
-		return "", false
-	}
-	return jp.GetString()
-}
-
-func (jo *Object) GetStrings(field string) ([]string, bool) {
-	jp, ok := jo.GetProperty(field)
-	if !ok {
-		return nil, false
-	}
-	return jp.GetStrings()
-}
-
-func (jo *Object) GetInt(field string) (int, bool) {
-	jp, ok := jo.GetProperty(field)
-	if !ok {
-		return 0, false
-	}
-	return jp.GetInt()
-}
-
-func (jo *Object) GetInts(field string) ([]int, bool) {
-	jp, ok := jo.GetProperty(field)
-	if !ok {
-		return nil, false
-	}
-	return jp.GetInts()
-}
-
-func (jo *Object) GetFloat(field string) (float64, bool) {
-	jp, ok := jo.GetProperty(field)
-	if !ok {
-		return 0, false
-	}
-	return jp.GetFloat()
-}
-
-func (jo *Object) GetFloats(field string) ([]float64, bool) {
-	jp, ok := jo.GetProperty(field)
-	if !ok {
-		return nil, false
-	}
-	return jp.GetFloats()
-}
-
-func (jo *Object) GetBool(field string) (bool, bool) {
-	jp, ok := jo.GetProperty(field)
-	if !ok {
-		return false, false
-	}
-	return jp.GetBool()
-}
-
-func (jo *Object) GetObject(field string) (*Object, bool) {
-	jp, ok := jo.GetProperty(field)
-	if !ok {
-		return nil, false
-	}
-	return jp.GetObject()
-}
-
-func (jo *Object) GetObjects(field string) ([]*Object, bool) {
-	jp, ok := jo.GetProperty(field)
-	if !ok {
-		return nil, false
-	}
-	return jp.GetObjects()
-}
-
-func (jo *Object) GetArray(field string) (*Array, bool) {
-	jp, ok := jo.GetProperty(field)
-	if !ok {
-		return nil, false
-	}
-	return jp.GetArray()
-}
-
-func (jo *Object) Copy() *Object {
-	if jo == nil {
-		return nil
-	}
-
-	if len(jo.Properties) == 0 {
-		return new(Object)
-	}
-
-	copy := Object{
-		params: jo.params,
-		fields: make(map[string]int),
-	}
-
-	for _, jp := range jo.Properties {
-		v, ok := copyValue(jp.Value)
+	for _, p := range properties {
+		i, ok := jo.names[p.Name()]
 		if ok {
-			copy.fields[jp.Name] = len(copy.Properties)
-
-			cp := &Property{
-				Name:  jp.Name,
-				Value: v,
-			}
-
-			if len(jp.namep) > 0 {
-				cp.namep = append(cp.namep, jp.namep...)
-			}
-
-			if len(jp.valuep) > 0 {
-				cp.valuep = append(cp.valuep, jp.valuep...)
-			}
-
-			copy.Properties = append(copy.Properties, cp)
-		}
-	}
-
-	return &copy
-}
-
-func (jo *Object) IsEmpty() bool {
-	return jo == nil || len(jo.Properties) == 0
-}
-
-func (jo *Object) Equals(other *Object) (bool, error) {
-	var (
-		left  = jo
-		right = other
-	)
-
-	if left == nil {
-		left = New()
-	}
-
-	if right == nil {
-		right = New()
-	}
-
-	for f := range left.fields {
-		if _, ok := right.fields[f]; !ok {
-			v, _ := left.GetValue(f)
-			if !v.IsEmpty() {
-				return false, fmt.Errorf("extra property: %s", f)
-			}
-		}
-	}
-
-	for f := range right.fields {
-		if _, ok := left.fields[f]; !ok {
-			v, _ := right.GetValue(f)
-			if !v.IsEmpty() {
-				return false, fmt.Errorf("missing property: %s", f)
-			}
-		}
-	}
-
-	for _, l := range left.Properties {
-		for _, r := range right.Properties {
-			if r.Name == l.Name {
-				err := compareValues(l.Value, r.Value)
-				if err != nil {
-					return false, fmt.Errorf("mismatch property %s: %s", l.Name, err.Error())
-				}
-				break
-			}
-		}
-	}
-
-	return true, nil
-}
-
-//SetParameters replaces parameter placeholders with values
-func (jo *Object) SetParameters(params *Object) *Object {
-	var set Object
-
-	for _, jp := range jo.Properties {
-		var (
-			name  = jp.Name
-			value = jp.Value
-		)
-		if len(jp.namep) > 0 {
-			name, _ = setStringParameters(fmt.Sprintf("\"%s\"", jp.Name), jp.namep, params)
-			if len(name) < 3 {
-				continue
-			}
-			name = string(name[1 : len(name)-1])
-		}
-
-		value = setValueParameters(value, jp.valuep, params)
-		if value == nil || value.IsEmpty() {
+			jo.Properties[i] = p
 			continue
 		}
-		set.Add(name, value)
+
+		jo.names[p.Name()] = len(jo.Properties)
+		jo.Properties = append(jo.Properties, p)
 	}
 
-	return &set
-}
-
-//GetParameters retrieves paramaters from Object
-func (jo *Object) GetParameters() []Parameter {
-	var (
-		params []Parameter
-	)
-
-	for _, jp := range jo.Properties {
-		if len(jp.namep) > 0 {
-			params = append(params, jp.namep...)
-		}
-
-		switch jp.Value.Type() {
-		case StringType:
-			if len(jp.valuep) > 0 {
-				params = append(params, jp.valuep...)
-			}
-		case ObjectType:
-			o, ok := jp.Value.(*Object)
-			if ok {
-				params = append(params, o.GetParameters()...)
-			}
-		case ArrayType:
-			a, ok := jp.Value.(*Array)
-			if ok {
-				params = append(params, a.GetParameters()...)
-			}
-		}
-	}
-
-	return params
-}
-
-func (jo *Object) Value() interface{} {
 	return jo
 }
 
-func (jo *Object) Type() ValueType {
-	return ObjectType
+// shortcut for NewObject
+func O(properties ...*Property) *Object {
+	return NewObject(properties...)
+}
+
+func (jo *Object) Get(name string) (*Value, bool) {
+	i := jo.getPropertyIndex(name)
+	if i == -1 {
+		return nil, false
+	}
+
+	return jo.Properties[i].Value(), true
+}
+
+func (jo *Object) GetString(name string) (string, bool) {
+	v, ok := jo.Get(name)
+	if !ok {
+		return "", false
+	}
+	return v.String()
+}
+
+func (jo *Object) GetInt(name string) (int, bool) {
+	v, ok := jo.Get(name)
+	if !ok {
+		return 0, false
+	}
+	return v.Int()
+}
+
+func (jo *Object) GetUInt(name string) (uint, bool) {
+	v, ok := jo.Get(name)
+	if !ok {
+		return 0, false
+	}
+	return v.UInt()
+}
+
+func (jo *Object) GetFloat(name string) (float64, bool) {
+	v, ok := jo.Get(name)
+	if !ok {
+		return 0, false
+	}
+	return v.Float()
+}
+
+func (jo *Object) GetBool(name string) (bool, bool) {
+	v, ok := jo.Get(name)
+	if !ok {
+		return false, false
+	}
+	return v.Bool()
+}
+
+func (jo *Object) GetObject(name string) (*Object, bool) {
+	v, ok := jo.Get(name)
+	if !ok {
+		return nil, false
+	}
+	return v.Object()
+}
+
+func (jo *Object) GetArray(name string) (*Array, bool) {
+	v, ok := jo.Get(name)
+	if !ok {
+		return nil, false
+	}
+	return v.Array()
+}
+
+func (jo *Object) GetStrings(name string) ([]string, bool) {
+	a, ok := jo.GetArray(name)
+	if !ok {
+		return nil, false
+	}
+	return a.GetStrings()
+}
+
+func (jo *Object) GetInts(name string) ([]int, bool) {
+	a, ok := jo.GetArray(name)
+	if !ok {
+		return nil, false
+	}
+	return a.GetInts()
+}
+
+func (jo *Object) GetFloats(name string) ([]float64, bool) {
+	a, ok := jo.GetArray(name)
+	if !ok {
+		return nil, false
+	}
+	return a.GetFloats()
+}
+
+func (jo *Object) GetObjects(name string) ([]*Object, bool) {
+	a, ok := jo.GetArray(name)
+	if !ok {
+		return nil, false
+	}
+	return a.GetObjects()
+}
+
+func (jo *Object) Set(name string, value interface{}) *Object {
+	v := New(value)
+	if v == nil {
+		return jo
+	}
+
+	i := jo.getPropertyIndex(name)
+	if i != -1 {
+		jo.Properties[i].val = v
+		return jo
+	}
+
+	jo.names[name] = len(jo.Properties)
+
+	jo.Properties = append(jo.Properties, &Property{
+		name: name,
+		val:  v,
+	})
+
+	return jo
+}
+
+func (jo *Object) Remove(name string) *Object {
+	r := jo.getPropertyIndex(name)
+	if r == -1 {
+		return jo
+	}
+
+	jo.names = make(map[string]int)
+
+	var props []*Property
+
+	for i, p := range jo.Properties {
+		if i == r {
+			continue
+		}
+		jo.names[p.Name()] = len(props)
+		props = append(props, p)
+	}
+
+	jo.Properties = props
+
+	return jo
+}
+
+func (jo *Object) Validate() error {
+	for _, p := range jo.Properties {
+		if p.Name() == "" {
+			return errors.New("missing property name")
+		}
+
+		err := p.Value().Validate()
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
 }
 
 func (jo *Object) String() string {
-	if jo == nil {
-		return "{}"
-	}
+	var sb strings.Builder
 
-	if jo.text == "" {
-		sz := len(jo.Properties)
-		if sz == 0 {
-			jo.text = "{}"
+	sb.WriteByte('{')
+
+	for i, p := range jo.Properties {
+		if i > 0 {
+			sb.WriteByte(',')
+		}
+
+		if len(p.n) > 0 {
+			sb.Write(p.n)
 		} else {
-			values := make([]string, sz)
-			for i, jp := range jo.Properties {
-				values[i] = fmt.Sprintf("\"%s\":%s", jp.Name, jp.Value.String())
-			}
-			jo.text = fmt.Sprintf("{%s}", strings.Join(values, ","))
-		}
-	}
-	return jo.text
-}
-
-//used when a first byte is '{'
-func (p *byteParser) ParseObject(parameterized bool) (*Object, error) {
-	var (
-		i      int
-		params bool
-		props  []*Property
-		fields = make(map[string]int)
-	)
-
-	for {
-		err := p.SkipWS()
-		if err != nil {
-			return nil, err
-		}
-		if p.Byte != '"' {
-			if p.Byte == '}' {
-				break
-			}
-			return nil, fmt.Errorf("parsing object at %d: expected [ \" ], found %s", p.Index, string(p.Byte))
-		}
-		jp, err := p.ParseProperty(parameterized)
-		if err != nil {
-			return nil, err
+			sb.WriteByte('"')
+			sb.WriteString(p.Name())
+			sb.WriteByte('"')
 		}
 
-		if len(jp.valuep) > 0 || len(jp.namep) > 0 {
-			params = true
-		}
+		sb.WriteByte(':')
 
-		end := p.Byte == '}'
-		if end || p.Byte == ',' {
-			fields[jp.Name] = i
-			props = append(props, jp)
-			i++
-
-			if end {
-				break
-			}
+		if len(p.v) > 0 {
+			sb.Write(p.v)
 			continue
 		}
 
-		return nil, fmt.Errorf("parsing object at %d: expected [ , } ], found %s", p.Index, string(p.Byte))
+		v := p.Value()
+		sb.WriteString(v.string())
 	}
 
+	sb.WriteByte('}')
+
+	return sb.String()
+}
+
+func ParseObject(r io.Reader) (*Object, error) {
+	rd, err := newReader(r)
+	if err != nil {
+		return nil, err
+	}
+
+	if !rd.SkipSpace() || rd.b != '{' {
+		err = rd.EnsureJSON('{')
+		if err != nil {
+			return nil, err
+		}
+	}
+
+	return rd.parseObject()
+}
+
+func (rd *reader) parseObject() (*Object, error) {
 	jo := &Object{
-		Properties: props,
-		fields:     fields,
-		params:     params,
+		names: make(map[string]int),
 	}
 
-	err := p.SkipWS()
-	if err == errEOF {
-		err = nil
+	for {
+		p, err := rd.parseProperty()
+		if err != nil {
+			return nil, err
+		}
+
+		if p == nil {
+			break
+		}
+
+		if _, ok := jo.names[p.Name()]; ok {
+			return nil, errors.New("property name dublicates: " + p.Name())
+		}
+
+		jo.names[p.Name()] = len(jo.Properties)
+		jo.Properties = append(jo.Properties, p)
+
+		if rd.b == '}' {
+			break
+		}
+
+		if rd.b != ',' {
+			return nil, errors.New("missing property closing")
+		}
 	}
 
-	return jo, err
+	return jo, nil
+}
+
+func (jo *Object) getPropertyIndex(name string) int {
+	if jo == nil {
+		return -1
+	}
+
+	// small array iteration is faster tham map lookup
+	if len(jo.Properties) < 5 {
+		for i, p := range jo.Properties {
+			if p.Name() == name {
+				return i
+			}
+		}
+		return -1
+	}
+
+	i, ok := jo.names[name]
+	if !ok {
+		return -1
+	}
+
+	return i
 }

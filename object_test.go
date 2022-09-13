@@ -1,358 +1,639 @@
 package json
 
 import (
+	"bytes"
 	"fmt"
-	"os"
+	"strings"
 	"testing"
 )
 
 func TestObject(t *testing.T) {
-	jo := New(Field("id", Int(1)))
-	jo.addProperty(&Property{
-		Name:  "id",
-		Value: String("1"),
+	t.Run("string property", func(t *testing.T) {
+		jo := O(P("name", "YM"))
+		s, ok := jo.GetString("name")
+		if !ok {
+			t.Fail()
+			return
+		}
+		if s != "YM" {
+			t.Errorf("wrong value: expected \"%s\", got \"%s\"", "YM", s)
+			t.Fail()
+		}
+
+		_, ok = jo.GetString("age")
+		if ok {
+			t.Fail()
+			return
+		}
+
+		jo = O(P("names", A("YM", "SV")))
+		ss, ok := jo.GetStrings("names")
+		if !ok || len(ss) != 2 {
+			t.Fail()
+			return
+		}
+		if ss[1] != "SV" {
+			t.Errorf("wrong value: expected \"%s\", got \"%s\"", "SV", ss[1])
+			t.Fail()
+		}
+
+		_, ok = jo.GetStrings("age")
+		if ok {
+			t.Fail()
+			return
+		}
 	})
-	if s, _ := jo.GetString("id"); s != "1" {
-		t.Fail()
-		t.Error("failed to update property")
-	}
 
-	jo.Add("name", String("YM"))
-	jo.Remove("id")
-	if jo.Properties[0].Name != "name" {
-		t.Fail()
-		t.Error("failed to remove property")
-	}
+	t.Run("int property", func(t *testing.T) {
+		jo := O(P("age", 27))
+		i, ok := jo.GetInt("age")
+		if !ok {
+			t.Fail()
+			return
+		}
+		if i != 27 {
+			t.Errorf("wrong value: expected \"%d\", got \"%d\"", 27, i)
+			t.Fail()
+		}
 
-	jo.Remove("age")
-	if jo.Properties[0].Name != "name" {
-		t.Fail()
-		t.Error("failed to remove property")
-	}
+		_, ok = jo.GetInt("name")
+		if ok {
+			t.Fail()
+			return
+		}
 
-	jo.Remove("name")
-	if len(jo.Properties) != 0 {
-		t.Fail()
-		t.Error("failed to remove property")
-	}
+		jo = O(P("ages", A(27, 43)))
+		is, ok := jo.GetInts("ages")
+		if !ok || len(is) != 2 {
+			t.Fail()
+			return
+		}
+		if is[1] != 43 {
+			t.Errorf("wrong value: expected \"%d\", got \"%d\"", 43, is[1])
+			t.Fail()
+		}
 
-	jo.Remove("name")
-	if len(jo.Properties) != 0 {
-		t.Fail()
-		t.Error("failed to remove property")
-	}
+		_, ok = jo.GetInts("name")
+		if ok {
+			t.Fail()
+			return
+		}
+	})
 
-	if _, ok := jo.GetProperty("id"); ok {
-		t.Fail()
-		t.Error("failed to fail to get nonexisting property")
-	}
+	t.Run("float property", func(t *testing.T) {
+		jo := O(P("pi", 3.14))
+		f, ok := jo.GetFloat("pi")
+		if !ok {
+			t.Fail()
+			return
+		}
+		if f != 3.14 {
+			t.Errorf("wrong value: expected \"%f\", got \"%f\"", 3.14, f)
+			t.Fail()
+		}
 
-	if _, ok := jo.GetString("id"); ok {
-		t.Fail()
-		t.Error("failed to fail to get nonexisting property")
-	}
+		_, ok = jo.GetFloat("name")
+		if ok {
+			t.Fail()
+			return
+		}
 
-	if _, ok := jo.GetStrings("id"); ok {
-		t.Fail()
-		t.Error("failed to fail to get nonexisting property")
-	}
+		jo = O(P("geo", A(27.345, 43.876)))
+		fs, ok := jo.GetFloats("geo")
+		if !ok || len(fs) != 2 {
+			t.Fail()
+			return
+		}
+		if fs[1] != 43.876 {
+			t.Errorf("wrong value: expected \"%f\", got \"%f\"", 43.876, fs[1])
+			t.Fail()
+		}
 
-	if _, ok := jo.GetInt("id"); ok {
-		t.Fail()
-		t.Error("failed to fail to get nonexisting property")
-	}
+		_, ok = jo.GetFloats("name")
+		if ok {
+			t.Fail()
+			return
+		}
+	})
 
-	if _, ok := jo.GetInts("id"); ok {
-		t.Fail()
-		t.Error("failed to fail to get nonexisting property")
-	}
+	t.Run("bool property", func(t *testing.T) {
+		jo := O(P("flag", true))
+		b, ok := jo.GetBool("flag")
+		if !ok {
+			t.Fail()
+			return
+		}
+		if !b {
+			t.Errorf("wrong value: expected \"true\", got \"%v\"", b)
+			t.Fail()
+		}
 
-	if _, ok := jo.GetFloat("id"); ok {
-		t.Fail()
-		t.Error("failed to fail to get nonexisting property")
-	}
+		_, ok = jo.GetBool("name")
+		if ok {
+			t.Fail()
+			return
+		}
+	})
 
-	if _, ok := jo.GetFloats("id"); ok {
-		t.Fail()
-		t.Error("failed to fail to get nonexisting property")
-	}
+	t.Run("uint property", func(t *testing.T) {
+		var v uint = 9223372036854775808
+		jo := O(P("big", v))
+		ui, ok := jo.GetUInt("big")
+		if !ok {
+			t.Fail()
+			return
+		}
+		if ui != v {
+			t.Errorf("wrong value: expected \"%v\", got \"%v\"", v, ui)
+			t.Fail()
+		}
 
-	if _, ok := jo.GetBool("id"); ok {
-		t.Fail()
-		t.Error("failed to fail to get nonexisting property")
-	}
+		_, ok = jo.GetUInt("name")
+		if ok {
+			t.Fail()
+			return
+		}
+	})
 
-	if _, ok := jo.GetObject("id"); ok {
-		t.Fail()
-		t.Error("failed to fail to get nonexisting property")
-	}
+	t.Run("object property", func(t *testing.T) {
+		jo := O(P("org", O(P("name", "AP"))))
+		o, ok := jo.GetObject("org")
+		if !ok {
+			t.Fail()
+			return
+		}
+		s, ok := o.GetString("name")
+		if !ok {
+			t.Fail()
+			return
+		}
+		if s != "AP" {
+			t.Errorf("wrong value: expected \"%s\", got \"%s\"", "AP", s)
+			t.Fail()
+		}
 
-	if _, ok := jo.GetObjects("id"); ok {
-		t.Fail()
-		t.Error("failed to fail to get nonexisting property")
-	}
+		_, ok = jo.GetObject("name")
+		if ok {
+			t.Fail()
+			return
+		}
 
-	if _, ok := jo.GetArray("id"); ok {
-		t.Fail()
-		t.Error("failed to fail to get nonexisting property")
-	}
+		jo = O(P("orgs", A(O(P("name", "AP")))))
+		os, ok := jo.GetObjects("orgs")
+		if !ok || len(os) != 1 {
+			t.Fail()
+			return
+		}
+		s, ok = os[0].GetString("name")
+		if !ok {
+			t.Fail()
+			return
+		}
+		if s != "AP" {
+			t.Errorf("wrong value: expected \"%s\", got \"%s\"", "AP", s)
+			t.Fail()
+		}
 
-	jo.Add("a", NewStringArray([]string{"a"}))
-	if _, ok := jo.GetStrings("a"); !ok {
-		t.Fail()
-		t.Error("failed to get array property")
-	}
+		_, ok = jo.GetObjects("name")
+		if ok {
+			t.Fail()
+			return
+		}
+	})
 
-	jo.Add("a", NewIntArray([]int{1}))
-	if _, ok := jo.GetInts("a"); !ok {
-		t.Fail()
-		t.Error("failed to get array property")
-	}
+	t.Run("array property", func(t *testing.T) {
+		jo := O(P("names", A("YM", "SV")))
+		a, ok := jo.GetArray("names")
+		if !ok || len(a.Values) != 2 {
+			t.Fail()
+			return
+		}
+		ss, ok := a.GetStrings()
+		if !ok || len(ss) != 2 {
+			t.Fail()
+			return
+		}
+		if ss[1] != "SV" {
+			t.Errorf("wrong value: expected \"%s\", got \"%s\"", "SV", ss[1])
+			t.Fail()
+		}
 
-	jo.Add("a", NewFloatArray([]float64{3.14}))
-	if _, ok := jo.GetFloats("a"); !ok {
-		t.Fail()
-		t.Error("failed to get array property")
-	}
+		_, ok = jo.GetArray("name")
+		if ok {
+			t.Fail()
+			return
+		}
+	})
 
-	jo.Add("a", NewObjectArray([]*Object{New()}))
-	if _, ok := jo.GetObjects("a"); !ok {
-		t.Fail()
-		t.Error("failed to get array property")
-	}
-	if _, ok := jo.GetArray("a"); !ok {
-		t.Fail()
-		t.Error("failed to get array property")
-	}
+	t.Run("set property", func(t *testing.T) {
+		jo := O().Set("name", "YM").Set("age", 27).Set("pi", 3.14).Set("cool", true)
+		if len(jo.Properties) != 4 {
+			t.Fail()
+			return
+		}
 
-	jo.Add("b", Bool(true))
-	if _, ok := jo.GetBool("b"); !ok {
-		t.Fail()
-		t.Error("failed to get bool property")
-	}
+		s, ok := jo.GetString("name")
+		if !ok || s != "YM" {
+			t.Fail()
+		}
 
-	jo.Add("o", New())
-	if _, ok := jo.GetObject("o"); !ok {
-		t.Fail()
-		t.Error("failed to get object property")
-	}
+		i, ok := jo.GetInt("age")
+		if !ok || i != 27 {
+			t.Fail()
+		}
 
-	jo = nil
-	jo = jo.Copy()
-	if jo != nil {
-		t.Fail()
-		t.Error("failed to copy nil object")
-	}
+		jo.Set("age", 26)
+		if len(jo.Properties) != 4 {
+			t.Fail()
+			return
+		}
+		i, ok = jo.GetInt("age")
+		if !ok || i != 26 {
+			t.Fail()
+		}
 
-	jo = New()
-	jo = jo.Copy()
-	if jo == nil {
-		t.Fail()
-		t.Error("failed to copy empty object")
-	}
+		jo.Set("flag", true)
+		jo.Set("active", false)
+		if len(jo.Properties) != 6 {
+			t.Fail()
+			return
+		}
+		b, _ := jo.GetBool("flag")
+		if !b {
+			t.Fail()
+		}
+		_, ok = jo.GetBool("name")
+		if ok {
+			t.Fail()
+		}
 
-	jo, _ = ParseObjectWithParameters([]byte(`{"${name}":"${value}"}`))
-	jo = jo.Copy()
-	jp := jo.Properties[0]
-	if len(jp.namep) == 0 || jp.namep[0].Name != "name" || len(jp.valuep) == 0 || jp.valuep[0].Name != "value" {
-		t.Fail()
-		t.Error("failed to copy parameterized object")
-	}
+		jo.Set("null", nil)
+		if len(jo.Properties) != 6 {
+			t.Fail()
+			return
+		}
+	})
 
-	var l, r *Object
-	if ok, _ := l.Equals(r); !ok {
-		t.Fail()
-		t.Error("failed to compare nil objects")
-	}
+	t.Run("nil object", func(t *testing.T) {
+		var jo *Object
+		_, ok := jo.Get("name")
+		if ok {
+			t.Fail()
+		}
+	})
 
-	l = New()
-	r = New(Field("id", Int(1)))
-	if ok, _ := l.Equals(r); ok {
-		t.Fail()
-		t.Error("failed to fail to compare different objects")
-	}
+	t.Run("new object", func(t *testing.T) {
+		jo := O(P("name", "YM"), P("age", 27), P("pi", 3.14), P("cool", true), P("age", 26))
+		if len(jo.Properties) != 4 {
+			t.Fail()
+			return
+		}
 
-	jo, _ = ParseObjectWithParameters([]byte(`{"${name}":"${value}"}`))
-	params := New(Field("id", String("x")))
-	o := jo.SetParameters(params)
-	if len(o.Properties) > 0 {
-		t.Fail()
-		t.Error("failed to fail set missing name parameter")
-	}
-
-	params.Add("name", String("title"))
-	o = jo.SetParameters(params)
-	if len(o.Properties) > 0 {
-		t.Fail()
-		t.Error("failed to fail set missing value parameters")
-	}
-
-	if jo.Value() != jo {
-		t.Fail()
-		t.Error("failed to compare object value to itself")
-	}
-
-	jo = nil
-	if jo.String() != "{}" {
-		t.Fail()
-		t.Error("failed to string nil object")
-	}
-
-	jo = New()
-	if jo.String() != "{}" {
-		t.Fail()
-		t.Error("failed to string empty object")
-	}
+		i, ok := jo.GetInt("age")
+		if !ok || i != 26 {
+			t.Fail()
+		}
+	})
 }
 
 func TestObjectParse(t *testing.T) {
-	s := `{ "text": "abc", "number": 3.14, "flag": true, "array": [ 1, 2, 3 ], "object": { "a": "b" }}`
-	p := newParser([]byte(s))
-	err := p.SkipWS()
-	if err != nil {
-		t.Error(err.Error())
-	}
-	if p.Byte != '{' {
-		t.Error("Failed to parse {")
-	}
-	v, err := p.ParseObject(false)
-	if err != nil {
-		t.Error(err.Error())
-	}
+	t.Run("parse object", func(t *testing.T) {
+		s := `{"name": "Yuri Metelkin", "age": 27, "pi": 3.14, "cool": true, "org": {"name":"AP"}, "geo":[-0.1237, 3.214]}`
+		jo, err := ParseObject(strings.NewReader(s))
+		if err != nil {
+			t.Fail()
+			t.Error(err)
+			return
+		}
 
-	fmt.Println(v.String())
+		err = jo.Validate()
+		if err != nil {
+			t.Error(err)
+			t.Fail()
+			return
+		}
 
-	s = `{"x": "Arts &amp; Entertainment; a &lt; b or c &gt; d; YM & &Co"}`
-	p = newParser([]byte(s))
-	p.SkipWS()
-	v, err = p.ParseObject(false)
-	if err != nil {
-		t.Error(err.Error())
-	}
-	fmt.Println(v.String())
+		fmt.Println(jo.String())
 
-	if _, err := parseObject([]byte("[]"), false, false); err == nil {
-		t.Fail()
-		t.Error("failed to fail to parse bad json")
-	}
+		s, ok := jo.GetString("name")
+		if !ok || s != "Yuri Metelkin" {
+			t.Fail()
+		}
 
-	if _, err := parseObject([]byte("{"), false, false); err == nil {
-		t.Fail()
-		t.Error("failed to fail to parse bad json")
-	}
+		i, ok := jo.GetInt("age")
+		if !ok || i != 27 {
+			t.Fail()
+		}
 
-	if _, err := parseObject([]byte("{f"), false, false); err == nil {
-		t.Fail()
-		t.Error("failed to fail to parse bad json")
-	}
+		f, ok := jo.GetFloat("pi")
+		if !ok || f != 3.14 {
+			t.Fail()
+		}
 
-	if _, err := parseObject([]byte("{}"), false, false); err != nil {
-		t.Fail()
-		t.Error("failed to parse empty json")
-	}
+		b, ok := jo.GetBool("cool")
+		if !ok || !b {
+			t.Fail()
+		}
 
-	if _, err := parseObject([]byte("{\"f\" : { \"age\": 27 }  }"), false, false); err != nil {
-		t.Fail()
-		t.Error("failed to parse json")
-	}
+		o, ok := jo.GetObject("org")
+		if !ok {
+			t.Fail()
+			return
+		}
+		s, ok = o.GetString("name")
+		if !ok || s != "AP" {
+			t.Fail()
+		}
+
+		fs, ok := jo.GetFloats("geo")
+		if !ok || len(fs) != 2 || fs[1] != 3.214 {
+			t.Fail()
+		}
+	})
+
+	t.Run("parse bad input object", func(t *testing.T) {
+		s := `{"": "YM"}`
+		jo, err := ParseObject(strings.NewReader(s))
+		if err != nil {
+			t.Error(err)
+			t.Fail()
+			return
+		}
+		err = jo.Validate()
+		if err == nil {
+			t.Fail()
+		}
+
+		s = ""
+		_, err = ParseObject(strings.NewReader(s))
+		if err == nil {
+			t.Fail()
+			return
+		}
+
+		s = "3.14"
+		_, err = ParseObject(strings.NewReader(s))
+		if err == nil {
+			t.Fail()
+			return
+		}
+
+		s = "{ "
+		_, err = ParseObject(strings.NewReader(s))
+		if err == nil {
+			t.Fail()
+			return
+		}
+
+		s = "{ name: YM }"
+		_, err = ParseObject(strings.NewReader(s))
+		if err == nil {
+			t.Fail()
+			return
+		}
+
+		s = `{"name" YM}`
+		_, err = ParseObject(strings.NewReader(s))
+		if err == nil {
+			t.Fail()
+			return
+		}
+
+		s = `{"name": "YM" `
+		_, err = ParseObject(strings.NewReader(s))
+		if err == nil {
+			t.Fail()
+			return
+		}
+
+		s = `{ "name": , "age": 27 }`
+		_, err = ParseObject(strings.NewReader(s))
+		if err == nil {
+			t.Fail()
+			return
+		}
+
+		s = `{ "name": { name: "YM"} }`
+		_, err = ParseObject(strings.NewReader(s))
+		if err == nil {
+			t.Fail()
+			return
+		}
+
+		s = `{ "name": [ "YM ] }`
+		_, err = ParseObject(strings.NewReader(s))
+		if err == nil {
+			t.Fail()
+			return
+		}
+
+		s = `{ "name": "YM", "age": 27, "cool": true, "age": 26 }`
+		_, err = ParseObject(strings.NewReader(s))
+		if err == nil {
+			t.Fail()
+			return
+		}
+
+		s = `{ "name": YM }`
+		jo, err = ParseObject(strings.NewReader(s))
+		if err != nil {
+			t.Error(err)
+			t.Fail()
+			return
+		}
+		err = jo.Validate()
+		if err == nil {
+			t.Fail()
+		}
+
+		s = "{ }"
+		jo, err = ParseObject(strings.NewReader(s))
+		if err != nil {
+			t.Error(err)
+			t.Fail()
+			return
+		}
+		if len(jo.Properties) > 0 {
+			t.Fail()
+		}
+	})
+
+	t.Run("parse object with non-ASCII characters", func(t *testing.T) {
+		bs := []byte("   { \"name\": \"YM\"}   ")
+		bs[0] = 18
+		bs[len(bs)-2] = 7
+		jo, err := ParseObject(bytes.NewReader(bs))
+		if err != nil {
+			t.Error(err)
+			t.Fail()
+		}
+
+		err = jo.Validate()
+		if err != nil {
+			t.Error(err)
+			t.Fail()
+		}
+
+		s, ok := jo.GetString("name")
+		if !ok || s != "YM" {
+			t.Fail()
+		}
+
+		s = "x{ \"name\": \"YM\"}"
+		_, err = ParseObject(strings.NewReader(s))
+		if err == nil {
+			t.Fail()
+		}
+
+		s = "x"
+		_, err = ParseObject(strings.NewReader(s))
+		if err == nil {
+			t.Fail()
+		}
+
+		s = "  "
+		_, err = ParseObject(strings.NewReader(s))
+		if err == nil {
+			t.Fail()
+		}
+
+		s = "[1]"
+		_, err = ParseObject(strings.NewReader(s))
+		if err == nil {
+			t.Fail()
+		}
+
+		bs = []byte(" { \"name\": \"YM\"} x ")
+		bs[0] = 18
+		_, err = ParseObject(bytes.NewReader(bs))
+		if err == nil {
+			t.Fail()
+		}
+		_, err = ParseArray(bytes.NewReader(bs))
+		if err == nil {
+			t.Fail()
+		}
+
+		bs = []byte(" { \"name\": \"YM\"]")
+		bs[0] = 18
+		_, err = ParseObject(bytes.NewReader(bs))
+		if err == nil {
+			t.Fail()
+		}
+	})
 }
 
-func TestEnsureJSON(t *testing.T) {
-	s := `  ï » ¿{ "text": "abc"} ï » ¿ `
-	jo, err := ParseObjectSafe([]byte(s))
-	if err != nil {
-		t.Error(err.Error())
-	}
-	fmt.Println(jo.String())
-
-	s = ` ï » ¿<text>abc</text>`
-	_, err = ParseObjectSafe([]byte(s))
-	if err == nil {
-		t.Error("Must not parse it")
-	}
-	fmt.Println(err.Error())
-
-	s = `{ "text": "abc"]`
-	_, err = ParseObjectSafe([]byte(s))
-	if err == nil {
-		t.Error("Must not parse it")
-	}
-	fmt.Println(err.Error())
-
-	s = `  ï » ¿[{ "text": "abc"}] ï » ¿ `
-	ja, err := ParseArraySafe([]byte(s))
-	if err != nil {
-		t.Error(err.Error())
-	}
-	fmt.Println(ja.String())
-}
-
-func TestObjectCopy(t *testing.T) {
-	jo := New(
-		Field("name", String("YM")),
-		Field("null", Null()),
-		Field("empty", String("")),
+func TestSetObject(t *testing.T) {
+	jo := O(
+		P("name", "Yuri Metelkin"),
+		P("age", 26),
+		P("pi", 3.14),
+		P("cool", true),
+		P("work", O(P("name", "AP"), P("title", "Developer"))),
+		P("kids", A("Alex", "Victoria", "Olga")),
 	)
-	fmt.Println(jo.String())
-	copy := jo.Copy()
-	fmt.Println(copy.String())
-}
 
-func TestObjectPointers(t *testing.T) {
-	jo := New(Field("name", String("YM")))
-	fmt.Println(jo.String())
-	jo.Add("person", jo)
-	fmt.Println(jo.String())
-}
-
-func TestGraph(t *testing.T) {
-	data, _ := os.ReadFile("testdata/graph.json")
-	jo, _ := ParseObject(data)
-	ja, _ := jo.GetObjects("vertices")
-	vertices := make(map[int]graphPerson)
-	for i, v := range ja {
-		name, _ := v.GetString("term")
-		vertices[i] = graphPerson{
-			Name: name,
-		}
+	s, ok := jo.GetString("name")
+	if !ok || s != "Yuri Metelkin" {
+		t.Fail()
+		return
 	}
 
-	ja, _ = jo.GetObjects("connections")
-	for _, o := range ja {
-		source, _ := o.GetInt("source")
-		target, _ := o.GetInt("target")
-		weight, _ := o.GetFloat("weight")
-		count, _ := o.GetInt("doc_count")
-		v := vertices[source]
-		c := vertices[target]
-		v.Connections = append(v.Connections, graphConnection{
-			Name:   c.Name,
-			Weight: weight,
-			Count:  count,
-		})
-		vertices[source] = v
+	i, ok := jo.GetInt("age")
+	if !ok || i != 26 {
+		t.Fail()
+		return
 	}
 
-	for _, p := range vertices {
-		if len(p.Connections) == 0 {
-			continue
-		}
-
-		fmt.Println(p.Name)
-		for _, c := range p.Connections {
-			fmt.Printf("\t%s\n", c.Name)
-		}
-		fmt.Println()
+	f, ok := jo.GetFloat("pi")
+	if !ok || f != 3.14 {
+		t.Fail()
+		return
 	}
-}
 
-type graphPerson struct {
-	Name        string
-	Connections []graphConnection
-}
+	b, ok := jo.GetBool("cool")
+	if !ok || !b {
+		t.Fail()
+		return
+	}
 
-type graphConnection struct {
-	Name   string
-	Weight float64
-	Count  int
+	o, ok := jo.GetObject("work")
+	if !ok {
+		t.Fail()
+		return
+	}
+	s, ok = o.GetString("name")
+	if !ok || s != "AP" {
+		t.Fail()
+		return
+	}
+
+	ss, ok := jo.GetStrings("kids")
+	if !ok || ss[0] != "Alex" || ss[1] != "Victoria" || ss[2] != "Olga" {
+		t.Fail()
+		return
+	}
+
+	s = jo.String()
+	fmt.Println(s)
+
+	jo, err := ParseObject(strings.NewReader(s))
+	if err != nil {
+		t.Error(err)
+		t.Fail()
+		return
+	}
+
+	s, ok = jo.GetString("name")
+	if !ok || s != "Yuri Metelkin" {
+		t.Fail()
+		return
+	}
+
+	i, ok = jo.GetInt("age")
+	if !ok || i != 26 {
+		t.Fail()
+		return
+	}
+
+	f, ok = jo.GetFloat("pi")
+	if !ok || f != 3.14 {
+		t.Fail()
+		return
+	}
+
+	b, ok = jo.GetBool("cool")
+	if !ok || !b {
+		t.Fail()
+		return
+	}
+
+	o, ok = jo.GetObject("work")
+	if !ok {
+		t.Fail()
+		return
+	}
+	s, ok = o.GetString("name")
+	if !ok || s != "AP" {
+		t.Fail()
+		return
+	}
+
+	ss, ok = jo.GetStrings("kids")
+	if !ok || ss[0] != "Alex" || ss[1] != "Victoria" || ss[2] != "Olga" {
+		t.Fail()
+		return
+	}
+
+	fmt.Println(jo.String())
+
+	jo.Remove("pi")
+	_, ok = jo.GetBool("pi")
+	if ok {
+		t.Fail()
+	}
+	fmt.Println(jo.String())
+
+	jo.Remove("pi")
+	fmt.Println(jo.String())
 }
