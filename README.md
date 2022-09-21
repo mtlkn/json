@@ -12,7 +12,11 @@ JSON parser and structure
 
 `jo.Set("name", "Yuri Metelkin")`
 
-`jo.Set("history", A(O(P("date","2022-09-21"), P("action", "test")), O(P("date","2022-09-22"), P("action", "test"))))`
+`h1 := NewObject(P("date","2022-09-21"), P("action", "test"))`
+
+`h2 := O(P("date","2022-09-22"), P("action", "test"))`
+
+`jo.Set("history", A(h1, h2))`
 
 `jo = jo.ExcludeFields([]string{"id"})`
 
