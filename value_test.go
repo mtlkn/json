@@ -5,12 +5,49 @@ import (
 	"testing"
 )
 
+type KVP map[string]interface{}
+
+func (kvp KVP) O() *Object {
+	o := O()
+	for k, v := range kvp {
+		o.Set(k, v)
+	}
+	return o
+}
+
+func TestXxx(t *testing.T) {
+	o := KVP{
+		"id":   1,
+		"name": "YM",
+	}.O()
+	fmt.Println(o.String())
+}
+
 func TestValue(t *testing.T) {
 	t.Run("string value", func(t *testing.T) {
 		v := New("YM")
 		if v.Type() != STRING || v.Value() != "YM" {
 			t.Fail()
 			return
+		}
+	})
+
+	t.Run("strings value", func(t *testing.T) {
+		v := New([]string{"YM", "SV"})
+		if v.Type() != ARRAY {
+			t.Fail()
+			return
+		}
+
+		ja, ok := v.Array()
+		if !ok {
+			t.Fail()
+			return
+		}
+
+		ss, ok := ja.GetStrings()
+		if !ok || len(ss) != 2 || ss[0] != "YM" || ss[1] != "SV" {
+			t.Fail()
 		}
 	})
 
@@ -33,6 +70,44 @@ func TestValue(t *testing.T) {
 			if !ok || u != 1 {
 				t.Fail()
 				return
+			}
+		}
+	})
+
+	t.Run("ints value", func(t *testing.T) {
+		v := New([]int{1, 2})
+		if v.Type() != ARRAY {
+			t.Fail()
+			return
+		}
+
+		ja, ok := v.Array()
+		if !ok {
+			t.Fail()
+			return
+		}
+
+		is, ok := ja.GetInts()
+		if !ok || len(is) != 2 || is[0] != 1 || is[1] != 2 {
+			t.Fail()
+		}
+
+		for _, value := range []interface{}{[]int8{1}, []int16{1}, []int32{1}, []int64{1}} {
+			v := New(value)
+			if v.Type() != ARRAY {
+				t.Fail()
+				return
+			}
+
+			ja, ok := v.Array()
+			if !ok {
+				t.Fail()
+				return
+			}
+
+			is, ok := ja.GetInts()
+			if !ok || len(is) != 1 || is[0] != 1 {
+				t.Fail()
 			}
 		}
 	})
@@ -60,6 +135,28 @@ func TestValue(t *testing.T) {
 		}
 	})
 
+	t.Run("floats value", func(t *testing.T) {
+		for _, value := range []interface{}{[]float64{.01, 3.14}, []float32{.01, 3.14}} {
+			v := New(value)
+
+			if v.Type() != ARRAY {
+				t.Fail()
+				return
+			}
+
+			ja, ok := v.Array()
+			if !ok {
+				t.Fail()
+				return
+			}
+
+			fs, ok := ja.GetFloats()
+			if !ok || len(fs) != 2 || fs[0] != 0.01 || fs[1] != 3.14 {
+				t.Fail()
+			}
+		}
+	})
+
 	t.Run("uint value", func(t *testing.T) {
 		var i uint = 1
 		for _, value := range []interface{}{i, uint8(i), uint16(i), uint32(i), uint64(i)} {
@@ -67,6 +164,21 @@ func TestValue(t *testing.T) {
 			if v.Type() != UINT || v.Value() != i {
 				t.Fail()
 				return
+			}
+		}
+	})
+
+	t.Run("uints value", func(t *testing.T) {
+		for _, value := range []interface{}{[]uint{1}, []uint8{1}, []uint16{1}, []uint32{1}, []uint64{1}} {
+			v := New(value)
+			if v.Type() != ARRAY {
+				t.Fail()
+				return
+			}
+
+			ja, ok := v.Array()
+			if !ok || len(ja.Values) != 1 || ja.Values[0].Value() != uint(1) {
+				t.Fail()
 			}
 		}
 	})
@@ -96,6 +208,36 @@ func TestValue(t *testing.T) {
 		if !ok || s != "YM" {
 			t.Fail()
 			return
+		}
+	})
+
+	t.Run("objects value", func(t *testing.T) {
+		v := New([]*Object{
+			O(P("id", 1), P("name", "YM")),
+			O(P("id", 2), P("name", "SV")),
+		})
+		if v.Type() != ARRAY {
+			t.Fail()
+			return
+		}
+
+		ja, ok := v.Array()
+		if !ok {
+			t.Fail()
+			return
+		}
+
+		oo, ok := ja.GetObjects()
+		if !ok || len(oo) != 2 {
+			t.Fail()
+		}
+
+		if id, _ := oo[0].GetInt("id"); id != 1 {
+			t.Fail()
+		}
+
+		if s, _ := oo[1].GetString("name"); s != "SV" {
+			t.Fail()
 		}
 	})
 

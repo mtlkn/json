@@ -34,20 +34,60 @@ func New(v interface{}) *Value {
 			typ: STRING,
 			val: v,
 		}
+	case []string:
+		var a Array
+		ss, _ := (v).([]string)
+		for _, s := range ss {
+			a.Values = append(a.Values, New(s))
+		}
+		return &Value{
+			typ: ARRAY,
+			val: &a,
+		}
 	case int:
 		return &Value{
 			typ: INT,
 			val: v,
+		}
+	case []int:
+		var a Array
+		is, _ := (v).([]int)
+		for _, i := range is {
+			a.Values = append(a.Values, New(i))
+		}
+		return &Value{
+			typ: ARRAY,
+			val: &a,
 		}
 	case uint:
 		return &Value{
 			typ: UINT,
 			val: v,
 		}
+	case []uint:
+		var a Array
+		is, _ := (v).([]uint)
+		for _, i := range is {
+			a.Values = append(a.Values, New(i))
+		}
+		return &Value{
+			typ: ARRAY,
+			val: &a,
+		}
 	case float64:
 		return &Value{
 			typ: FLOAT,
 			val: v,
+		}
+	case []float64:
+		var a Array
+		fs, _ := (v).([]float64)
+		for _, f := range fs {
+			a.Values = append(a.Values, New(f))
+		}
+		return &Value{
+			typ: ARRAY,
+			val: &a,
 		}
 	case bool:
 		return &Value{
@@ -59,6 +99,16 @@ func New(v interface{}) *Value {
 			typ: OBJECT,
 			val: v,
 		}
+	case []*Object:
+		var a Array
+		oo, _ := (v).([]*Object)
+		for _, o := range oo {
+			a.Values = append(a.Values, New(o))
+		}
+		return &Value{
+			typ: ARRAY,
+			val: &a,
+		}
 	case *Array:
 		return &Value{
 			typ: ARRAY,
@@ -69,45 +119,135 @@ func New(v interface{}) *Value {
 			typ: INT,
 			val: int((v).(int8)),
 		}
+	case []int8:
+		var a Array
+		is, _ := (v).([]int8)
+		for _, i := range is {
+			a.Values = append(a.Values, New(i))
+		}
+		return &Value{
+			typ: ARRAY,
+			val: &a,
+		}
 	case int16:
 		return &Value{
 			typ: INT,
 			val: int((v).(int16)),
+		}
+	case []int16:
+		var a Array
+		is, _ := (v).([]int16)
+		for _, i := range is {
+			a.Values = append(a.Values, New(i))
+		}
+		return &Value{
+			typ: ARRAY,
+			val: &a,
 		}
 	case int32:
 		return &Value{
 			typ: INT,
 			val: int((v).(int32)),
 		}
+	case []int32:
+		var a Array
+		is, _ := (v).([]int32)
+		for _, i := range is {
+			a.Values = append(a.Values, New(i))
+		}
+		return &Value{
+			typ: ARRAY,
+			val: &a,
+		}
 	case int64:
 		return &Value{
 			typ: INT,
 			val: int((v).(int64)),
+		}
+	case []int64:
+		var a Array
+		is, _ := (v).([]int64)
+		for _, i := range is {
+			a.Values = append(a.Values, New(i))
+		}
+		return &Value{
+			typ: ARRAY,
+			val: &a,
 		}
 	case uint8:
 		return &Value{
 			typ: UINT,
 			val: uint((v).(uint8)),
 		}
+	case []uint8:
+		var a Array
+		is, _ := (v).([]uint8)
+		for _, i := range is {
+			a.Values = append(a.Values, New(i))
+		}
+		return &Value{
+			typ: ARRAY,
+			val: &a,
+		}
 	case uint16:
 		return &Value{
 			typ: UINT,
 			val: uint((v).(uint16)),
+		}
+	case []uint16:
+		var a Array
+		is, _ := (v).([]uint16)
+		for _, i := range is {
+			a.Values = append(a.Values, New(i))
+		}
+		return &Value{
+			typ: ARRAY,
+			val: &a,
 		}
 	case uint32:
 		return &Value{
 			typ: UINT,
 			val: uint((v).(uint32)),
 		}
+	case []uint32:
+		var a Array
+		is, _ := (v).([]uint32)
+		for _, i := range is {
+			a.Values = append(a.Values, New(i))
+		}
+		return &Value{
+			typ: ARRAY,
+			val: &a,
+		}
 	case uint64:
 		return &Value{
 			typ: UINT,
 			val: uint((v).(uint64)),
 		}
+	case []uint64:
+		var a Array
+		is, _ := (v).([]uint64)
+		for _, i := range is {
+			a.Values = append(a.Values, New(i))
+		}
+		return &Value{
+			typ: ARRAY,
+			val: &a,
+		}
 	case float32:
 		return &Value{
 			typ: FLOAT,
 			val: Float32To64((v).(float32)),
+		}
+	case []float32:
+		var a Array
+		is, _ := (v).([]float32)
+		for _, i := range is {
+			a.Values = append(a.Values, New(i))
+		}
+		return &Value{
+			typ: ARRAY,
+			val: &a,
 		}
 	}
 
