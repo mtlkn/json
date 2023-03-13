@@ -5,8 +5,6 @@ import (
 	"fmt"
 	"os"
 	"testing"
-
-	js "git.ap.org/golang/json"
 )
 
 func TestObject(t *testing.T) {
@@ -252,11 +250,11 @@ func BenchmarkObjectParsers(b *testing.B) {
 		}
 	})
 
-	b.Run("js parser", func(b *testing.B) {
-		for n := 0; n < b.N; n++ {
-			js.ParseObject(bs)
-		}
-	})
+	// b.Run("js parser", func(b *testing.B) {
+	// 	for n := 0; n < b.N; n++ {
+	// 		js.ParseObject(bs)
+	// 	}
+	// })
 
 	b.Run("this parser", func(b *testing.B) {
 		for n := 0; n < b.N; n++ {
@@ -275,11 +273,11 @@ func BenchmarkLargeObjectParsers(b *testing.B) {
 		}
 	})
 
-	b.Run("js parser", func(b *testing.B) {
-		for n := 0; n < b.N; n++ {
-			js.ParseObject(bs)
-		}
-	})
+	// b.Run("js parser", func(b *testing.B) {
+	// 	for n := 0; n < b.N; n++ {
+	// 		js.ParseObject(bs)
+	// 	}
+	// })
 
 	b.Run("this parser", func(b *testing.B) {
 		for n := 0; n < b.N; n++ {
