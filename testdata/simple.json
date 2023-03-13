@@ -1,0 +1,19 @@
+{
+  "id": "Q23WR456M",
+  "name": "YM",
+  "org": "AP",
+  "url": "https://www.json.org/json-en.html",
+  "text": "JSON (JavaScript Object Notation) is a lightweight data-interchange format. It is easy for humans to read and write. It is easy for machines to parse and generate. It is based on a subset of the JavaScript Programming Language Standard ECMA-262 3rd Edition - December 1999. JSON is a text format that is completely language independent but uses conventions that are familiar to programmers of the C-family of languages, including C, C++, C#, Java, JavaScript, Perl, Python, and many others. These properties make JSON an ideal data-interchange language.",
+  "age": 27,
+  "comp": 250000.99,
+  "true": true,
+  "false": false,
+  "obj": {
+    "putin": "хуйло",
+    "text": "Слава Украине! Живе Беларусь! Проснись, Россия!",
+    "population": 143.4,
+    "area": 17098246,
+    "gdp": 1.779
+  },
+  "array": [123, "abc", "xyz", { "name": "YM" }, [666]]
+}

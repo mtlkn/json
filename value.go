@@ -2,524 +2,324 @@ package json
 
 import (
 	"errors"
-	"fmt"
 	"strconv"
 	"strings"
 )
 
-type ValueType int
+type ValueType uint8
 
 const (
-	OBJECT ValueType = iota + 1
-	ARRAY
-	STRING
+	STRING ValueType = iota + 1
 	INT
 	UINT
 	FLOAT
 	BOOL
+	OBJECT
+	ARRAY
 	NULL
-	INVALID
+)
+
+func (vt ValueType) String() string {
+	switch vt {
+	case STRING:
+		return "string"
+	case INT:
+		return "int"
+	case UINT:
+		return "uint"
+	case FLOAT:
+		return "float"
+	case BOOL:
+		return "bool"
+	case OBJECT:
+		return "object"
+	case ARRAY:
+		return "array"
+	case NULL:
+		return "null"
+	default:
+		return "unknown"
+	}
+}
+
+type specialBytes uint8
+
+const (
+	unquoteBytes specialBytes = iota + 1
+	floatBytes
 )
 
 type Value struct {
-	typ ValueType
-	buf []byte      // parsed bytes
-	val interface{} // actual value
+	Type    ValueType
+	value   interface{}
+	data    []byte
+	special specialBytes
 }
 
-func New(v interface{}) *Value {
-	switch v.(type) {
-	case string:
-		return &Value{
-			typ: STRING,
-			val: v,
+func (jv *Value) String() string {
+	switch jv.Type {
+	case OBJECT:
+		jo, ok := jv.GetObject()
+		if !ok {
+			return ""
 		}
-	case []string:
-		var a Array
-		ss, _ := (v).([]string)
-		for _, s := range ss {
-			a.Values = append(a.Values, New(s))
+		return jo.String()
+	case ARRAY:
+		ja, ok := jv.GetArray()
+		if !ok {
+			return ""
 		}
-		return &Value{
-			typ: ARRAY,
-			val: &a,
+		return ja.String()
+	default:
+		if len(jv.data) == 0 {
+			return jv.toString()
 		}
-	case int:
-		return &Value{
-			typ: INT,
-			val: v,
-		}
-	case []int:
-		var a Array
-		is, _ := (v).([]int)
-		for _, i := range is {
-			a.Values = append(a.Values, New(i))
-		}
-		return &Value{
-			typ: ARRAY,
-			val: &a,
-		}
-	case uint:
-		return &Value{
-			typ: UINT,
-			val: v,
-		}
-	case []uint:
-		var a Array
-		is, _ := (v).([]uint)
-		for _, i := range is {
-			a.Values = append(a.Values, New(i))
-		}
-		return &Value{
-			typ: ARRAY,
-			val: &a,
-		}
-	case float64:
-		return &Value{
-			typ: FLOAT,
-			val: v,
-		}
-	case []float64:
-		var a Array
-		fs, _ := (v).([]float64)
-		for _, f := range fs {
-			a.Values = append(a.Values, New(f))
-		}
-		return &Value{
-			typ: ARRAY,
-			val: &a,
-		}
-	case bool:
-		return &Value{
-			typ: BOOL,
-			val: v,
-		}
-	case *Object:
-		return &Value{
-			typ: OBJECT,
-			val: v,
-		}
-	case []*Object:
-		var a Array
-		oo, _ := (v).([]*Object)
-		for _, o := range oo {
-			a.Values = append(a.Values, New(o))
-		}
-		return &Value{
-			typ: ARRAY,
-			val: &a,
-		}
-	case *Array:
-		return &Value{
-			typ: ARRAY,
-			val: v,
-		}
-	case int8:
-		return &Value{
-			typ: INT,
-			val: int((v).(int8)),
-		}
-	case []int8:
-		var a Array
-		is, _ := (v).([]int8)
-		for _, i := range is {
-			a.Values = append(a.Values, New(i))
-		}
-		return &Value{
-			typ: ARRAY,
-			val: &a,
-		}
-	case int16:
-		return &Value{
-			typ: INT,
-			val: int((v).(int16)),
-		}
-	case []int16:
-		var a Array
-		is, _ := (v).([]int16)
-		for _, i := range is {
-			a.Values = append(a.Values, New(i))
-		}
-		return &Value{
-			typ: ARRAY,
-			val: &a,
-		}
-	case int32:
-		return &Value{
-			typ: INT,
-			val: int((v).(int32)),
-		}
-	case []int32:
-		var a Array
-		is, _ := (v).([]int32)
-		for _, i := range is {
-			a.Values = append(a.Values, New(i))
-		}
-		return &Value{
-			typ: ARRAY,
-			val: &a,
-		}
-	case int64:
-		return &Value{
-			typ: INT,
-			val: int((v).(int64)),
-		}
-	case []int64:
-		var a Array
-		is, _ := (v).([]int64)
-		for _, i := range is {
-			a.Values = append(a.Values, New(i))
-		}
-		return &Value{
-			typ: ARRAY,
-			val: &a,
-		}
-	case uint8:
-		return &Value{
-			typ: UINT,
-			val: uint((v).(uint8)),
-		}
-	case []uint8:
-		var a Array
-		is, _ := (v).([]uint8)
-		for _, i := range is {
-			a.Values = append(a.Values, New(i))
-		}
-		return &Value{
-			typ: ARRAY,
-			val: &a,
-		}
-	case uint16:
-		return &Value{
-			typ: UINT,
-			val: uint((v).(uint16)),
-		}
-	case []uint16:
-		var a Array
-		is, _ := (v).([]uint16)
-		for _, i := range is {
-			a.Values = append(a.Values, New(i))
-		}
-		return &Value{
-			typ: ARRAY,
-			val: &a,
-		}
-	case uint32:
-		return &Value{
-			typ: UINT,
-			val: uint((v).(uint32)),
-		}
-	case []uint32:
-		var a Array
-		is, _ := (v).([]uint32)
-		for _, i := range is {
-			a.Values = append(a.Values, New(i))
-		}
-		return &Value{
-			typ: ARRAY,
-			val: &a,
-		}
-	case uint64:
-		return &Value{
-			typ: UINT,
-			val: uint((v).(uint64)),
-		}
-	case []uint64:
-		var a Array
-		is, _ := (v).([]uint64)
-		for _, i := range is {
-			a.Values = append(a.Values, New(i))
-		}
-		return &Value{
-			typ: ARRAY,
-			val: &a,
-		}
-	case float32:
-		return &Value{
-			typ: FLOAT,
-			val: Float32To64((v).(float32)),
-		}
-	case []float32:
-		var a Array
-		is, _ := (v).([]float32)
-		for _, i := range is {
-			a.Values = append(a.Values, New(i))
-		}
-		return &Value{
-			typ: ARRAY,
-			val: &a,
-		}
+		return bytesToString(jv.data)
+	}
+}
+
+func (jv *Value) GetValue() (interface{}, error) {
+	if jv.value != nil {
+		return jv.value, nil
 	}
 
-	return nil
-}
+	if jv.Type == STRING {
+		if jv.special != unquoteBytes {
+			jv.value = bytesToString(jv.data[1 : len(jv.data)-1])
+		} else {
+			s, err := strconv.Unquote(bytesToString(jv.data))
+			if err != nil {
+				return "", err
+			}
+			jv.value = s
+		}
 
-func (v *Value) Debug() string {
-	return fmt.Sprintf("{\"type\":%v,\"parsed\":\"%s\",\"value\":%v}", v.typ, BytesToString(v.buf), v.val)
-}
-
-func (v *Value) Type() ValueType {
-	if v.typ == 0 {
-		v.Validate()
-	}
-	return v.typ
-}
-
-func (v *Value) Value() interface{} {
-	if v.typ == 0 {
-		v.Validate()
-	}
-	return v.val
-}
-
-func (v *Value) String() (string, bool) {
-	if v.typ == 0 {
-		v.Validate()
+		return jv.value, nil
 	}
 
-	if v.typ != STRING {
+	if len(jv.data) == 0 {
+		return nil, errors.New("empty")
+	}
+
+	if jv.data[0] == 't' && len(jv.data) == 4 && jv.data[1] == 'r' && jv.data[2] == 'u' && jv.data[3] == 'e' {
+		jv.Type = BOOL
+		jv.value = true
+		return jv.value, nil
+	}
+
+	if jv.data[0] == 'f' && len(jv.data) == 5 && jv.data[1] == 'a' && jv.data[2] == 'l' && jv.data[3] == 's' && jv.data[4] == 'e' {
+		jv.Type = BOOL
+		jv.value = false
+		return jv.value, nil
+	}
+
+	if jv.data[0] == 'n' && len(jv.data) == 4 && jv.data[1] == 'u' && jv.data[2] == 'l' && jv.data[3] == 'l' {
+		jv.Type = NULL
+		return jv.value, nil
+	}
+
+	s := bytesToString(jv.data)
+
+	if jv.special != floatBytes {
+		d, err := strconv.Atoi(s)
+		if err != nil {
+			if strings.Contains(err.Error(), "value out of range") && d > 0 {
+				u, err := strconv.ParseUint(s, 10, 0)
+				if err != nil {
+					return nil, err
+				}
+				jv.Type = UINT
+				jv.value = uint(u)
+				return jv.value, nil
+			}
+			return nil, err
+		}
+
+		jv.Type = INT
+		jv.value = d
+		return d, nil
+	}
+
+	f, err := strconv.ParseFloat(s, 64)
+	if err != nil {
+		return nil, errors.New("non-json value")
+	}
+
+	jv.Type = FLOAT
+	jv.value = f
+	return f, nil
+}
+
+func (jv *Value) GetString() (string, bool) {
+	v, err := jv.GetValue()
+	if err != nil || v == nil || jv.Type != STRING {
 		return "", false
 	}
 
-	s, ok := (v.val).(string)
-	return s, ok
+	return v.(string), true
 }
 
-func (v *Value) Int() (int, bool) {
-	if v.typ == 0 {
-		v.Validate()
+func (jv *Value) GetInt() (int, bool) {
+	v, err := jv.GetValue()
+	if err != nil || v == nil || jv.Type != INT {
+		return 0, false
 	}
 
-	switch v.typ {
-	case INT:
-		i, ok := (v.val).(int)
-		return i, ok
-	case FLOAT:
-		f, ok := (v.val).(float64)
-		return int(f), ok
-	}
-
-	return 0, false
+	return v.(int), true
 }
 
-func (v *Value) UInt() (uint, bool) {
-	if v.typ == 0 {
-		v.Validate()
+func (jv *Value) GetUInt() (uint, bool) {
+	v, err := jv.GetValue()
+	if err != nil || v == nil || jv.Type != UINT {
+		return 0, false
 	}
 
-	switch v.typ {
-	case UINT:
-		u, ok := (v.val).(uint)
-		return u, ok
-	case INT:
-		i, ok := (v.val).(int)
-		return uint(i), ok
-	case FLOAT:
-		f, ok := (v.val).(float64)
-		return uint(f), ok
-	}
-
-	return 0, false
+	return v.(uint), true
 }
 
-func (v *Value) Float() (float64, bool) {
-	if v.typ == 0 {
-		v.Validate()
+func (jv *Value) GetFloat() (float64, bool) {
+	v, err := jv.GetValue()
+	if err != nil || v == nil || jv.Type != FLOAT {
+		return 0, false
 	}
 
-	switch v.typ {
-	case FLOAT:
-		f, ok := (v.val).(float64)
-		return f, ok
-	case INT:
-		i, ok := (v.val).(int)
-		return float64(i), ok
-	}
-
-	return 0, false
+	return v.(float64), true
 }
 
-func (v *Value) Bool() (bool, bool) {
-	if v.typ == 0 {
-		v.Validate()
-	}
-
-	if v.typ != BOOL {
+func (jv *Value) GetBool() (bool, bool) {
+	v, err := jv.GetValue()
+	if err != nil || v == nil || jv.Type != BOOL {
 		return false, false
 	}
 
-	b, ok := (v.val).(bool)
-	return b, ok
+	return v.(bool), true
 }
 
-func (v *Value) Object() (*Object, bool) {
-	if v.typ == 0 {
-		v.Validate()
-	}
-
-	if v.typ != OBJECT {
+func (jv *Value) GetObject() (*Object, bool) {
+	v, err := jv.GetValue()
+	if err != nil || v == nil || jv.Type != OBJECT {
 		return nil, false
 	}
 
-	jo, ok := (v.val).(*Object)
-	return jo, ok
+	return v.(*Object), true
 }
 
-func (v *Value) Array() (*Array, bool) {
-	if v.typ == 0 {
-		v.Validate()
-	}
-
-	if v.typ != ARRAY {
+func (jv *Value) GetArray() (*Array, bool) {
+	v, err := jv.GetValue()
+	if err != nil || v == nil || jv.Type != ARRAY {
 		return nil, false
 	}
 
-	ja, ok := (v.val).(*Array)
-	return ja, ok
+	return v.(*Array), true
 }
 
-// we need to validate parsed JSON only, constucted JSON is always valid
-func (v *Value) Validate() error {
-	if v == nil {
-		return errors.New("nil value")
-	}
-
-	if v.typ > 0 && v.typ < INVALID && v.val != nil {
-		return nil
-	}
-
-	if len(v.buf) == 0 {
-		v.typ = INVALID
-		return errors.New("missing value")
-	}
-
-	switch v.buf[0] {
-	case '"':
-		if v.parseString() {
-			return nil
-		}
-	case 't':
-		if len(v.buf) == 4 && v.buf[1] == 'r' && v.buf[2] == 'u' && v.buf[3] == 'e' {
-			v.typ = BOOL
-			v.val = true
-			return nil
-		}
-	case 'f':
-		if len(v.buf) == 5 && v.buf[1] == 'a' && v.buf[2] == 'l' && v.buf[3] == 's' && v.buf[4] == 'e' {
-			v.typ = BOOL
-			v.val = false
-			return nil
-		}
-	case 'n':
-		if len(v.buf) == 4 && v.buf[1] == 'u' && v.buf[2] == 'l' && v.buf[3] == 'l' {
-			v.typ = NULL
-			return nil
-		}
-	default:
-		if v.parseNumber() {
-			return nil
-		}
-	}
-
-	v.typ = INVALID
-	return errors.New("invalid JSON value: " + BytesToString(v.buf))
-}
-
-func (v *Value) parseString() bool {
-	s := BytesToString(v.buf)
-	s, err := strconv.Unquote(s)
-	if err != nil {
-		v.typ = INVALID
-		return false
-	}
-
-	v.val = s
-	v.typ = STRING
-	return true
-}
-
-func (v *Value) parseNumber() bool {
-	var float bool
-
-	for i, b := range v.buf {
-		if (b >= '0' && b <= '9') || ((b == '-' || b == '+') && i == 0) {
-			continue
-		} else if b == '.' || b == 'e' || b == 'E' || b == '-' || b == '+' {
-			float = true
-		} else {
-			v.typ = INVALID
-			return false
-		}
-	}
-
-	s := BytesToString(v.buf)
-
-	if float {
-		f, err := strconv.ParseFloat(s, 64)
-		if err == nil {
-			v.val = f
-			v.typ = FLOAT
-			return true
-		}
-		return false
-	}
-
-	i, err := strconv.Atoi(s)
-	if err != nil {
-		if strings.Contains(err.Error(), "value out of range") && i > 0 {
-			u, err := strconv.ParseUint(s, 10, 0)
-			if err == nil {
-				v.val = uint(u)
-				v.typ = UINT
-				return true
-			}
-		}
-
-		v.typ = INVALID
-		return false
-	}
-
-	v.val = i
-	v.typ = INT
-	return true
-}
-
-func (v *Value) string() string {
-	if v == nil {
+func (jv *Value) toString() string {
+	if jv.value == nil {
 		return "null"
 	}
 
-	switch v.Type() {
+	switch jv.Type {
 	case STRING:
-		s, _ := v.String()
-		return strconv.Quote(s)
-	case OBJECT:
-		o, _ := v.Object()
-		if o == nil {
-			return "null"
-		}
-		return o.String()
-	case ARRAY:
-		a, _ := v.Array()
-		if a == nil {
-			return "null"
-		}
-		return a.String()
+		s := strconv.Quote(jv.value.(string))
+		jv.data = stringToBytes(s)
+		return s
 	case INT:
-		i, _ := v.Int()
-		return strconv.Itoa(i)
+		s := strconv.Itoa(jv.value.(int))
+		jv.data = stringToBytes(s)
+		return s
+	case UINT:
+		s := strconv.FormatUint(uint64(jv.value.(uint)), 10)
+		jv.data = stringToBytes(s)
+		return s
 	case FLOAT:
-		f, _ := v.Float()
-		return strconv.FormatFloat(f, 'f', -1, 64)
+		s := strconv.FormatFloat(jv.value.(float64), 'f', -1, 64)
+		jv.data = stringToBytes(s)
+		return s
 	case BOOL:
-		if v.Value() == true {
+		v := jv.value.(bool)
+		if v {
 			return "true"
 		}
 		return "false"
-	case UINT:
-		u, _ := v.UInt()
-		return strconv.FormatUint(uint64(u), 10)
 	}
 
 	return "null"
+}
+
+func newValue(x interface{}) *Value {
+	var t ValueType
+	v := x
+
+	switch x := x.(type) {
+	case string:
+		t = STRING
+	case int:
+		t = INT
+	case uint:
+		t = UINT
+	case float64:
+		t = FLOAT
+	case bool:
+		t = BOOL
+	case *Object:
+		t = OBJECT
+	case *Array:
+		t = ARRAY
+	case int8:
+		t = INT
+		v = int(x)
+	case int16:
+		t = INT
+		v = int(x)
+	case int32:
+		t = INT
+		v = int(x)
+	case int64:
+		t = INT
+		v = int(x)
+	case uint8:
+		t = UINT
+		v = uint(x)
+	case uint16:
+		t = UINT
+		v = uint(x)
+	case uint32:
+		t = UINT
+		v = uint(x)
+	case uint64:
+		t = UINT
+		v = uint(x)
+	case float32:
+		t = FLOAT
+		v = float64(x)
+	case []string:
+		t = ARRAY
+		v = NewArray(x)
+	case []int, []int8, []int16, []int32, []int64:
+		t = ARRAY
+		v = NewArray(x)
+	case []uint, []uint8, []uint16, []uint32, []uint64:
+		t = ARRAY
+		v = NewArray(x)
+	case []float64, []float32:
+		t = ARRAY
+		v = NewArray(x)
+	case []bool:
+		t = ARRAY
+		v = NewArray(x)
+	case []*Object, []*Array:
+		t = ARRAY
+		v = NewArray(x)
+	}
+
+	if t == 0 {
+		return &Value{
+			Type: NULL,
+		}
+	}
+
+	return &Value{
+		Type:  t,
+		value: v,
+	}
 }

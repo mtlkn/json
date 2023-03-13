@@ -1,0 +1,1864 @@
+{
+  "took": 4,
+  "timed_out": false,
+  "_shards": {
+    "total": 9,
+    "successful": 9,
+    "skipped": 0,
+    "failed": 0
+  },
+  "hits": {
+    "total": {
+      "value": 10000,
+      "relation": "gte"
+    },
+    "max_score": 1.0097795,
+    "hits": [
+      {
+        "_index": "appl-thirty-2023-03",
+        "_type": "_doc",
+        "_id": "4d56d0003c00ce13c8eb8f8cd147aa80",
+        "_score": 1.0097795,
+        "_source": {
+          "representationversion": "1.0",
+          "representationtype": "full",
+          "itemid": "4d56d0003c00ce13c8eb8f8cd147aa80",
+          "recordid": "b0cede19aa310826c1a8390ad302b281",
+          "compositeid": "611aa560289e421eb0046fa8563db006",
+          "compositiontype": "StandardText",
+          "type": "text",
+          "priority": 6,
+          "editorialpriority": "w",
+          "language": "en",
+          "recordsequencenumber": 0,
+          "friendlykey": "589042848195207",
+          "referenceid": "Jim Alexander: Jonathan Quick, best goalie in Kings history, leaves a legacy",
+          "recordtype": "Change",
+          "filingtype": "Text",
+          "arrivaldatetime": "2023-03-02T10:03:56Z",
+          "firstcreated": "2023-03-02T04:59:00Z",
+          "firstcreator": {
+            "year": 2023,
+            "month": 3,
+            "day": 2,
+            "time": "04:59:00"
+          },
+          "lastmodifieddatetime": "2023-03-02T10:03:29Z",
+          "pubstatus": "usable",
+          "releasedatetime": "2023-03-02T04:59:00Z",
+          "editorialid": "urn:publicid:tribunecontentagency.com:202303012359MCT_____REG_NEWS_32038118_0_krcaa_0",
+          "itemstartdatetime": "2023-03-02T04:59:00Z",
+          "itemstartdatetimeactual": "2023-03-02T04:59:00Z",
+          "signals": ["newscontent"],
+          "title": "Jim Alexander: Jonathan Quick, best goalie in Kings history, leaves a legacy",
+          "headline": "Jim Alexander: Jonathan Quick, best goalie in Kings history, leaves a legacy",
+          "bylines": [
+            {
+              "by": "Jim Alexander",
+              "title": "Press-Telegram, Long Beach, Calif. (TNS)"
+            }
+          ],
+          "copyrightnotice": "Copyright 2023 Tribune Content Agency.",
+          "copyrightholder": "Tribune Content Agency, LLC",
+          "copyrightdate": 2023,
+          "provider": {
+            "code": "s41928",
+            "type": "ThirdParty",
+            "name": "Tribune Content Agency, LLC"
+          },
+          "sources": [
+            {
+              "code": "s41928",
+              "city": "Chicago",
+              "country": "USA",
+              "countryarea": "IL",
+              "url": "http://www.tribunecontentagency.com/",
+              "type": "ThirdParty",
+              "name": "Tribune Content Agency, LLC"
+            }
+          ],
+          "canonicallink": "http://tribunecontentagency.com",
+          "transmissionsources": [
+            "NotMemberFeed",
+            "IngestionManager",
+            "Monarch"
+          ],
+          "productsources": ["DataFeatures"],
+          "categories": [
+            {
+              "code": "s",
+              "name": "s"
+            }
+          ],
+          "subjects": [
+            {
+              "scheme": "http://cv.ap.org/id/",
+              "code": "54df6c687df7100483dedf092526b43e",
+              "name": "Sports",
+              "creator": "Machine",
+              "rels": ["direct"],
+              "relevance": 92
+            },
+            {
+              "scheme": "http://cv.ap.org/id/",
+              "code": "20d7b1d07e4e1004889fd0913b2d075c",
+              "name": "Compensation in sports",
+              "creator": "Machine",
+              "rels": ["direct"],
+              "relevance": 41
+            },
+            {
+              "scheme": "http://cv.ap.org/id/",
+              "code": "20dfcc087e4e10048925d0913b2d075c",
+              "name": "NHL hockey",
+              "creator": "Machine",
+              "rels": ["direct"],
+              "relevance": 41
+            },
+            {
+              "scheme": "http://cv.ap.org/id/",
+              "code": "49e9acf88c87100481eda07ca041d23e",
+              "name": "Sports transactions",
+              "creator": "Machine",
+              "rels": ["direct"],
+              "relevance": 60
+            }
+          ],
+          "persons": [
+            {
+              "scheme": "http://cv.ap.org/id/",
+              "code": "701e7430d7397446bae4c6e26adf32a3",
+              "name": "William",
+              "creator": "Machine",
+              "rels": ["direct"],
+              "types": ["PROFESSIONAL_ATHLETE", "SPORTS_FIGURE", "PERSON"],
+              "teams": [
+                {
+                  "code": "8ab4b1864d94d44b8c6c4d993d41a89a",
+                  "name": "Genoa CFC"
+                }
+              ],
+              "extids": ["701324"],
+              "relevance": 33
+            },
+            {
+              "scheme": "http://cv.ap.org/id/",
+              "code": "df9dce6215c3496da4ce47fcc438d18a",
+              "name": "Sidney Crosby",
+              "creator": "Machine",
+              "rels": ["direct"],
+              "types": ["PROFESSIONAL_ATHLETE", "SPORTS_FIGURE", "PERSON"],
+              "teams": [
+                {
+                  "code": "acfdb77a35f54f74b7ffecac0e44b6fb",
+                  "name": "Pittsburgh Penguins"
+                }
+              ],
+              "extids": ["296786"],
+              "relevance": 46
+            },
+            {
+              "scheme": "http://cv.ap.org/id/",
+              "code": "4df27cc3a70f4395add47e51c3a47016",
+              "name": "Vladislav Gavrikov",
+              "creator": "Machine",
+              "rels": ["direct"],
+              "types": ["PROFESSIONAL_ATHLETE", "SPORTS_FIGURE", "PERSON"],
+              "teams": [
+                {
+                  "code": "c27689ab03fc4aa4807b2e4da74d5325",
+                  "name": "Columbus Blue Jackets"
+                }
+              ],
+              "relevance": 43
+            },
+            {
+              "scheme": "http://cv.ap.org/id/",
+              "code": "ae666088d6334a478380bb215877aa81",
+              "name": "Joonas Korpisalo",
+              "creator": "Machine",
+              "rels": ["direct"],
+              "types": ["PROFESSIONAL_ATHLETE", "SPORTS_FIGURE", "PERSON"],
+              "teams": [
+                {
+                  "code": "c27689ab03fc4aa4807b2e4da74d5325",
+                  "name": "Columbus Blue Jackets"
+                }
+              ],
+              "extids": ["680613"],
+              "relevance": 43
+            },
+            {
+              "scheme": "http://cv.ap.org/id/",
+              "code": "105881e98d6945e3b4252bf02a64316b",
+              "name": "Jon Quick",
+              "creator": "Machine",
+              "rels": ["direct"],
+              "types": ["PROFESSIONAL_ATHLETE", "SPORTS_FIGURE", "PERSON"],
+              "teams": [
+                {
+                  "code": "6f9b5731da0a45dbb31f8292fb16cc81",
+                  "name": "Los Angeles Kings"
+                }
+              ],
+              "extids": ["380901"],
+              "relevance": 84
+            },
+            {
+              "scheme": "http://cv.ap.org/id/",
+              "code": "4c8f2aff587f412db7011ba1c3c25649",
+              "name": "Jonathan Bernier",
+              "creator": "Machine",
+              "rels": ["direct"],
+              "types": ["PROFESSIONAL_ATHLETE", "SPORTS_FIGURE", "PERSON"],
+              "teams": [
+                {
+                  "code": "77f1d21bea1741a1a272881fd9f4a966",
+                  "name": "New Jersey Devils"
+                }
+              ],
+              "extids": ["329644"],
+              "relevance": 52
+            },
+            {
+              "scheme": "http://cv.ap.org/id/",
+              "code": "0fc3e989ab9f4f679250c780411ed19b",
+              "name": "Rob Blake",
+              "creator": "Machine",
+              "rels": ["direct"],
+              "types": ["PROFESSIONAL_ATHLETE", "SPORTS_FIGURE", "PERSON"],
+              "teams": [
+                {
+                  "code": "8f2bab31942842c098a8aef62922d98e",
+                  "name": "San Jose Sharks"
+                }
+              ],
+              "extids": ["HKN.111"],
+              "relevance": 48
+            }
+          ],
+          "places": [
+            {
+              "scheme": "http://cv.ap.org/id/",
+              "code": "8345b5f082af10048280df092526b43e",
+              "name": "Los Angeles",
+              "creator": "Machine",
+              "rels": ["direct"],
+              "parentids": ["789fdd8882af10048263df092526b43e"],
+              "locationtype": {
+                "code": "9d26a20b35f0484a891740f8189d4c7b",
+                "name": "City"
+              },
+              "geometry_geojson": {
+                "type": "Point",
+                "coordinates": [-118.24368, 34.05223]
+              },
+              "parentname": "California",
+              "relevance": 81
+            },
+            {
+              "scheme": "http://cv.ap.org/id/",
+              "code": "3fd73aaf55c643479113a6eee09d9875",
+              "name": "Long Beach",
+              "creator": "Machine",
+              "rels": ["direct"],
+              "parentids": ["789fdd8882af10048263df092526b43e"],
+              "locationtype": {
+                "code": "9d26a20b35f0484a891740f8189d4c7b",
+                "name": "City"
+              },
+              "geometry_geojson": {
+                "type": "Point",
+                "coordinates": [-118.18923, 33.76696]
+              },
+              "parentname": "California",
+              "relevance": 50
+            }
+          ],
+          "thirdpartymeta": [
+            {
+              "code": "entryid/urn:publicid:tribunecontentagency.com:202303012359mct_____reg_news_32038118_0_krcaa_0",
+              "name": "urn:publicid:tribunecontentagency.com:202303012359MCT_____REG_NEWS_32038118_0_krcaa_0",
+              "vocabulary": "IngestionManagerMetadata",
+              "vocabularyowner": "cv.ap.org"
+            },
+            {
+              "code": "managementid/urn:publicid:tribunecontentagency.com:20230301_lb-jim-alexander-jonathan-quick-best-goalie-in-kings-0301_krcaa",
+              "name": "urn:publicid:tribunecontentagency.com:20230301_LB-Jim-Alexander-Jonathan-Quick-best-goalie-in-Kings-0301_krcaa",
+              "vocabulary": "IngestionManagerMetadata",
+              "vocabularyowner": "cv.ap.org"
+            },
+            {
+              "code": "feedid/3540",
+              "name": "3540",
+              "vocabulary": "IngestionManagerMetadata",
+              "vocabularyowner": "cv.ap.org"
+            }
+          ],
+          "filings": [
+            {
+              "filingid": "b1117d6744ec4a3e82c85b1b2abd0683",
+              "filingarrivaldatetime": "2023-03-02T10:03:56Z",
+              "transmissionreference": "K8827",
+              "serviceleveldesignator": "K",
+              "selector": "krcaa",
+              "format": "bx",
+              "filingcategory": "s",
+              "slugline": "LB-Jim-Alexander-Jonathan-Quick-best-goalie-in-Kings-0301",
+              "products": [
+                101159, 100046, 47023, 46619, 46437, 45956, 45486, 45147, 44697,
+                44653, 43848, 39337, 38010, 37592, 34344, 3, 1, 15
+              ],
+              "foreignkeys": [
+                {
+                  "memberentryid": "urn:publicid:tribunecontentagency.com:202303012359MCT_____REG_NEWS_32038118_0_krcaa_0"
+                },
+                {
+                  "membermanagementid": "urn:publicid:tribunecontentagency.com:20230301_LB-Jim-Alexander-Jonathan-Quick-best-goalie-in-Kings-0301_krcaa"
+                }
+              ],
+              "distributionscope": "Local"
+            },
+            {
+              "filingid": "b1117d6744ec4a3e82c85b1b2abd0683",
+              "filingarrivaldatetime": "2023-03-02T10:03:56Z",
+              "transmissionreference": "K8827",
+              "serviceleveldesignator": "K",
+              "selector": "krcaa",
+              "format": "bx",
+              "filingcategory": "s",
+              "slugline": "LB-Jim-Alexander-Jonathan-Quick-best-goalie-in-Kings-0301",
+              "products": [
+                101159, 100046, 47023, 46619, 46437, 45956, 45486, 45147, 44697,
+                44653, 43848, 39337, 38010, 37592, 34344, 3, 1, 15
+              ],
+              "foreignkeys": [
+                {
+                  "memberentryid": "urn:publicid:tribunecontentagency.com:202303012359MCT_____REG_NEWS_32038118_0_krcaa_0"
+                },
+                {
+                  "membermanagementid": "urn:publicid:tribunecontentagency.com:20230301_LB-Jim-Alexander-Jonathan-Quick-best-goalie-in-Kings-0301_krcaa"
+                }
+              ],
+              "distributionscope": "Local"
+            }
+          ],
+          "main": {
+            "nitf": "<p>Mar. 1—It's worth remembering that Jonathan Quick wasn't the guy in his early years in the Kings' organization.</p><p>He was a third-round pick in 2005 out of UMass Amherst, the 72nd player selected in what was otherwise known as the Sidney Crosby draft following a yearlong lockout. But a Kings organization that had struggled to develop goaltenders for much of its history seemed to stake its future on another youngster, Jonathan Bernier, the 11th player picked overall in the 2006 draft.</p><p>Bernier was briefly a big-leaguer at the start of the 2007-08 season, playing four games for the Kings before going back to his junior team in Lewiston, Maine. But by the time Bernier got back to L.A. for a brief cameo in the 2009-10 season, Quick was the full-time starter.</p><p>And not only wouldn't Quick surrender the position for more than a decade, we can stipulate that he's the best goalie in Kings history with 370 career victories and two Stanley Cups. I don't think Kelly Hrudey or Hall of Famer Rogie Vachon would have much argument.</p><p>Rob Blake said as much, in fact, on the Zoom call Wednesday morning a few hours after the trade of Quick to Columbus, for left-handed defenseman Vladislav Gavrikov and goalie Joonas Korpisalo, was officially announced.</p><p>\"Jonathan Quick's the best goalie to ever play in this organization, let alone the league,\" the general manager who made the trade said. \"And he's taken this (team), with a handful of players, to the highest level two different times.</p><p>\"We are so thankful for what he's been able to do for this organization as a player, as a person, him and his family and his kids. We're indebted (for) what he's been able to do for us.\"</p><p>Shall we elaborate?</p><p>Start with those two Cups, in 2012 and 2014. Add a Conn Smythe Trophy as the outstanding performer of the playoffs in 2012, when he was 16-4 with a save percentage of .946 as the Kings ended their fans' 44 seasons of frustration and finally lifted the Cup on home ice.</p><p>Quick also won William M. Jennings Trophies, given to goaltenders who played at least 25 games for the team allowing the fewest regular-season goals, in 2013-14 (when he played 72 of 82 games) and 2017-18 (when he played 64 of 82). Quick was in the top five of Vezina Trophy voting by the league's general managers three times and was second in 2012 (to the Rangers' Henrik Lundqvist), fifth in 2014 (to Boston's Tukka Rask) and third in 2016 (to Washington's Braden Holtby).</p><p>He played for two U.S. Olympic teams, backing up Ryan Miller in 2010 in Vancouver and winning a silver medal, and starting in 2014 in Sochi with a .923 save percentage in five games for a team that finished fourth. Those 370 career victories, in addition to being No. 1 in franchise history, are 19th on the NHL's all-time list and third among U.S.-born goalies.</p><p>Beyond the numbers, Quick was stubbornly, ferociously competitive, setting an example for his teammates and performing his best when the lights were brightest. He was, in those years when the Kings were considered an elite team, the best money goalie in the world.</p><p>And maybe this is even more significant: The Kings have reached the postseason only three times since that 2014 championship, but Quick, Dustin Brown, Drew Doughty and Anze Kopitar were still around from those championship teams to make sure the next generation of Kings' players understood the organization's culture and expectations.</p><p>\"I mean, it's hard to explain unless you sit and you watch it every day,\" Blake said. \"And ... the players you mentioned are going to go down as the best players at those positions on this team ever, and very deservedly so.\"</p><p>With all of that said, you could reasonably make the case that Quick was unceremoniously and unfairly dumped, exiled to a Columbus team with the league's worst record. But you also have to recognize that this was coming, if not now, then at season's end when Quick will be an unrestricted free agent.</p><p>In the summer of 2021, Quick was left unprotected in the expansion draft, but the Seattle Kraken passed, in part because of his $5.8 million salary-cap hit last season and another $5.8 million this one, the final seasons of the 10-year extension he signed after that 2012 Cup win.</p><p>And his play has slipped significantly. He woke up the echoes at the end of last spring's seven-game first-round loss to Edmonton, but only after a season where he lost playing time to heir apparent Cal Petersen.</p><p>This season, the 37-year-old Quick has a career-worst .876 save percentage, but instead of Petersen — demoted to AHL Ontario because of his own inconsistent play — journeyman Pheonix Copley has started 26 of the Kings' 35 games since his recall from Ontario on Dec. 1. And while no one game is ever the difference, maybe the four goals Quick allowed in seven shots against the Rangers on Sunday in Madison Square Garden was a tipping point.</p><p>Still, it was sudden and shocking when word spread of the trade after Tuesday night's shootout victory in Winnipeg. The situation was awkward because Blake made the deal from L.A. and had to inform Quick of the trade by phone after the game, and then had phone conversations with key players, including Kopitar and Doughty. By most reports, none were happy about the trade.</p><p>Even more awkwardly, Quick rode back to L.A. on the team plane. There must have been heavy conversations on that flight.</p><p>Was it insensitive? Probably. But professional sports is an insensitive business, and the first job of a general manager is to find ways to make his team better.</p><p>Will this trade for Gavrikov and Korpisalo, bolster the Kings for the postseason? That remains to be seen, and there's still the possibility of more moves before Friday's trade deadline.</p><p>But we know this: The Blue Jackets will play the Kings in downtown L.A. on March 16, two weeks from Thursday. If you attend, and if Quick is still a Blue Jacket and hasn't been flipped to another team, I'm guessing you'll know how to show your appreciation.</p><p>Make it loud.</p><p><a href=\"mailto:jalexander@scng.com\">jalexander@scng.com</a></p><p>___</p><p>(c)2023 Press-Telegram, Long Beach, Calif.</p><p>Visit Press-Telegram, Long Beach, Calif. at https://www.presstelegram.com/</p><p>Distributed by <a href=\"https://www.tribunecontentagency.com\">Tribune Content Agency, LLC.</a></p>",
+            "words": 1021
+          },
+          "s3versionid": "Fi4Vb56f05ufDIVu4n2Th25g3vp6SaCg",
+          "traceid": "null",
+          "itemexpiredatetime": "2023-04-01T10:03:56Z"
+        }
+      },
+      {
+        "_index": "appl-thirty-2023-03",
+        "_type": "_doc",
+        "_id": "a55b5cde933b91d15b118c7b4e5fa3b2",
+        "_score": 1.0097795,
+        "_source": {
+          "representationversion": "1.0",
+          "representationtype": "full",
+          "itemid": "a55b5cde933b91d15b118c7b4e5fa3b2",
+          "recordid": "a55b5cde933b91d15b118c7b4e5fa3b2",
+          "compositeid": "76c67e37031d4172a71f2ebba36be3b7",
+          "compositiontype": "StandardText",
+          "type": "text",
+          "priority": 4,
+          "editorialpriority": "r",
+          "language": "en",
+          "recordsequencenumber": 0,
+          "friendlykey": "9195492133752839",
+          "referenceid": "Pantheon International \"very well prepared\" for the second half",
+          "recordtype": "Change",
+          "filingtype": "Text",
+          "arrivaldatetime": "2023-03-02T10:04:02Z",
+          "firstcreated": "2023-03-02T09:54:13Z",
+          "firstcreator": {
+            "year": 2023,
+            "month": 3,
+            "day": 2,
+            "time": "09:54:13"
+          },
+          "lastmodifieddatetime": "2023-03-02T09:54:13Z",
+          "pubstatus": "usable",
+          "releasedatetime": "2023-03-02T09:54:13Z",
+          "associations": [
+            {
+              "type": "photo",
+              "itemid": "b30031233eff959febf6750392e8f9ad",
+              "representationtype": "partial",
+              "associationrank": 1,
+              "typerank": 1
+            }
+          ],
+          "editorialid": "urn:publicid:newsdirect.com:0258d1ca-d241-48dc-be4e-a6db5eae11d4",
+          "itemstartdatetime": "2023-03-02T09:54:13Z",
+          "itemstartdatetimeactual": "2023-03-02T09:54:13Z",
+          "signals": ["newscontent"],
+          "title": "Pantheon International \"very well prepared\" for the second half",
+          "headline": "Pantheon International \"very well prepared\" for the second half",
+          "copyrightnotice": "2023 News Direct Corp.",
+          "copyrightholder": "News Direct Corporation",
+          "copyrightdate": 2023,
+          "keywordlines": ["LSE:PIN", "LSE", "PIN"],
+          "provider": {
+            "code": "z01161",
+            "type": "ThirdParty",
+            "name": "News Direct Corporation"
+          },
+          "sources": [
+            {
+              "code": "z01161",
+              "country": "USA",
+              "countryarea": "CT",
+              "url": "htps://www.newsdirect.com",
+              "type": "ThirdParty",
+              "name": "News Direct Corporation"
+            }
+          ],
+          "canonicallink": "https://newsdirect.com/news/pantheon-international-very-well-prepared-for-the-second-half-267506699",
+          "transmissionsources": [
+            "NotMemberFeed",
+            "IngestionManager",
+            "Monarch"
+          ],
+          "productsources": ["APNewsDistribution"],
+          "usagerights": [
+            {
+              "usagetype": "MobileNewsNetworkDistribution",
+              "limitations": ["none"]
+            }
+          ],
+          "subjects": [
+            {
+              "scheme": "http://cv.ap.org/id/",
+              "code": "60a31c1888f91004804d8503ef5018bd",
+              "name": "Financial markets",
+              "creator": "Machine",
+              "rels": ["direct"],
+              "relevance": 33
+            },
+            {
+              "scheme": "http://cv.ap.org/id/",
+              "code": "c8e409f8858510048872ff2260dd383e",
+              "name": "Business",
+              "creator": "Machine",
+              "rels": ["direct"],
+              "relevance": 83
+            }
+          ],
+          "places": [
+            {
+              "scheme": "http://cv.ap.org/id/",
+              "code": "66219fb07d5b100482e2c076b8e3055c",
+              "name": "United Kingdom",
+              "creator": "Machine",
+              "rels": ["direct"],
+              "parentids": ["661850e07d5b100481f4c076b8e3055c"],
+              "locationtype": {
+                "code": "01f56e0e654841eca2e69bf2cbcc0526",
+                "name": "Nation"
+              },
+              "geometry_geojson": {
+                "type": "Point",
+                "coordinates": [-4, 54]
+              },
+              "parentname": "Europe",
+              "relevance": 38
+            }
+          ],
+          "thirdpartymeta": [
+            {
+              "code": "http://cv.ap.org/keyword/instrument/lse:pin",
+              "name": "LSE:PIN",
+              "vocabulary": "keyword",
+              "vocabularyowner": "cv.ap.org"
+            },
+            {
+              "code": "http://cv.ap.org/keyword/exchange/lse",
+              "name": "LSE",
+              "vocabulary": "keyword",
+              "vocabularyowner": "cv.ap.org"
+            },
+            {
+              "code": "http://cv.ap.org/keyword/ticker/pin",
+              "name": "PIN",
+              "vocabulary": "keyword",
+              "vocabularyowner": "cv.ap.org"
+            },
+            {
+              "code": "entryid/urn:publicid:newsdirect.com:0258d1ca-d241-48dc-be4e-a6db5eae11d4",
+              "name": "urn:publicid:newsdirect.com:0258d1ca-d241-48dc-be4e-a6db5eae11d4",
+              "vocabulary": "IngestionManagerMetadata",
+              "vocabularyowner": "cv.ap.org"
+            },
+            {
+              "code": "managementid/urn:publicid:newsdirect.com:0258d1ca-d241-48dc-be4e-a6db5eae11d4",
+              "name": "urn:publicid:newsdirect.com:0258d1ca-d241-48dc-be4e-a6db5eae11d4",
+              "vocabulary": "IngestionManagerMetadata",
+              "vocabularyowner": "cv.ap.org"
+            },
+            {
+              "code": "feedid/8071",
+              "name": "8071",
+              "vocabulary": "IngestionManagerMetadata",
+              "vocabularyowner": "cv.ap.org"
+            }
+          ],
+          "filings": [
+            {
+              "filingid": "8a5719a1e65f4532b000798c398c3c3a",
+              "filingarrivaldatetime": "2023-03-02T10:04:02Z",
+              "slugline": "Pantheon International \"very well prepared\" for the second half",
+              "products": [
+                101552, 46773, 45956, 45486, 45147, 44697, 44653, 43848, 39499,
+                3, 1, 15
+              ],
+              "foreignkeys": [
+                {
+                  "memberentryid": "urn:publicid:newsdirect.com:0258d1ca-d241-48dc-be4e-a6db5eae11d4"
+                },
+                {
+                  "membermanagementid": "urn:publicid:newsdirect.com:0258d1ca-d241-48dc-be4e-a6db5eae11d4"
+                }
+              ],
+              "distributionscope": "Local"
+            },
+            {
+              "filingid": "8a5719a1e65f4532b000798c398c3c3a",
+              "filingarrivaldatetime": "2023-03-02T10:04:02Z",
+              "slugline": "Pantheon International \"very well prepared\" for the second half",
+              "products": [
+                101552, 46773, 45956, 45486, 45147, 44697, 44653, 43848, 39499,
+                3, 1, 15
+              ],
+              "foreignkeys": [
+                {
+                  "memberentryid": "urn:publicid:newsdirect.com:0258d1ca-d241-48dc-be4e-a6db5eae11d4"
+                },
+                {
+                  "membermanagementid": "urn:publicid:newsdirect.com:0258d1ca-d241-48dc-be4e-a6db5eae11d4"
+                }
+              ],
+              "distributionscope": "Local"
+            }
+          ],
+          "main": {
+            "nitf": "<p>--News Direct--</p><a href=\"https://www.youtube.com/watch?v=IQayiOR_szI\">Click here for our video</a><p style=\"margin-bottom: 8pt;\">Pantheon International PLC (LSE:PIN) Senior Manager Helen Steers speaks to Proactive's Thomas Warner after publishing the investment trust's interim results.</p><p style=\"margin-bottom: 8pt;\">Steers says that Pantheon International is \"very well prepared for what may come in the next part of the year\", highlighting its continued NAV growth.</p><p>She adds that she believes \"excessive concerns\" over private equity are to blame for the less buoyant performance of the trust's share price.</p><p style=\"font-size: 18px;\"><em>Contact Details</em></p><p><em>Proactive UK Ltd</em></p><p>Proactive UK Ltd</p><p>+44 20 7989 0813</p><p><a href=\"mailto:uk@proactiveinvestors.com\">uk@proactiveinvestors.com</a></p><p>View source version on newsdirect.com: <a href=\"https://newsdirect.com/news/pantheon-international-very-well-prepared-for-the-second-half-267506699\">https://newsdirect.com/news/pantheon-international-very-well-prepared-for-the-second-half-267506699</a></p>",
+            "words": 118
+          },
+          "s3versionid": "Tdr1i94wQICyiDoUcPbGhGvom7g91h4q",
+          "traceid": "null",
+          "itemexpiredatetime": "2023-04-01T10:04:02Z"
+        }
+      },
+      {
+        "_index": "appl-thirty-2023-03",
+        "_type": "_doc",
+        "_id": "a6a82224dee641d286114ba71ce78076",
+        "_score": 1.0097795,
+        "_source": {
+          "representationversion": "1.0",
+          "representationtype": "full",
+          "itemid": "a6a82224dee641d286114ba71ce78076",
+          "recordid": "d5b092574d524b4d8530c6cc344e2d1c",
+          "compositeid": "ea0f68f5479941ddb1c39c704136a8c1",
+          "compositiontype": "StandardText",
+          "type": "text",
+          "priority": 4,
+          "editorialpriority": "r",
+          "language": "it",
+          "recordsequencenumber": 0,
+          "friendlykey": "9163045671806053",
+          "referenceid": "Sanità: Papa Giovanni XXIII di Bergamo tra migliori 250 ospedali mondo-3-",
+          "recordtype": "Change",
+          "filingtype": "Text",
+          "arrivaldatetime": "2023-03-02T10:05:02Z",
+          "firstcreated": "2023-03-02T10:05:02Z",
+          "firstcreator": {
+            "year": 2023,
+            "month": 3,
+            "day": 2,
+            "time": "10:05:02"
+          },
+          "lastmodifieddatetime": "2023-03-02T10:05:02Z",
+          "pubstatus": "usable",
+          "releasedatetime": "2023-03-02T10:04:47Z",
+          "editorialid": "urn:publicid:archivio.lapresse.it:8849542",
+          "itemstartdatetime": "2023-03-02T10:04:47Z",
+          "itemstartdatetimeactual": "2023-03-02T10:04:47Z",
+          "itemexpiredatetime": "2023-03-07T10:04:47Z",
+          "signals": ["newscontent"],
+          "title": "Sanità: Papa Giovanni XXIII di Bergamo tra migliori 250 ospedali mondo-3-",
+          "headline": "Sanità: Papa Giovanni XXIII di Bergamo tra migliori 250 ospedali mondo-3-",
+          "copyrightnotice": "LaPresse",
+          "copyrightholder": "LaPresse",
+          "copyrightdate": 2023,
+          "provider": {
+            "code": "z01167",
+            "type": "ThirdParty",
+            "subtype": "NewsAgency",
+            "name": "LaPresse"
+          },
+          "sources": [
+            {
+              "code": "z01167",
+              "city": "Milan",
+              "country": "ITA",
+              "url": "https://www.lapresse.it/",
+              "type": "ThirdParty",
+              "subtype": "NewsAgency",
+              "name": "LaPresse"
+            }
+          ],
+          "transmissionsources": [
+            "NotMemberFeed",
+            "IngestionManager",
+            "Monarch"
+          ],
+          "thirdpartymeta": [
+            {
+              "code": "entryid/urn:publicid:archivio.lapresse.it:8849542",
+              "name": "urn:publicid:archivio.lapresse.it:8849542",
+              "vocabulary": "IngestionManagerMetadata",
+              "vocabularyowner": "cv.ap.org"
+            },
+            {
+              "code": "feedid/8061",
+              "name": "8061",
+              "vocabulary": "IngestionManagerMetadata",
+              "vocabularyowner": "cv.ap.org"
+            }
+          ],
+          "filings": [
+            {
+              "filingid": "d25ab5f044a44fdbb3dae1e32e3c6390",
+              "filingarrivaldatetime": "2023-03-02T10:05:02Z",
+              "slugline": "Sanità: Papa Giovanni XXIII di Bergamo tra migliori 250 ospedali mondo-3-",
+              "products": [
+                47023, 46615, 45956, 45486, 45147, 44697, 44653, 43848, 3, 1, 15
+              ],
+              "foreignkeys": [
+                {
+                  "memberentryid": "urn:publicid:archivio.lapresse.it:8849542"
+                }
+              ],
+              "distributionscope": "Local"
+            },
+            {
+              "filingid": "d25ab5f044a44fdbb3dae1e32e3c6390",
+              "filingarrivaldatetime": "2023-03-02T10:05:02Z",
+              "slugline": "Sanità: Papa Giovanni XXIII di Bergamo tra migliori 250 ospedali mondo-3-",
+              "products": [
+                47023, 46615, 45956, 45486, 45147, 44697, 44653, 43848, 3, 1, 15
+              ],
+              "foreignkeys": [
+                {
+                  "memberentryid": "urn:publicid:archivio.lapresse.it:8849542"
+                }
+              ],
+              "distributionscope": "Local"
+            }
+          ],
+          "main": {
+            "nitf": "<p><p/>Milano, 2 mar.</p><p>(LaPresse) - Nel settembre 2022 Newsweek e Statista avevano annunciato l‘ingresso dell’Ospedale di Bergamo nella classifica “World’s Best Smart Hospitals 2023” tra i 300 ospedali al mondo che si distinguono per i sistemi hi-tech al servizio del paziente.</p><p>In contemporanea, sempre per il 2022, tre Unità operative del Papa Giovanni XXIII ricevevano la conferma del loro posizionamento internazionale all’interno del ranking World's Best Specialized Hospitals 2022 (migliori ospedali specializzati del mondo).</p><p>Sono la Cardiologia (tra i primi 300 centri al mondo), Cardiochirurgia (tra le prime 150 strutture a livello mondiale e tra le 8 strutture classificate su tutto il territorio nazionale) e la Gastroenterologia (tra i migliori 125 centri mondiali ed uno dei soli 8 centri italiani in graduatoria).</p><p>.</p>",
+            "words": 136
+          },
+          "s3versionid": "6uN3AUUi7HAIX_mzvuhstG.KzmXwnO4b",
+          "traceid": "null"
+        }
+      },
+      {
+        "_index": "appl-thirty-2023-03",
+        "_type": "_doc",
+        "_id": "ad170710d7fe48208b1be47acb7350df",
+        "_score": 1.0097795,
+        "_source": {
+          "representationversion": "1.0",
+          "representationtype": "full",
+          "itemid": "ad170710d7fe48208b1be47acb7350df",
+          "recordid": "75857c8106364a239e446e5e1d944ec1",
+          "compositeid": "3960de8eaf1c493f961236a9eb8543ea",
+          "compositiontype": "StandardText",
+          "type": "text",
+          "priority": 4,
+          "editorialpriority": "r",
+          "language": "en",
+          "recordsequencenumber": 0,
+          "friendlykey": "9015137187633834",
+          "referenceid": "CRICKET Indore Score Close",
+          "recordtype": "Change",
+          "filingtype": "Text",
+          "arrivaldatetime": "2023-03-01T16:08:38Z",
+          "firstcreated": "2023-03-01T16:08:57Z",
+          "firstcreator": {
+            "year": 2023,
+            "month": 3,
+            "day": 1,
+            "time": "16:08:57"
+          },
+          "lastmodifieddatetime": "2023-03-01T16:08:57Z",
+          "pubstatus": "usable",
+          "releasedatetime": "2023-03-01T16:10:33Z",
+          "itemstartdatetime": "2023-03-01T16:10:33Z",
+          "itemstartdatetimeactual": "2023-03-01T16:10:33Z",
+          "itemexpiredatetime": "2023-03-06T16:10:33Z",
+          "signals": ["newscontent"],
+          "title": "CRICKET Indore Score Close",
+          "headline": "CRICKET Indore Score Close",
+          "copyrightnotice": "For copyright information, please check with the distributor of this item, Press Association.",
+          "copyrightholder": "Press Association",
+          "copyrightdate": 2023,
+          "keywordlines": ["CRICKET Indore Score Close"],
+          "provider": {
+            "code": "z00013",
+            "type": "ThirdParty",
+            "name": "Press Association"
+          },
+          "sources": [
+            {
+              "code": "z00013",
+              "city": "London",
+              "country": "GBR",
+              "url": "http://www.pressassociation.com",
+              "type": "ThirdParty",
+              "name": "Press Association"
+            }
+          ],
+          "transmissionsources": [
+            "NotMemberFeed",
+            "IngestionManager",
+            "Monarch"
+          ],
+          "categories": [
+            {
+              "code": "rcb",
+              "name": "RCB"
+            }
+          ],
+          "subjects": [
+            {
+              "scheme": "http://cv.ap.org/id/",
+              "code": "54df6c687df7100483dedf092526b43e",
+              "name": "Sports",
+              "creator": "Editorial",
+              "editorial_subject": "Sports",
+              "rels": ["direct"],
+              "topparent": true
+            }
+          ],
+          "thirdpartymeta": [
+            {
+              "code": "feedid/5134",
+              "name": "5134",
+              "vocabulary": "IngestionManagerMetadata",
+              "vocabularyowner": "cv.ap.org"
+            }
+          ],
+          "filings": [
+            {
+              "filingid": "73fcb022ee7d46fab4cae513e82ac635",
+              "filingarrivaldatetime": "2023-03-01T16:08:38Z",
+              "cycle": "BC",
+              "serviceleveldesignator": "pc",
+              "selector": "-----",
+              "format": "bx",
+              "filingsource": "pcftp",
+              "filingcategory": "RCB",
+              "slugline": "CRICKET Indore Score Close",
+              "products": [
+                100915, 45956, 45486, 45182, 45147, 44697, 44653, 43848, 43618,
+                3, 1, 15
+              ],
+              "foreignkeys": [
+                {
+                  "pamanagementid": "C202303011608570001C"
+                }
+              ]
+            },
+            {
+              "filingid": "73fcb022ee7d46fab4cae513e82ac635",
+              "filingarrivaldatetime": "2023-03-01T16:08:38Z",
+              "cycle": "BC",
+              "serviceleveldesignator": "pc",
+              "selector": "-----",
+              "format": "bx",
+              "filingsource": "pcftp",
+              "filingcategory": "RCB",
+              "slugline": "CRICKET Indore Score Close",
+              "products": [
+                100915, 45956, 45486, 45182, 45147, 44697, 44653, 43848, 43618,
+                3, 1, 15
+              ],
+              "foreignkeys": [
+                {
+                  "pamanagementid": "C202303011608570001C"
+                }
+              ]
+            }
+          ],
+          "main": {
+            "nitf": "<p>----[1]--------------------------------------------------------</p><pre>India v AustraliaIndoreAustralia First Innings CloseT M Head lbw b Jadeja 9U T Khawaja c Gill b Jadeja 60M Labuschagne b Jadeja 31S P D Smith c Bharat b Jadeja 26P S P Handscomb not out 7C J Green not out 6Extras b9 lb4 nb4 17Total 4 wkts (54 overs) 156Fall: 1-12 2-108 3-125 4-146To Bat: A T Carey, M A Starc, M Kuhnemann, T Murphy, N M Lyon.Bowling: Ashwin 16 2 40 0 Jadeja 24 6 63 4 Patel 9 0 29 0 Yadav 2 0 4 0 Mohammed Siraj 3 0 7 0</pre>",
+            "words": 109
+          },
+          "s3versionid": "RNwG3BmZ38R.dVdXMq.6xDShjmi8Fmio",
+          "traceid": "null"
+        }
+      },
+      {
+        "_index": "appl-thirty-2023-03",
+        "_type": "_doc",
+        "_id": "d85e312d01ea4c6081bc4bfee7e7d95b",
+        "_score": 1.0097795,
+        "_source": {
+          "representationversion": "1.0",
+          "representationtype": "full",
+          "itemid": "d85e312d01ea4c6081bc4bfee7e7d95b",
+          "recordid": "4ff04a95abbf4cc09cae93ef940c5dee",
+          "compositeid": "bb70152fe72c41c1a67420b99697a85a",
+          "compositiontype": "StandardText",
+          "type": "text",
+          "priority": 4,
+          "editorialpriority": "r",
+          "language": "en",
+          "recordsequencenumber": 0,
+          "friendlykey": "3931902513356940",
+          "referenceid": "CRICKET Summaries",
+          "recordtype": "Change",
+          "filingtype": "Text",
+          "arrivaldatetime": "2023-03-01T16:09:01Z",
+          "firstcreated": "2023-03-01T16:09:26Z",
+          "firstcreator": {
+            "year": 2023,
+            "month": 3,
+            "day": 1,
+            "time": "16:09:26"
+          },
+          "lastmodifieddatetime": "2023-03-01T16:09:26Z",
+          "pubstatus": "usable",
+          "releasedatetime": "2023-03-01T16:09:02Z",
+          "itemstartdatetime": "2023-03-01T16:09:02Z",
+          "itemstartdatetimeactual": "2023-03-01T16:09:02Z",
+          "itemexpiredatetime": "2023-03-06T16:09:02Z",
+          "signals": ["newscontent"],
+          "title": "CRICKET Summaries",
+          "headline": "CRICKET Summaries",
+          "copyrightnotice": "For copyright information, please check with the distributor of this item, Press Association.",
+          "copyrightholder": "Press Association",
+          "copyrightdate": 2023,
+          "keywordlines": ["CRICKET Summaries"],
+          "provider": {
+            "code": "z00013",
+            "type": "ThirdParty",
+            "name": "Press Association"
+          },
+          "sources": [
+            {
+              "code": "z00013",
+              "city": "London",
+              "country": "GBR",
+              "url": "http://www.pressassociation.com",
+              "type": "ThirdParty",
+              "name": "Press Association"
+            }
+          ],
+          "transmissionsources": [
+            "NotMemberFeed",
+            "IngestionManager",
+            "Monarch"
+          ],
+          "categories": [
+            {
+              "code": "rdc",
+              "name": "RDC"
+            }
+          ],
+          "subjects": [
+            {
+              "scheme": "http://cv.ap.org/id/",
+              "code": "54df6c687df7100483dedf092526b43e",
+              "name": "Sports",
+              "creator": "Editorial",
+              "editorial_subject": "Sports",
+              "rels": ["direct"],
+              "topparent": true
+            }
+          ],
+          "thirdpartymeta": [
+            {
+              "code": "feedid/5134",
+              "name": "5134",
+              "vocabulary": "IngestionManagerMetadata",
+              "vocabularyowner": "cv.ap.org"
+            }
+          ],
+          "filings": [
+            {
+              "filingid": "cf696a27531145c5a85e51b2573ae138",
+              "filingarrivaldatetime": "2023-03-01T16:09:01Z",
+              "cycle": "BC",
+              "serviceleveldesignator": "pc",
+              "selector": "-----",
+              "format": "bx",
+              "filingsource": "pcftp",
+              "filingcategory": "RDC",
+              "slugline": "CRICKET Summaries",
+              "products": [
+                100915, 45956, 45486, 45182, 45147, 44697, 44653, 43848, 43618,
+                3, 1, 15
+              ],
+              "foreignkeys": [
+                {
+                  "pamanagementid": "C202303011609260001C"
+                }
+              ]
+            },
+            {
+              "filingid": "cf696a27531145c5a85e51b2573ae138",
+              "filingarrivaldatetime": "2023-03-01T16:09:01Z",
+              "cycle": "BC",
+              "serviceleveldesignator": "pc",
+              "selector": "-----",
+              "format": "bx",
+              "filingsource": "pcftp",
+              "filingcategory": "RDC",
+              "slugline": "CRICKET Summaries",
+              "products": [
+                100915, 45956, 45486, 45182, 45147, 44697, 44653, 43848, 43618,
+                3, 1, 15
+              ],
+              "foreignkeys": [
+                {
+                  "pamanagementid": "C202303011609260001C"
+                }
+              ]
+            }
+          ],
+          "main": {
+            "nitf": "<p>----[1]--------------------------------------------------------</p><pre>~RS~00~FS~First One Day International~RS~01~FS~Mirpur~RS~02~FS~Bangladesh~RS~03~FS~209~FS~ ~FS~~FS~ ~FS~~RS~04~FS~Najmul Hossain Shanto~FS~ ~FS~58~FS~ ~FS~~RS~09~FS~England~RS~10~FS~212~FS~ ~FS~7~FS~ ~FS~~RS~11~FS~D J Malan~FS~ ~FS~114~FS~ ~FS~no~RS~16~FS~England beat Bangladesh by 3 wkts</pre>",
+            "words": 30
+          },
+          "s3versionid": "EduL7YJwtURFE8NrcSpG3mU.rLkwpmBh",
+          "traceid": "null"
+        }
+      },
+      {
+        "_index": "appl-thirty-2023-03",
+        "_type": "_doc",
+        "_id": "d904e82a163441dba49fe83d68e01ac4",
+        "_score": 1.0097795,
+        "_source": {
+          "representationversion": "1.0",
+          "representationtype": "full",
+          "itemid": "d904e82a163441dba49fe83d68e01ac4",
+          "recordid": "7eb233cc0eef4fa299d7bb22b52bbd43",
+          "compositeid": "9c1816d08ab343c3b792702a4447e92d",
+          "compositiontype": "StandardText",
+          "type": "text",
+          "priority": 4,
+          "editorialpriority": "r",
+          "language": "en",
+          "recordsequencenumber": 0,
+          "friendlykey": "8519168214450001",
+          "referenceid": "CRICKET Mirpur Score Close",
+          "recordtype": "Change",
+          "filingtype": "Text",
+          "arrivaldatetime": "2023-03-01T16:08:45Z",
+          "firstcreated": "2023-03-01T16:09:22Z",
+          "firstcreator": {
+            "year": 2023,
+            "month": 3,
+            "day": 1,
+            "time": "16:09:22"
+          },
+          "lastmodifieddatetime": "2023-03-01T16:09:22Z",
+          "pubstatus": "usable",
+          "releasedatetime": "2023-03-01T16:08:46Z",
+          "itemstartdatetime": "2023-03-01T16:08:46Z",
+          "itemstartdatetimeactual": "2023-03-01T16:08:46Z",
+          "itemexpiredatetime": "2023-03-06T16:08:46Z",
+          "signals": ["newscontent"],
+          "title": "CRICKET Mirpur Score Close",
+          "headline": "CRICKET Mirpur Score Close",
+          "copyrightnotice": "For copyright information, please check with the distributor of this item, Press Association.",
+          "copyrightholder": "Press Association",
+          "copyrightdate": 2023,
+          "keywordlines": ["CRICKET Mirpur Score Close"],
+          "provider": {
+            "code": "z00013",
+            "type": "ThirdParty",
+            "name": "Press Association"
+          },
+          "sources": [
+            {
+              "code": "z00013",
+              "city": "London",
+              "country": "GBR",
+              "url": "http://www.pressassociation.com",
+              "type": "ThirdParty",
+              "name": "Press Association"
+            }
+          ],
+          "transmissionsources": [
+            "NotMemberFeed",
+            "IngestionManager",
+            "Monarch"
+          ],
+          "categories": [
+            {
+              "code": "rcb",
+              "name": "RCB"
+            }
+          ],
+          "subjects": [
+            {
+              "scheme": "http://cv.ap.org/id/",
+              "code": "54df6c687df7100483dedf092526b43e",
+              "name": "Sports",
+              "creator": "Editorial",
+              "editorial_subject": "Sports",
+              "rels": ["direct"],
+              "topparent": true
+            }
+          ],
+          "thirdpartymeta": [
+            {
+              "code": "feedid/5134",
+              "name": "5134",
+              "vocabulary": "IngestionManagerMetadata",
+              "vocabularyowner": "cv.ap.org"
+            }
+          ],
+          "filings": [
+            {
+              "filingid": "ddb0941b92c8470ea7610358c3b9b674",
+              "filingarrivaldatetime": "2023-03-01T16:08:45Z",
+              "cycle": "BC",
+              "serviceleveldesignator": "pc",
+              "selector": "-----",
+              "format": "bx",
+              "filingsource": "pcftp",
+              "filingcategory": "RCB",
+              "slugline": "CRICKET Mirpur Score Close",
+              "products": [
+                100915, 45956, 45486, 45182, 45147, 44697, 44653, 43848, 43618,
+                3, 1, 15
+              ],
+              "foreignkeys": [
+                {
+                  "pamanagementid": "C202303011609220001C"
+                }
+              ]
+            },
+            {
+              "filingid": "ddb0941b92c8470ea7610358c3b9b674",
+              "filingarrivaldatetime": "2023-03-01T16:08:45Z",
+              "cycle": "BC",
+              "serviceleveldesignator": "pc",
+              "selector": "-----",
+              "format": "bx",
+              "filingsource": "pcftp",
+              "filingcategory": "RCB",
+              "slugline": "CRICKET Mirpur Score Close",
+              "products": [
+                100915, 45956, 45486, 45182, 45147, 44697, 44653, 43848, 43618,
+                3, 1, 15
+              ],
+              "foreignkeys": [
+                {
+                  "pamanagementid": "C202303011609220001C"
+                }
+              ]
+            }
+          ],
+          "main": {
+            "nitf": "<p>----[1]--------------------------------------------------------</p><pre>Bangladesh v EnglandMirpur England beat Bangladesh by 3 wktsEngland InningsJ J Roy c Tamim Iqbal b Shakib Al Ha 4P D Salt b Taijul Islam 12D J Malan not out 114J M Vince st Mushfiqur Rahim b Taijul 6J C Buttler c Hossain Shanto b Taskin Ah 9W G Jacks c Hossain b Mehedi Hasan 26M M Ali b Mehedi Hasan 14C R Woakes c Tamim Iqbal b Taijul Islam 7A U Rashid not out 17Extras lb1 w2 3Total 7 wkts (48.4 overs) 212Fall: 1-4 2-35 3-45 4-65 5-103 6-141 7-161Did Not Bat: M A Wood, J C Archer.Bowling: Shakib Al Hasan 10 0 45 1 Taskin Ahmed 9 1 26 1 Taijul Islam 10 0 54 3 Mehedi Hasan 10 2 35 2 Mustafizur Rahman 8 0 42 0 Hossain Shanto 1.4 0 9 0</pre>",
+            "words": 153
+          },
+          "s3versionid": "3KsDDpCgNX1HTyb.fAZwMJ9QYf4Zwz83",
+          "traceid": "null"
+        }
+      },
+      {
+        "_index": "appl-thirty-2023-03",
+        "_type": "_doc",
+        "_id": "83d0caec80e94ecb816f5521c9f62692",
+        "_score": 1.0097795,
+        "_source": {
+          "representationversion": "1.0",
+          "representationtype": "full",
+          "itemid": "83d0caec80e94ecb816f5521c9f62692",
+          "recordid": "120a902c247741e88d8d6dd00414a0f0",
+          "compositeid": "3ae13bcdbd4942f0838e787d78babf97",
+          "compositiontype": "StandardText",
+          "type": "text",
+          "priority": 4,
+          "editorialpriority": "r",
+          "language": "en",
+          "recordsequencenumber": 0,
+          "friendlykey": "9199090951746090",
+          "referenceid": "CRICKET Summaries",
+          "recordtype": "Change",
+          "filingtype": "Text",
+          "arrivaldatetime": "2023-03-01T16:09:03Z",
+          "firstcreated": "2023-03-01T16:09:27Z",
+          "firstcreator": {
+            "year": 2023,
+            "month": 3,
+            "day": 1,
+            "time": "16:09:27"
+          },
+          "lastmodifieddatetime": "2023-03-01T16:09:27Z",
+          "pubstatus": "usable",
+          "releasedatetime": "2023-03-01T16:09:04Z",
+          "itemstartdatetime": "2023-03-01T16:09:04Z",
+          "itemstartdatetimeactual": "2023-03-01T16:09:04Z",
+          "itemexpiredatetime": "2023-03-06T16:09:04Z",
+          "signals": ["newscontent"],
+          "title": "CRICKET Summaries",
+          "headline": "CRICKET Summaries",
+          "copyrightnotice": "For copyright information, please check with the distributor of this item, Press Association.",
+          "copyrightholder": "Press Association",
+          "copyrightdate": 2023,
+          "keywordlines": ["CRICKET Summaries"],
+          "provider": {
+            "code": "z00013",
+            "type": "ThirdParty",
+            "name": "Press Association"
+          },
+          "sources": [
+            {
+              "code": "z00013",
+              "city": "London",
+              "country": "GBR",
+              "url": "http://www.pressassociation.com",
+              "type": "ThirdParty",
+              "name": "Press Association"
+            }
+          ],
+          "transmissionsources": [
+            "NotMemberFeed",
+            "IngestionManager",
+            "Monarch"
+          ],
+          "categories": [
+            {
+              "code": "scr",
+              "name": "SCR"
+            }
+          ],
+          "subjects": [
+            {
+              "scheme": "http://cv.ap.org/id/",
+              "code": "54df6c687df7100483dedf092526b43e",
+              "name": "Sports",
+              "creator": "Editorial",
+              "editorial_subject": "Sports",
+              "rels": ["direct"],
+              "topparent": true
+            }
+          ],
+          "thirdpartymeta": [
+            {
+              "code": "feedid/5134",
+              "name": "5134",
+              "vocabulary": "IngestionManagerMetadata",
+              "vocabularyowner": "cv.ap.org"
+            }
+          ],
+          "filings": [
+            {
+              "filingid": "ef4c9b5546d245ec99518f2c3e7c2ace",
+              "filingarrivaldatetime": "2023-03-01T16:09:03Z",
+              "cycle": "BC",
+              "serviceleveldesignator": "pc",
+              "selector": "-----",
+              "format": "bx",
+              "filingsource": "pcftp",
+              "filingcategory": "SCR",
+              "slugline": "CRICKET Summaries",
+              "products": [
+                100915, 45956, 45486, 45182, 45147, 44697, 44653, 43848, 43618,
+                3, 1, 15
+              ],
+              "foreignkeys": [
+                {
+                  "pamanagementid": "C202303011609270001C"
+                }
+              ]
+            },
+            {
+              "filingid": "ef4c9b5546d245ec99518f2c3e7c2ace",
+              "filingarrivaldatetime": "2023-03-01T16:09:03Z",
+              "cycle": "BC",
+              "serviceleveldesignator": "pc",
+              "selector": "-----",
+              "format": "bx",
+              "filingsource": "pcftp",
+              "filingcategory": "SCR",
+              "slugline": "CRICKET Summaries",
+              "products": [
+                100915, 45956, 45486, 45182, 45147, 44697, 44653, 43848, 43618,
+                3, 1, 15
+              ],
+              "foreignkeys": [
+                {
+                  "pamanagementid": "C202303011609270001C"
+                }
+              ]
+            }
+          ],
+          "main": {
+            "nitf": "<p>----[1]--------------------------------------------------------</p><pre>First One Day InternationalMirpurBangladesh 209 (Najmul Hossain Shanto 58) v England 212-7 (D J Malan114 no)England beat Bangladesh by 3 wkts</pre>",
+            "words": 26
+          },
+          "s3versionid": "OLtI1bZCRU6lgXCf2HgFgomYN7FrbjqS",
+          "traceid": "null"
+        }
+      },
+      {
+        "_index": "appl-thirty-2023-03",
+        "_type": "_doc",
+        "_id": "54b85d4163bb49eea886a69c2d7e41ce",
+        "_score": 1.0097795,
+        "_source": {
+          "representationversion": "1.0",
+          "representationtype": "full",
+          "itemid": "54b85d4163bb49eea886a69c2d7e41ce",
+          "recordid": "2b372e1d3b5241d0ad9a7f8d45d0109d",
+          "compositeid": "2fb17ed7bca2491d8616395839073850",
+          "compositiontype": "StandardText",
+          "type": "text",
+          "priority": 4,
+          "editorialpriority": "r",
+          "language": "es",
+          "recordsequencenumber": 0,
+          "friendlykey": "8638726931959303",
+          "referenceid": "La inflación de la eurozona se moderó en febrero al 8,5%, pero la subyacente marcó un nuevo récord del 5,6%",
+          "recordtype": "Change",
+          "filingtype": "Text",
+          "arrivaldatetime": "2023-03-02T10:03:55Z",
+          "firstcreated": "2023-03-02T11:00:38Z",
+          "firstcreator": {
+            "year": 2023,
+            "month": 3,
+            "day": 2,
+            "time": "11:00:38"
+          },
+          "lastmodifieddatetime": "2023-03-02T11:00:38Z",
+          "pubstatus": "usable",
+          "releasedatetime": "2023-03-02T10:02:17Z",
+          "itemstartdatetime": "2023-03-02T10:02:17Z",
+          "itemstartdatetimeactual": "2023-03-02T10:02:17Z",
+          "signals": ["newscontent"],
+          "title": "La inflación de la eurozona se moderó en febrero al 8,5%, pero la subyacente marcó un nuevo récord del 5,6%",
+          "headline": "La inflación de la eurozona se moderó en febrero al 8,5%, pero la subyacente marcó un nuevo récord del 5,6%",
+          "dateline": "Madrid",
+          "copyrightnotice": "Europa Press",
+          "copyrightholder": "Europa Press",
+          "copyrightdate": 2023,
+          "provider": {
+            "code": "z00005",
+            "type": "ThirdParty",
+            "name": "Europa Press"
+          },
+          "sources": [
+            {
+              "code": "z00005",
+              "city": "Barcelona",
+              "country": "ESP",
+              "url": "http://www.europapress.es/",
+              "type": "ThirdParty",
+              "name": "Europa Press"
+            }
+          ],
+          "transmissionsources": [
+            "NotMemberFeed",
+            "IngestionManager",
+            "Monarch"
+          ],
+          "usagerights": [
+            {
+              "usagetype": "APInternalOnly"
+            }
+          ],
+          "datelinelocation": {
+            "city": "Madrid",
+            "countryareaname": "Madrid",
+            "countryname": "Spain",
+            "geometry_geojson": {
+              "type": "Point",
+              "coordinates": [-3.70256, 40.4165]
+            }
+          },
+          "categories": [
+            {
+              "code": "i",
+              "name": "i"
+            }
+          ],
+          "thirdpartymeta": [
+            {
+              "code": "iptcformat",
+              "name": "false",
+              "vocabulary": "ExtendedDeskInfo",
+              "vocabularyowner": "http://cv.ap.org"
+            },
+            {
+              "code": "europaservicio:zz",
+              "name": "ZZ",
+              "creator": "Editorial",
+              "vocabulary": "servicio",
+              "vocabularyowner": "europa"
+            },
+            {
+              "code": "europaseccion:eco",
+              "name": "ECO",
+              "creator": "Editorial",
+              "vocabulary": "seccion",
+              "vocabularyowner": "europa"
+            },
+            {
+              "code": "europatipoinfo:epc",
+              "name": "EPC",
+              "creator": "Editorial",
+              "vocabulary": "tipoinfo",
+              "vocabularyowner": "europa"
+            },
+            {
+              "code": "feedid/2583",
+              "name": "2583",
+              "vocabulary": "IngestionManagerMetadata",
+              "vocabularyowner": "cv.ap.org"
+            }
+          ],
+          "filings": [
+            {
+              "filingid": "552543fcfd0e433595930d0b41976832",
+              "filingarrivaldatetime": "2023-03-02T10:03:55Z",
+              "cycle": "BC",
+              "serviceleveldesignator": "EUP",
+              "selector": "-----",
+              "format": "bx",
+              "filingsource": "europa",
+              "filingcategory": "i",
+              "slugline": "La inflación de la eurozona se moderó en febrero al 8,5%, pero la subyacente marcó un nuevo récord del 5,6%",
+              "products": [
+                47023, 45956, 45486, 45147, 44697, 44653, 43848, 43618, 43228,
+                39333, 37588, 30016, 3, 1, 15
+              ],
+              "foreignkeys": [
+                {
+                  "europaentryid": "20230302110038"
+                },
+                {
+                  "europamanagementid": "20230302110038"
+                }
+              ]
+            },
+            {
+              "filingid": "552543fcfd0e433595930d0b41976832",
+              "filingarrivaldatetime": "2023-03-02T10:03:55Z",
+              "cycle": "BC",
+              "serviceleveldesignator": "EUP",
+              "selector": "-----",
+              "format": "bx",
+              "filingsource": "europa",
+              "filingcategory": "i",
+              "slugline": "La inflación de la eurozona se moderó en febrero al 8,5%, pero la subyacente marcó un nuevo récord del 5,6%",
+              "products": [
+                47023, 45956, 45486, 45147, 44697, 44653, 43848, 43618, 43228,
+                39333, 37588, 30016, 3, 1, 15
+              ],
+              "foreignkeys": [
+                {
+                  "europaentryid": "20230302110038"
+                },
+                {
+                  "europamanagementid": "20230302110038"
+                }
+              ]
+            }
+          ],
+          "main": {
+            "nitf": "<p>España registró la tercera tasa de inflación más baja (6,1%) entre los países de la zona euro</p><p>MADRID, 2 (EUROPA PRESS)</p><p>La tasa de inflación interanual de la eurozona se situó en febrero en el 8,5%, lo que implica una bajada de una décima frente al dato de enero, según la lectura preliminar de la oficina comunitaria de estadística, Eurostat, que muestra una escalada de la tasa subyacente, que excluye el efecto de energía y alimentos, hasta un récord del 5,6%.</p><p>De este modo, la tasa de inflación interanual de la zona euro acumula ya cuatro meses consecutivos de desaceleración y se sitúa en su nivel más bajo desde mayo de 2022, antes de que el Banco Central Europeo (BCE) comenzara a subir los tipos de interés.</p><p>En el mes de febrero, el alza de los precios de la energía se moderó al 13,7% desde el 18,9% de enero, mientras que el encarecimiento de los alimentos frescos fue del 13,6%, frente al 11,3% del mes pasado.</p><p>Asimismo, los servicios subieron un 4,8% interanual, cuatro décimas más que en enero, y los bienes industriales no energéticos se encarecieron un 6,8%, una décima más que en el mes anterior.</p><p>Al excluir del cálculo el impacto de la energía, la tasa de inflación interanual de la zona euro se situó en febrero en el 7,7%, frente al 7,3% de enero.</p><p>Asimismo, al dejar fuera también el efecto de los precios de los alimentos frescos, el alcohol y el tabaco, la tasa de inflación subyacente de la zona euro escaló al 5,6% desde el 5,3% de enero, su nivel más alto de toda la serie histórica.</p><p>De este modo, a pesar de que la tasa general de inflación acumula cuatro meses seguidos a la baja, el elevado nivel de la inflación subyacente refuerza la postura del BCE de acometer una nueva subida de 50 puntos básicos en su reunión del próximo 16 de marzo, cuando publicará sus nuevas proyecciones macroeconómicas para la zona euro.</p><p>ESPAÑA, TERCERA INFLACIÓN MÁS BAJA DE LA EUROZONA.</p><p>Entre los países de la zona euro, que desde enero incorpora también a Croacia, las mayores subidas de los precios en febrero correspondieron a Letonia (20,1%), por delante de Estonia (17,8%) y de Lituania (17,2%).</p><p>En el extremo opuesto, las subidas más moderadas se observaron en Luxemburgo (4,8%), Bélgica (5,5%) y España (6,1%). De este modo, el diferencial de precios favorable a España se situó en febrero en 2,4 puntos porcentuales, tres décimas menos que en enero.</p><p>SUBIDA DE TIPOS DE 50 PUNTOS BÁSICOS EN MARZO.</p><p>Este jueves, durante una entrevista con el programa 'Espejo Público' de Antena 3, la presidenta del BCE, Christine Lagarde, ha reiterado que \"es muy probable\" que los tipos de interés de la eurozona suban en marzo otros 50 puntos básicos, mientras que ha descartado cualquier bajada del precio del dinero antes de que la inflación se haya estabilizado en línea con la meta del 2%, algo que no espera suceda antes de 2025.</p><p>\"Los tipos de interés no volverán donde estaban hace unos años\", ha asegurado la francesa, señalando que las proyecciones de la institución apuntan a que la inflación de la eurozona retornará a la meta de estabilidad del 2% \"en 2025\".</p><p>Si bien Lagarde ha señalado que \"los tipos no se mantendrán altos para siempre\", ha advertido de que solo cuando la tasa de inflación de la región del euro se haya estabilizado en línea con la meta del 2%, \"entonces los tipos podrán reducirse\".</p><p>En este sentido, la banquera central ha defendido la importancia de asegurarse de cumplir el objetivo de devolver la inflación al nivel de estabilidad de precios de una manera sólida para evitar bajar los tipos y tenerlos que subir de nuevo. \"Eso es lo que no queremos\", ha afirmado.</p><p>En todo caso, la presidenta del BCE ha reiterado de cara a la reunión del Consejo de Gobierno del próximo 16 de marzo que \"es muy probable\" que se decida una subida de 50 puntos básicos de los tipos de interés, ya que no existe en este momento ningún motivo para pensar que no vaya a ser así.</p><p>Asimismo, señalando la dependencia del BCE de los datos entrantes, Lagarde ha indicado que es posible que la institución continúe subiendo el precio del dinero. \"Haremos lo que sea necesario para que la inflación retorne al 2%\", ha resumido.</p>",
+            "words": 840
+          },
+          "s3versionid": "N683oJ_yEY8gEadugdT4J.j0Bhl8RtJP",
+          "traceid": "null",
+          "itemexpiredatetime": "2023-04-01T10:03:55Z"
+        }
+      },
+      {
+        "_index": "appl-thirty-2023-03",
+        "_type": "_doc",
+        "_id": "78b2722ed91b5d67f05fdc73b93ff34b",
+        "_score": 1.0097795,
+        "_source": {
+          "representationversion": "1.0",
+          "representationtype": "full",
+          "itemid": "78b2722ed91b5d67f05fdc73b93ff34b",
+          "recordid": "178f18f4ae9cb8489a09a0b360ef9d83",
+          "compositeid": "a6c5efdd7b2b48cfb4b563235d446460",
+          "compositiontype": "StandardText",
+          "type": "text",
+          "priority": 4,
+          "editorialpriority": "r",
+          "language": "en",
+          "recordsequencenumber": 0,
+          "friendlykey": "9923222655948348",
+          "referenceid": "Break the Cycle of the Standard Spring Break",
+          "recordtype": "Change",
+          "filingtype": "Text",
+          "arrivaldatetime": "2023-03-02T10:01:58Z",
+          "firstcreated": "2023-03-02T10:03:00Z",
+          "firstcreator": {
+            "year": 2023,
+            "month": 3,
+            "day": 2,
+            "time": "10:03:00"
+          },
+          "lastmodifieddatetime": "2023-03-02T10:03:00Z",
+          "pubstatus": "usable",
+          "releasedatetime": "2023-03-02T10:03:00Z",
+          "associations": [
+            {
+              "type": "photo",
+              "itemid": "19061e5e5cc1e49c7c93d74e806811cd",
+              "representationtype": "partial",
+              "associationrank": 1,
+              "typerank": 1
+            }
+          ],
+          "editorialid": "urn:publicid:globenewswire.com:202303021003_8779866_en_0",
+          "itemstartdatetime": "2023-03-02T10:03:00Z",
+          "itemstartdatetimeactual": "2023-03-02T10:03:00Z",
+          "signals": ["newscontent"],
+          "title": "Break the Cycle of the Standard Spring Break",
+          "headline": "Break the Cycle of the Standard Spring Break",
+          "bylines": [
+            {
+              "by": "Colorado Ski Country USA",
+              "title": "(GLOBE NEWSWIRE)"
+            }
+          ],
+          "copyrightnotice": "Copyright 2023 GlobeNewswire, Inc.",
+          "copyrightholder": "GlobeNewswire - Mobile",
+          "copyrightdate": 2023,
+          "keywordlines": [
+            "Colorado Ski Country USA",
+            "Spring Break",
+            "Skiing",
+            "Snowboarding",
+            "Colorado"
+          ],
+          "provider": {
+            "code": "z01146",
+            "type": "ThirdParty",
+            "name": "GlobeNewswire - Mobile"
+          },
+          "sources": [
+            {
+              "code": "z01146",
+              "city": "Los Angeles",
+              "county": "Los Angeles",
+              "country": "USA",
+              "countryarea": "CA",
+              "url": "http://www.globenewswire.com",
+              "type": "ThirdParty",
+              "name": "GlobeNewswire - Mobile"
+            }
+          ],
+          "canonicallink": "http://globenewswire.com",
+          "transmissionsources": [
+            "NotMemberFeed",
+            "IngestionManager",
+            "Monarch"
+          ],
+          "productsources": ["APNewsDistribution"],
+          "itemcontenttype": {
+            "name": "Press Release"
+          },
+          "usagerights": [
+            {
+              "usagetype": "MobileNewsNetworkDistribution",
+              "limitations": ["none"]
+            }
+          ],
+          "categories": [
+            {
+              "code": "f",
+              "name": "f"
+            }
+          ],
+          "subjects": [
+            {
+              "scheme": "http://cv.ap.org/id/",
+              "code": "e004c43087a910048943e9f06a797907",
+              "name": "Horses",
+              "creator": "Machine",
+              "rels": ["direct"],
+              "relevance": 74
+            },
+            {
+              "scheme": "http://cv.ap.org/id/",
+              "code": "68358e28898710048843bc885dbc3010",
+              "name": "Hiking",
+              "creator": "Machine",
+              "rels": ["direct"],
+              "relevance": 36
+            }
+          ],
+          "places": [
+            {
+              "scheme": "http://cv.ap.org/id/",
+              "code": "d8f472e882af1004831adf092526b43e",
+              "name": "Miami",
+              "creator": "Machine",
+              "rels": ["direct"],
+              "parentids": ["cb06ab1082af100482f8df092526b43e"],
+              "locationtype": {
+                "code": "9d26a20b35f0484a891740f8189d4c7b",
+                "name": "City"
+              },
+              "geometry_geojson": {
+                "type": "Point",
+                "coordinates": [-80.19366, 25.77427]
+              },
+              "parentname": "Florida",
+              "relevance": 33
+            }
+          ],
+          "thirdpartymeta": [
+            {
+              "code": "http://cv.ap.org/geography/us",
+              "name": "US",
+              "vocabulary": "geography",
+              "vocabularyowner": "cv.ap.org"
+            },
+            {
+              "code": "http://cv.ap.org/geography/us.co",
+              "name": "US.CO",
+              "vocabulary": "geography",
+              "vocabularyowner": "cv.ap.org"
+            },
+            {
+              "code": "http://cv.ap.org/subject/f",
+              "name": "f",
+              "vocabulary": "subject",
+              "vocabularyowner": "cv.ap.org"
+            },
+            {
+              "code": "http://www.globenewswire.com/subject/featurearticle/featurearticle",
+              "name": "Feature Article",
+              "vocabulary": "subject",
+              "vocabularyowner": "www.globenewswire.com"
+            },
+            {
+              "code": "http://www.globenewswire.com/subject/lifestyle/lifestyle",
+              "name": "Lifestyle",
+              "vocabulary": "subject",
+              "vocabularyowner": "www.globenewswire.com"
+            },
+            {
+              "code": "http://www.globenewswire.com/subject/sports/sports",
+              "name": "Sports",
+              "vocabulary": "subject",
+              "vocabularyowner": "www.globenewswire.com"
+            },
+            {
+              "code": "http://www.globenewswire.com/subject/travel/travel",
+              "name": "Travel",
+              "vocabulary": "subject",
+              "vocabularyowner": "www.globenewswire.com"
+            },
+            {
+              "code": "http://www.globenewswire.com/subject/pressreleases/pressreleases",
+              "name": "Press releases",
+              "vocabulary": "subject",
+              "vocabularyowner": "www.globenewswire.com"
+            },
+            {
+              "code": "http://cv.ap.org/keyword/coloradoskicountryusa",
+              "name": "Colorado Ski Country USA",
+              "vocabulary": "keyword",
+              "vocabularyowner": "cv.ap.org"
+            },
+            {
+              "code": "http://cv.ap.org/keyword/springbreak",
+              "name": "Spring Break",
+              "vocabulary": "keyword",
+              "vocabularyowner": "cv.ap.org"
+            },
+            {
+              "code": "http://cv.ap.org/keyword/skiing",
+              "name": "Skiing",
+              "vocabulary": "keyword",
+              "vocabularyowner": "cv.ap.org"
+            },
+            {
+              "code": "http://cv.ap.org/keyword/snowboarding",
+              "name": "Snowboarding",
+              "vocabulary": "keyword",
+              "vocabularyowner": "cv.ap.org"
+            },
+            {
+              "code": "http://cv.ap.org/keyword/colorado",
+              "name": "Colorado",
+              "vocabulary": "keyword",
+              "vocabularyowner": "cv.ap.org"
+            },
+            {
+              "code": "entryid/urn:publicid:globenewswire.com:202303021003_8779866_en_0",
+              "name": "urn:publicid:globenewswire.com:202303021003_8779866_en_0",
+              "vocabulary": "IngestionManagerMetadata",
+              "vocabularyowner": "cv.ap.org"
+            },
+            {
+              "code": "managementid/urn:publicid:globenewswire.com:20230302_8779866_en",
+              "name": "urn:publicid:globenewswire.com:20230302_8779866_en",
+              "vocabulary": "IngestionManagerMetadata",
+              "vocabularyowner": "cv.ap.org"
+            },
+            {
+              "code": "feedid/5225",
+              "name": "5225",
+              "vocabulary": "IngestionManagerMetadata",
+              "vocabularyowner": "cv.ap.org"
+            }
+          ],
+          "filings": [
+            {
+              "filingid": "6b8e8676df3849479b9881ed5e1380bc",
+              "filingarrivaldatetime": "2023-03-02T10:01:58Z",
+              "transmissionreference": "G9866",
+              "serviceleveldesignator": "G",
+              "selector": "prime",
+              "format": "bx",
+              "filingcategory": "f",
+              "slugline": "CO-COLORADO-SKI",
+              "products": [
+                101552, 101255, 47244, 45955, 45498, 45496, 45493, 45486, 45147,
+                44697, 44653, 43848, 39499, 39320, 37584, 30019, 3, 1, 15
+              ],
+              "foreignkeys": [
+                {
+                  "memberentryid": "urn:publicid:globenewswire.com:202303021003_8779866_en_0"
+                },
+                {
+                  "membermanagementid": "urn:publicid:globenewswire.com:20230302_8779866_en"
+                }
+              ],
+              "distributionscope": "Local"
+            },
+            {
+              "filingid": "6b8e8676df3849479b9881ed5e1380bc",
+              "filingarrivaldatetime": "2023-03-02T10:01:58Z",
+              "transmissionreference": "G9866",
+              "serviceleveldesignator": "G",
+              "selector": "prime",
+              "format": "bx",
+              "filingcategory": "f",
+              "slugline": "CO-COLORADO-SKI",
+              "products": [
+                101552, 101255, 47244, 45955, 45498, 45496, 45493, 45486, 45147,
+                44697, 44653, 43848, 39499, 39320, 37584, 30019, 3, 1, 15
+              ],
+              "foreignkeys": [
+                {
+                  "memberentryid": "urn:publicid:globenewswire.com:202303021003_8779866_en_0"
+                },
+                {
+                  "membermanagementid": "urn:publicid:globenewswire.com:20230302_8779866_en"
+                }
+              ],
+              "distributionscope": "Local"
+            }
+          ],
+          "main": {
+            "nitf": "<p>Denver, CO, March 02, 2023 (GLOBE NEWSWIRE) -- DenCabo? Crowded. Daytona? Deluged. Miami? $20 cocktails… and mobbed. This year, when your friends show off the same old beach pix from their same old spring breaks, you can brandish shots of you carving tracks in a field of pure white snow and sipping fireside cocktails at one of Colorado Ski Country USA’s winter wonderlands.</p><p>“We love this time of year,” says Melanie Mills, CSCUSA president and CEO. “The days are long, sunny and mild. Snow’s been falling for two-thirds of the season and regular top ups continue into March and April. All the trails are open, and the resorts really throw their weight into finding unique ways to welcome and entertain all the visitors to our slopes.”</p><p>Here are the top 10 reasons to travel to a CSCUSA ski area:</p><ol><li>Our resorts are closer than you’d think. Durango, in the southwest corner of the state, has two top-notch ski areas within minutes of each other: world-famous Purgatory (close to heaven; fun as hell) and local favorite Hesperus.</li><li>You absolutely, positively cannot give up that beach life. Arapahoe Basin (known to locals as A-Basin) has you covered. The Beach is a ski-in, ski-out tailgate at the base of the mountain. And if you wanna wear your swimsuit? At 11,000’ elevation, you’re that much closer to the sun. Just sayin’... pack your sunscreen to avoid that lobster look.</li><li>You’re tired of making decisions. Steamboat Springs boasts Steamboat Resort, with its 171 trails, 4 terrain parks, and over 400 inches-and-counting of snow this season, and Howelsen Hill, Colorado’s oldest, continuously operated ski area. They’ve been schussing down Howelsen since 1915, and it has the look and feel of a classic Rocky Mountain ski area. Tl/dr: one town, two flavors. Together, they’re the chocolate and vanilla swirl cone of Colorado.</li><li>You’ve been eating dry cereal and ramen for months, and you’re ready for the delish. Whether you’re a foodie or the pickiest of picky, CSCUSA resorts have you covered. Try one of our favorites: bison burgers at Sunlight Mountain Resort or Thunderbird Tacos at Powderhorn Mountain Resort.</li><li>You’re looking for a little culcha. Aspen, a town synonymous with ski culture, also has a celebrated arts scene. Fill your cup at the Wheeler Opera House or the Anderson Ranch Art Center or take in a show at Theatre Aspen and a visit to the Aspen Art Museum.</li><li>Your dorm. There’s more to your vacay than just ski, sleep, rinse, repeat. (Although, no judgment here—we’ve all been there.) Ski or ride Telluride all day, then mingle with the locals at the base. Catch the DJ at Bon Vivant on Fridays and Saturdays or live music every day at Gorrono Ranch. Pro tip: March 15th is Telluride’s 50th Anniversary bash.</li><li>You actually miss your family. Granby Ranch is the perfect ski destination for snow lovers of all ages. Think laid back, western vibes in an anything-but-flat Rocky Mountain setting. From toddlers to grandparents, there’s something for snow lovers of all ages at Granby Ranch, including live music during the day and night skiing under the starlight.</li><li>You’ve had it with FOMO. No problem. Echo Mountain is Denver’s backyard ski area. It’s got everything you want, and it’s just down the road. Ski all day and be back in Denver for a live show.</li><li>You’ve had it with Insta destinations. Looking for an off-the-beaten-path place to kick back? If you’re looking for an authentic Colorado ski area experience, you’re looking for Monarch Mountain. Located just up the road from Salida, CO, what Monarch boasts in annual snowfall, it lacks in crowds. That's code for pure, untracked powder stashes, and that’s code for fun.</li><li>You want to try something new. Never stood on a snowboard or skis before? We’ve all been there. The fastest way to get up and get going is with a lesson. Colorado Ski Country USA resorts offer lessons for groups, individuals, just the gals, or those who want to take their skills to the next level. It’s a first time you can brag about to your friends. And spring is a great time to learn in the warm sunshine...and have a goggle tan to show for it. <br></br><br></br> That’s ten. But wait... there’s more!</li></ol><p>Like to shop? Aspen’s home to four ski resorts and world-class shopping and dining. If your interests lean more toward art and fashion, Aspen has more of a selection that you’d believe. Salida has a historic district featuring a shop for every shopping itch and Steamboat Springs can get you outfitted like a 21st century cowhand.</p><p>Cooper and Copper may be alphabetical neighbors, but they’re as different as A and Z. Cooper, an approachable family favorite mountain with soft, all-natural snow has new advanced terrain for the more adventurous skiers and riders. On the other side of the mountain, Copper is known as the Athlete’s Mountain with three peaks and four bowls of downhill bliss, challenging terrain parks, and a wide array of runs, from bunny on up to those double black diamonds.</p><p>Our list is far from comprehensive, but we hear that attention spans are shorter than ever. So we’ll summarize it for you: if the only mountains you’ve seen lately are mountains of empty pizza boxes, we can help make sure your spring break is mountains of adventure and fun. Check our <a href=\"https://www.globenewswire.com/Tracker?data=25hOY9kTNpaXcjIkZ_a1eCfj6Niyf5d7r84WHGxNNIQ_Qiv5WXDYS5SFb4XUEaDUREg95qje7NVyv_mFdeWbZYdGTK0Le5T928Be2CPWr1c=\" rel=\"nofollow\">Snow Report</a> and start planning your spring break, because here in Colorado Ski Country USA, there’s #AMountainForEveryone.</p><p>Attachment</p><ul><li><a href=\"https://ml.globenewswire.com/Resource/Download/86021f96-9745-45b0-988f-2cee4d6e7c4b\">Spring Break View of Aspen Highlands</a></li></ul><br></br><p>Sarah Beatty, APR Colorado Ski Country USA 303-837-0793 sarah@coloradoski.com</p>",
+            "words": 906
+          },
+          "s3versionid": "VE878wBThAiARWynl_ce4s99Za4_dlvt",
+          "traceid": "null",
+          "itemexpiredatetime": "2023-04-01T10:01:58Z"
+        }
+      },
+      {
+        "_index": "appl-thirty-2023-03",
+        "_type": "_doc",
+        "_id": "e3ca9365851241f28f072788125325fa",
+        "_score": 1.0097795,
+        "_source": {
+          "representationversion": "1.0",
+          "representationtype": "full",
+          "itemid": "e3ca9365851241f28f072788125325fa",
+          "recordid": "66afa0159a7e48059c4ad9a205adce5c",
+          "compositeid": "5b60d499fc854d1cbd6b6bf4397a9602",
+          "compositiontype": "StandardText",
+          "type": "text",
+          "priority": 4,
+          "editorialpriority": "r",
+          "language": "es",
+          "recordsequencenumber": 0,
+          "friendlykey": "1423043198490208",
+          "referenceid": "Fórmula 1.- Lance Stroll (Aston Martin) correrá el Gran Premio de Baréin",
+          "recordtype": "Change",
+          "filingtype": "Text",
+          "arrivaldatetime": "2023-03-02T10:02:12Z",
+          "firstcreated": "2023-03-02T10:59:39Z",
+          "firstcreator": {
+            "year": 2023,
+            "month": 3,
+            "day": 2,
+            "time": "10:59:39"
+          },
+          "lastmodifieddatetime": "2023-03-02T10:59:39Z",
+          "pubstatus": "usable",
+          "releasedatetime": "2023-03-02T10:03:51Z",
+          "itemstartdatetime": "2023-03-02T10:03:51Z",
+          "itemstartdatetimeactual": "2023-03-02T10:03:51Z",
+          "signals": ["newscontent"],
+          "title": "Fórmula 1.- Lance Stroll (Aston Martin) correrá el Gran Premio de Baréin",
+          "headline": "Fórmula 1.- Lance Stroll (Aston Martin) correrá el Gran Premio de Baréin",
+          "dateline": "MADRID",
+          "copyrightnotice": "Europa Press",
+          "copyrightholder": "Europa Press",
+          "copyrightdate": 2023,
+          "provider": {
+            "code": "z00005",
+            "type": "ThirdParty",
+            "name": "Europa Press"
+          },
+          "sources": [
+            {
+              "code": "z00005",
+              "city": "Barcelona",
+              "country": "ESP",
+              "url": "http://www.europapress.es/",
+              "type": "ThirdParty",
+              "name": "Europa Press"
+            }
+          ],
+          "transmissionsources": [
+            "NotMemberFeed",
+            "IngestionManager",
+            "Monarch"
+          ],
+          "usagerights": [
+            {
+              "usagetype": "APInternalOnly"
+            }
+          ],
+          "datelinelocation": {
+            "city": "Madrid",
+            "countryareaname": "Madrid",
+            "countryname": "Spain",
+            "geometry_geojson": {
+              "type": "Point",
+              "coordinates": [-3.70256, 40.4165]
+            }
+          },
+          "categories": [
+            {
+              "code": "i",
+              "name": "i"
+            }
+          ],
+          "thirdpartymeta": [
+            {
+              "code": "iptcformat",
+              "name": "false",
+              "vocabulary": "ExtendedDeskInfo",
+              "vocabularyowner": "http://cv.ap.org"
+            },
+            {
+              "code": "europaservicio:de",
+              "name": "DE",
+              "creator": "Editorial",
+              "vocabulary": "servicio",
+              "vocabularyowner": "europa"
+            },
+            {
+              "code": "europaseccion:dep",
+              "name": "DEP",
+              "creator": "Editorial",
+              "vocabulary": "seccion",
+              "vocabularyowner": "europa"
+            },
+            {
+              "code": "europatipoinfo:d11",
+              "name": "D11",
+              "creator": "Editorial",
+              "vocabulary": "tipoinfo",
+              "vocabularyowner": "europa"
+            },
+            {
+              "code": "feedid/2583",
+              "name": "2583",
+              "vocabulary": "IngestionManagerMetadata",
+              "vocabularyowner": "cv.ap.org"
+            }
+          ],
+          "filings": [
+            {
+              "filingid": "2e34c224a45e4c5487f07ab33302462a",
+              "filingarrivaldatetime": "2023-03-02T10:02:12Z",
+              "cycle": "BC",
+              "serviceleveldesignator": "EUP",
+              "selector": "-----",
+              "format": "bx",
+              "filingsource": "europa",
+              "filingcategory": "i",
+              "slugline": "Fórmula 1.- Lance Stroll (Aston Martin) correrá el Gran Premio de Baréin",
+              "products": [
+                47023, 45956, 45486, 45147, 44697, 44653, 43848, 43618, 43228,
+                39333, 37588, 30016, 3, 1, 15
+              ],
+              "foreignkeys": [
+                {
+                  "europaentryid": "20230302105939"
+                },
+                {
+                  "europamanagementid": "20230302105939"
+                }
+              ]
+            },
+            {
+              "filingid": "2e34c224a45e4c5487f07ab33302462a",
+              "filingarrivaldatetime": "2023-03-02T10:02:12Z",
+              "cycle": "BC",
+              "serviceleveldesignator": "EUP",
+              "selector": "-----",
+              "format": "bx",
+              "filingsource": "europa",
+              "filingcategory": "i",
+              "slugline": "Fórmula 1.- Lance Stroll (Aston Martin) correrá el Gran Premio de Baréin",
+              "products": [
+                47023, 45956, 45486, 45147, 44697, 44653, 43848, 43618, 43228,
+                39333, 37588, 30016, 3, 1, 15
+              ],
+              "foreignkeys": [
+                {
+                  "europaentryid": "20230302105939"
+                },
+                {
+                  "europamanagementid": "20230302105939"
+                }
+              ]
+            }
+          ],
+          "main": {
+            "nitf": "<p>MADRID, 2 (EUROPA PRESS)</p><p>El piloto canadiense Lance Stroll (Aston Martin) podrá finalmente participar en el Gran Premio de Baréin de este fin de semana, en la cita inaugural del Mundial 2023 de Fórmula 1, tras recuperarse de una lesión de muñeca que le impidió rodar en los tres días de entrenamientos oficiales de pretemporada en el mismo trazado de Sakhir.</p><p>\"El equipo Aston Martin Aramco Cognizant Formula One se complace en confirmar que Lance Stroll participará en el Gran Premio de Baréin de este fin de semana\", anunció la escudería en un comunicado.</p><p>Con la recuperación de Lance Stroll, tanto Felipe Drugovich como Stoffel Vandoorne permanecerán en Baréin como pilotos reserva del equipo británico para este fin de semana, en el que el español Fernando Alonso debutará al volante del Aston Martin.</p><p>\"Fue frustrante no estar en Baréin para los test de pretemporada. Sin embargo, dada la lesión en mi muñeca, el equipo y yo pensamos que era mejor centrarse en la recuperación para estar listo para este fin de semana y para la larga temporada que tenemos por delante\", reconoció Stroll en declaraciones facilitadas por el equipo.</p><p>El canadiense explicó que fue un accidente \"desafortunado\" el que le produjo la lesión. \"Me caí de la moto cuando el neumático se enganchó en un agujero del suelo, pero por suerte el daño no fue importante y una pequeña intervención quirúrgica en mi muñeca derecha solucionó el problema rápidamente. He estado trabajando duro con mi equipo para asegurarme de que estoy en plena forma para competir este fin de semana\", aseguró.</p>",
+            "words": 528
+          },
+          "s3versionid": "8XmP4IfdFxzO5Gd4aTcEPdH8iUUyTWzh",
+          "traceid": "null",
+          "itemexpiredatetime": "2023-04-01T10:02:12Z"
+        }
+      }
+    ]
+  }
+}
