@@ -26,6 +26,10 @@ func Parse(bs []byte) (*Value, error) {
 	}, err
 }
 
+func ParseString(s string) (*Value, error) {
+	return Parse(stringToBytes(s))
+}
+
 func ParseObject(bs []byte) (*Object, error) {
 	l, r, t, err := trimJSONInput(bs)
 	if err != nil {
@@ -256,10 +260,6 @@ func parseValue(bs []byte, start, last uint) (*Value, uint, error) {
 		}
 		start = end
 		break
-	}
-
-	if start >= last {
-		return nil, start, fmt.Errorf("property parsing at %d", start)
 	}
 
 	// parse separator

@@ -103,6 +103,9 @@ func NewArray(x interface{}) *Array {
 			vs = append(vs, newValue(v))
 		}
 	default:
+		if x == nil {
+			return nil
+		}
 		if reflect.TypeOf(x).Kind() != reflect.Slice {
 			v := newValue(x)
 			if v.Type > 0 {

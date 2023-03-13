@@ -11,7 +11,11 @@ type Property struct {
 
 type Object struct {
 	Properites []*Property
-	names      map[string]uint
+	names      map[string]int
+}
+
+func New() *Object {
+	return &Object{}
 }
 
 func (jo *Object) String() string {
@@ -114,15 +118,32 @@ func (jo *Object) GetArray(name string) (*Array, bool) {
 	return jp.Value.GetArray()
 }
 
+func (jo *Object) Add(name string, value interface{}) *Object {
+	jo.indexNames()
+
+	v := newValue(value)
+
+	i, ok := jo.names[name]
+	if ok {
+		jo.Properites[i].Value = v
+	} else {
+		jo.names[name] = len(jo.Properites)
+		jo.Properites = append(jo.Properites, &Property{
+			Name:  name,
+			Value: v,
+		})
+	}
+
+	return jo
+}
+
 func (jo *Object) indexNames() {
 	if jo.names != nil {
 		return
 	}
 
-	jo.names = make(map[string]uint)
-	var i uint
-	for _, jp := range jo.Properites {
+	jo.names = make(map[string]int)
+	for i, jp := range jo.Properites {
 		jo.names[jp.Name] = i
-		i++
 	}
 }

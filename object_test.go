@@ -185,6 +185,17 @@ func TestObject(t *testing.T) {
 		}
 	})
 
+	t.Run("add properties", func(t *testing.T) {
+		jo := New()
+		jo.Add("name", "YM").Add("age", 27).Add("ap", false)
+		jo.Add("test", []float32{3.14})
+		jo.Add("ap", true)
+		if len(jo.Properites) != 4 {
+			t.Fail()
+		}
+		fmt.Println(jo.String())
+	})
+
 	t.Run("errors", func(t *testing.T) {
 		var jo *Object
 		s := jo.String()

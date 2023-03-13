@@ -2,6 +2,7 @@ package json
 
 import (
 	"errors"
+	"fmt"
 	"strconv"
 	"strings"
 )
@@ -125,12 +126,11 @@ func (jv *Value) GetValue() (interface{}, error) {
 		if err != nil {
 			if strings.Contains(err.Error(), "value out of range") && d > 0 {
 				u, err := strconv.ParseUint(s, 10, 0)
-				if err != nil {
-					return nil, err
+				if err == nil {
+					jv.Type = UINT
+					jv.value = uint(u)
+					return jv.value, nil
 				}
-				jv.Type = UINT
-				jv.value = uint(u)
-				return jv.value, nil
 			}
 			return nil, err
 		}
@@ -156,7 +156,8 @@ func (jv *Value) GetString() (string, bool) {
 		return "", false
 	}
 
-	return v.(string), true
+	s, ok := v.(string)
+	return s, ok
 }
 
 func (jv *Value) GetInt() (int, bool) {
@@ -165,7 +166,8 @@ func (jv *Value) GetInt() (int, bool) {
 		return 0, false
 	}
 
-	return v.(int), true
+	i, ok := v.(int)
+	return i, ok
 }
 
 func (jv *Value) GetUInt() (uint, bool) {
@@ -174,7 +176,8 @@ func (jv *Value) GetUInt() (uint, bool) {
 		return 0, false
 	}
 
-	return v.(uint), true
+	ui, ok := v.(uint)
+	return ui, ok
 }
 
 func (jv *Value) GetFloat() (float64, bool) {
@@ -183,7 +186,8 @@ func (jv *Value) GetFloat() (float64, bool) {
 		return 0, false
 	}
 
-	return v.(float64), true
+	f, ok := v.(float64)
+	return f, ok
 }
 
 func (jv *Value) GetBool() (bool, bool) {
@@ -192,7 +196,8 @@ func (jv *Value) GetBool() (bool, bool) {
 		return false, false
 	}
 
-	return v.(bool), true
+	b, ok := v.(bool)
+	return b, ok
 }
 
 func (jv *Value) GetObject() (*Object, bool) {
@@ -201,7 +206,8 @@ func (jv *Value) GetObject() (*Object, bool) {
 		return nil, false
 	}
 
-	return v.(*Object), true
+	jo, ok := v.(*Object)
+	return jo, ok
 }
 
 func (jv *Value) GetArray() (*Array, bool) {
@@ -210,7 +216,8 @@ func (jv *Value) GetArray() (*Array, bool) {
 		return nil, false
 	}
 
-	return v.(*Array), true
+	ja, ok := v.(*Array)
+	return ja, ok
 }
 
 func (jv *Value) toString() string {
@@ -291,7 +298,7 @@ func newValue(x interface{}) *Value {
 		v = uint(x)
 	case float32:
 		t = FLOAT
-		v = float64(x)
+		v, _ = strconv.ParseFloat(fmt.Sprintf("%v", x), 64)
 	case []string:
 		t = ARRAY
 		v = NewArray(x)

@@ -56,6 +56,12 @@ func TestArray(t *testing.T) {
 		}
 		fmt.Println(ja.String())
 
+		ja = NewArray([]float32{3.14, 0.2e-2})
+		if ja == nil || len(ja.Values) != 2 || ja.Values[0].String() != "3.14" {
+			t.Fail()
+		}
+		fmt.Println(ja.String())
+
 		ja = NewArray([]bool{true, false})
 		if ja == nil || len(ja.Values) != 2 || ja.Values[0].String() != "true" {
 			t.Fail()
@@ -67,6 +73,100 @@ func TestArray(t *testing.T) {
 			t.Fail()
 		}
 		fmt.Println(ja.String())
+
+		ja = NewArray([]int64{1, 2})
+		if ja == nil || len(ja.Values) != 2 || ja.Values[0].String() != "1" {
+			t.Fail()
+		}
+		fmt.Println(ja.String())
+
+		ja = NewArray([]int8{1, 2})
+		if ja == nil || len(ja.Values) != 2 || ja.Values[0].String() != "1" {
+			t.Fail()
+		}
+		fmt.Println(ja.String())
+
+		ja = NewArray([]int16{1, 2})
+		if ja == nil || len(ja.Values) != 2 || ja.Values[0].String() != "1" {
+			t.Fail()
+		}
+		fmt.Println(ja.String())
+
+		ja = NewArray([]int32{1, 2})
+		if ja == nil || len(ja.Values) != 2 || ja.Values[0].String() != "1" {
+			t.Fail()
+		}
+		fmt.Println(ja.String())
+
+		ja = NewArray([]uint64{1, 2})
+		if ja == nil || len(ja.Values) != 2 || ja.Values[0].String() != "1" {
+			t.Fail()
+		}
+		fmt.Println(ja.String())
+
+		ja = NewArray([]uint8{1, 2})
+		if ja == nil || len(ja.Values) != 2 || ja.Values[0].String() != "1" {
+			t.Fail()
+		}
+		fmt.Println(ja.String())
+
+		ja = NewArray([]uint16{1, 2})
+		if ja == nil || len(ja.Values) != 2 || ja.Values[0].String() != "1" {
+			t.Fail()
+		}
+		fmt.Println(ja.String())
+
+		ja = NewArray([]uint32{1, 2})
+		if ja == nil || len(ja.Values) != 2 || ja.Values[0].String() != "1" {
+			t.Fail()
+		}
+		fmt.Println(ja.String())
+
+		ja = NewArray("xyz")
+		if ja == nil || len(ja.Values) != 1 || ja.Values[0].String() != `"xyz"` {
+			t.Fail()
+		}
+		fmt.Println(ja.String())
+
+		ja = NewArray(1)
+		if ja == nil || len(ja.Values) != 1 || ja.Values[0].String() != "1" {
+			t.Fail()
+		}
+		fmt.Println(ja.String())
+
+		ja = NewArray(3.14)
+		if ja == nil || len(ja.Values) != 1 || ja.Values[0].String() != "3.14" {
+			t.Fail()
+		}
+		fmt.Println(ja.String())
+
+		ja = NewArray(true)
+		if ja == nil || len(ja.Values) != 1 || ja.Values[0].String() != "true" {
+			t.Fail()
+		}
+		fmt.Println(ja.String())
+
+		ja = NewArray([]*Object{New().Add("name", "YM"), New().Add("age", 27)})
+		if ja == nil || len(ja.Values) != 2 || ja.Values[0].Type != OBJECT {
+			t.Fail()
+		}
+		fmt.Println(ja.String())
+
+		ja = NewArray([]*Array{NewArray("xyz"), NewArray([]int{1, 2})})
+		if ja == nil || len(ja.Values) != 2 || ja.Values[0].Type != ARRAY {
+			t.Fail()
+		}
+		fmt.Println(ja.String())
+
+		ja = NewArray(nil)
+		if ja != nil {
+			t.Fail()
+		}
+
+		ja = NewArray([]*Property{{Name: "name"}})
+		if ja != nil {
+			t.Fail()
+		}
 	})
 
 	t.Run("errors", func(t *testing.T) {
