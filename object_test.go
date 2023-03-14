@@ -241,7 +241,7 @@ func TestProperty(t *testing.T) {
 	t.Run("parse string property", func(t *testing.T) {
 		s := `{ "name": "YM" }`
 		bs := []byte(s)
-		last := uint(len(bs))
+		last := len(bs)
 		jp, end, err := parseProperty(bs, 1, last)
 		if err != nil {
 			t.Fail()

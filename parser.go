@@ -5,6 +5,12 @@ import (
 	"fmt"
 )
 
+var (
+	errorInvalidJSON   = errors.New("invalid JSON")
+	errorInvalidObject = errors.New("invalid JSON object")
+	errorInvalidArray  = errors.New("invalid JSON array")
+)
+
 func Parse(bs []byte) (*Value, error) {
 	l, r, t, err := trimJSONInput(bs)
 	if err != nil {
@@ -12,14 +18,14 @@ func Parse(bs []byte) (*Value, error) {
 	}
 
 	if t == OBJECT {
-		jo, _, err := parseObject(bs, uint(l+1), uint(r+1))
+		jo, _, err := parseObject(bs, l+1, r+1)
 		return &Value{
 			Type:  OBJECT,
 			value: jo,
 		}, err
 	}
 
-	ja, _, err := parseArray(bs, uint(l+1), uint(r+1))
+	ja, _, err := parseArray(bs, l+1, r+1)
 	return &Value{
 		Type:  ARRAY,
 		value: ja,
@@ -36,9 +42,9 @@ func ParseObject(bs []byte) (*Object, error) {
 		return nil, err
 	}
 	if t != OBJECT {
-		return nil, errors.New("bad json object")
+		return nil, errorInvalidObject
 	}
-	jo, _, err := parseObject(bs, uint(l+1), uint(r+1))
+	jo, _, err := parseObject(bs, l+1, r+1)
 	return jo, err
 }
 
@@ -52,9 +58,9 @@ func ParseArray(bs []byte) (*Array, error) {
 		return nil, err
 	}
 	if t != ARRAY {
-		return nil, errors.New("bad json array")
+		return nil, errorInvalidArray
 	}
-	ja, _, err := parseArray(bs, uint(l+1), uint(r+1))
+	ja, _, err := parseArray(bs, l+1, r+1)
 	return ja, err
 }
 
@@ -62,9 +68,9 @@ func ParseArrayString(s string) (*Array, error) {
 	return ParseArray(stringToBytes(s))
 }
 
-func parseObject(bs []byte, start, last uint) (*Object, uint, error) {
+func parseObject(bs []byte, start, last int) (*Object, int, error) {
 	if start >= last {
-		return nil, start, fmt.Errorf("object parsing at %d", start)
+		return nil, start, parsingError("object", start)
 	}
 
 	var jps []*Property
@@ -94,12 +100,12 @@ func parseObject(bs []byte, start, last uint) (*Object, uint, error) {
 		break
 	}
 
-	return nil, i, fmt.Errorf("object parsing at %d", i)
+	return nil, i, parsingError("object", i)
 }
 
-func parseProperty(bs []byte, start, last uint) (*Property, uint, error) {
+func parseProperty(bs []byte, start, last int) (*Property, int, error) {
 	if start >= last {
-		return nil, start, fmt.Errorf("property parsing at %d", start)
+		return nil, start, parsingError("property", start)
 	}
 
 	// parse name
@@ -116,12 +122,12 @@ func parseProperty(bs []byte, start, last uint) (*Property, uint, error) {
 			start = end + 1
 			break
 		} else if !isWS(bs[i]) {
-			return nil, i, fmt.Errorf("property name parsing at %d", i)
+			return nil, i, parsingError("property name", i)
 		}
 	}
 
 	if start >= last {
-		return nil, start, fmt.Errorf("property name parsing at %d", start)
+		return nil, start, parsingError("property name", start)
 	}
 
 	// parse colon
@@ -130,12 +136,12 @@ func parseProperty(bs []byte, start, last uint) (*Property, uint, error) {
 			start = i + 1
 			break
 		} else if !isWS(bs[i]) {
-			return nil, i, fmt.Errorf("property parsing at %d", i)
+			return nil, i, parsingError("properrty", i)
 		}
 	}
 
 	if start >= last {
-		return nil, start, fmt.Errorf("property parsing at %d", start)
+		return nil, start, parsingError("property", start)
 	}
 
 	value, end, err := parseValue(bs, start, last)
@@ -149,9 +155,9 @@ func parseProperty(bs []byte, start, last uint) (*Property, uint, error) {
 	}, end, nil
 }
 
-func parseArray(bs []byte, start, last uint) (*Array, uint, error) {
+func parseArray(bs []byte, start, last int) (*Array, int, error) {
 	if start >= last {
-		return nil, start, fmt.Errorf("array parsing at %d", start)
+		return nil, start, parsingError("array", start)
 	}
 
 	var vs []*Value
@@ -181,12 +187,12 @@ func parseArray(bs []byte, start, last uint) (*Array, uint, error) {
 		break
 	}
 
-	return nil, i, fmt.Errorf("array parsing at %d", i)
+	return nil, i, parsingError("array", i)
 }
 
-func parseValue(bs []byte, start, last uint) (*Value, uint, error) {
+func parseValue(bs []byte, start, last int) (*Value, int, error) {
 	if start >= last {
-		return nil, start, fmt.Errorf("value parsing at %d", start)
+		return nil, start, parsingError("value", start)
 	}
 
 	var value *Value
@@ -246,7 +252,7 @@ func parseValue(bs []byte, start, last uint) (*Value, uint, error) {
 
 		start = i + 1
 		if start >= last {
-			return nil, start, fmt.Errorf("value parsing at %d", start)
+			return nil, start, parsingError("value", i)
 		}
 
 		end, special, err := parseNonTextValue(bs, start, last)
@@ -269,12 +275,12 @@ func parseValue(bs []byte, start, last uint) (*Value, uint, error) {
 		}
 	}
 
-	return nil, start, fmt.Errorf("value parsing at %d", start)
+	return nil, start, parsingError("value", start)
 }
 
-func parseString(bs []byte, start, last uint) (uint, error) {
+func parseString(bs []byte, start, last int) (int, error) {
 	if start >= last {
-		return start, fmt.Errorf("string parsing at %d", start)
+		return start, parsingError("string", start)
 	}
 
 	for i := start + 1; i < last; i++ {
@@ -283,12 +289,12 @@ func parseString(bs []byte, start, last uint) (uint, error) {
 		}
 	}
 
-	return start, fmt.Errorf("string parsing at %d", start)
+	return start, parsingError("string", start)
 }
 
-func parseStringValue(bs []byte, start, last uint) (uint, specialBytes, error) {
+func parseStringValue(bs []byte, start, last int) (int, specialBytes, error) {
 	if start >= last {
-		return start, 0, fmt.Errorf("string parsing at %d", start)
+		return start, 0, parsingError("string value", start)
 	}
 
 	var special specialBytes
@@ -304,10 +310,10 @@ func parseStringValue(bs []byte, start, last uint) (uint, specialBytes, error) {
 		}
 	}
 
-	return start, 0, fmt.Errorf("string parsing at %d", start)
+	return start, 0, parsingError("string value", start)
 }
 
-func parseNonTextValue(bs []byte, start, last uint) (uint, specialBytes, error) {
+func parseNonTextValue(bs []byte, start, last int) (int, specialBytes, error) {
 	var special specialBytes
 
 	for i := start; i < last; i++ {
@@ -322,7 +328,7 @@ func parseNonTextValue(bs []byte, start, last uint) (uint, specialBytes, error) 
 		}
 	}
 
-	return start, 0, fmt.Errorf("property value parsing at %d", start)
+	return start, 0, parsingError("property value", start)
 }
 
 func isWS(b byte) bool {
@@ -333,7 +339,7 @@ func trimJSONInput(bs []byte) (int, int, ValueType, error) {
 	last := len(bs) - 1
 
 	if last < 1 {
-		return 0, 0, 0, errors.New("bad json")
+		return 0, 0, 0, errorInvalidJSON
 	}
 
 	for l := 0; l < last; l++ {
@@ -347,7 +353,7 @@ func trimJSONInput(bs []byte) (int, int, ValueType, error) {
 					continue
 				}
 
-				return 0, 0, 0, errors.New("bad json")
+				return 0, 0, 0, errorInvalidJSON
 			}
 		}
 
@@ -361,7 +367,7 @@ func trimJSONInput(bs []byte) (int, int, ValueType, error) {
 					continue
 				}
 
-				return 0, 0, 0, errors.New("bad json")
+				return 0, 0, 0, errorInvalidJSON
 			}
 		}
 
@@ -372,5 +378,9 @@ func trimJSONInput(bs []byte) (int, int, ValueType, error) {
 		break
 	}
 
-	return 0, 0, 0, errors.New("bad json")
+	return 0, 0, 0, errorInvalidJSON
+}
+
+func parsingError(what string, where int) error {
+	return fmt.Errorf("%s parsing at %d", what, where)
 }

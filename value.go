@@ -99,7 +99,7 @@ func (jv *Value) GetValue() (interface{}, error) {
 	}
 
 	if len(jv.data) == 0 {
-		return nil, errors.New("empty")
+		return nil, errorInvalidJSON
 	}
 
 	if jv.data[0] == 't' && len(jv.data) == 4 && jv.data[1] == 'r' && jv.data[2] == 'u' && jv.data[3] == 'e' {
@@ -142,7 +142,7 @@ func (jv *Value) GetValue() (interface{}, error) {
 
 	f, err := strconv.ParseFloat(s, 64)
 	if err != nil {
-		return nil, errors.New("non-json value")
+		return nil, errors.New("invalid JSON: " + s)
 	}
 
 	jv.Type = FLOAT
