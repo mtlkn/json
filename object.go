@@ -18,36 +18,6 @@ func New() *Object {
 	return &Object{}
 }
 
-func (jo *Object) String() string {
-	if jo == nil {
-		return ""
-	}
-
-	if len(jo.Properites) == 0 {
-		return "{}"
-	}
-
-	var sb strings.Builder
-
-	sb.WriteByte('{')
-
-	for i, jp := range jo.Properites {
-		if i > 0 {
-			sb.WriteByte(',')
-		}
-
-		sb.WriteByte('"')
-		sb.WriteString(jp.Name)
-		sb.WriteByte('"')
-		sb.WriteByte(':')
-		sb.WriteString(jp.Value.String())
-	}
-
-	sb.WriteByte('}')
-
-	return sb.String()
-}
-
 func (jo *Object) GetProperty(name string) (*Property, bool) {
 	if jo == nil || len(jo.Properites) == 0 {
 		return nil, false
@@ -165,6 +135,36 @@ func (jo *Object) Remove(name string) *Object {
 	jo.names = names
 
 	return jo
+}
+
+func (jo *Object) String() string {
+	if jo == nil {
+		return ""
+	}
+
+	if len(jo.Properites) == 0 {
+		return "{}"
+	}
+
+	var sb strings.Builder
+
+	sb.WriteByte('{')
+
+	for i, jp := range jo.Properites {
+		if i > 0 {
+			sb.WriteByte(',')
+		}
+
+		sb.WriteByte('"')
+		sb.WriteString(jp.Name)
+		sb.WriteByte('"')
+		sb.WriteByte(':')
+		sb.WriteString(jp.Value.String())
+	}
+
+	sb.WriteByte('}')
+
+	return sb.String()
 }
 
 func (jo *Object) indexNames() {

@@ -169,6 +169,98 @@ func TestArray(t *testing.T) {
 		}
 	})
 
+	t.Run("getters", func(t *testing.T) {
+		ja := NewArray([]string{"abc", "xyz"}).Add(3.14)
+		ja.Add(27).Add(true)
+		ja.Add(New().Add("pi", 3.14))
+		ja.Add(uint(123))
+		ja.Add(NewArray(123))
+		if len(ja.Values) != 8 {
+			t.Fail()
+		}
+
+		s, ok := ja.GetString(0)
+		if !ok || s != "abc" {
+			t.Fail()
+		}
+		if _, ok := ja.GetString(123); ok {
+			t.Fail()
+		}
+		if _, ok := ja.GetString(3); ok {
+			t.Fail()
+		}
+
+		i, ok := ja.GetInt(3)
+		if !ok || i != 27 {
+			t.Fail()
+		}
+		if _, ok := ja.GetInt(0); ok {
+			t.Fail()
+		}
+		if _, ok := ja.GetInt(123); ok {
+			t.Fail()
+		}
+
+		ui, ok := ja.GetUInt(6)
+		if !ok || ui != 123 {
+			t.Fail()
+		}
+		if _, ok := ja.GetUInt(0); ok {
+			t.Fail()
+		}
+		if _, ok := ja.GetUInt(123); ok {
+			t.Fail()
+		}
+
+		f, ok := ja.GetFloat(2)
+		if !ok || f != 3.14 {
+			t.Fail()
+		}
+		if _, ok := ja.GetFloat(0); ok {
+			t.Fail()
+		}
+		if _, ok := ja.GetFloat(123); ok {
+			t.Fail()
+		}
+
+		b, ok := ja.GetBool(4)
+		if !ok || !b {
+			t.Fail()
+		}
+		if _, ok := ja.GetBool(0); ok {
+			t.Fail()
+		}
+		if _, ok := ja.GetBool(123); ok {
+			t.Fail()
+		}
+
+		jo, ok := ja.GetObject(5)
+		if !ok || len(jo.Properites) != 1 {
+			t.Fail()
+		}
+		if _, ok := ja.GetObject(0); ok {
+			t.Fail()
+		}
+		if _, ok := ja.GetObject(123); ok {
+			t.Fail()
+		}
+
+		if _, ok := ja.GetArray(7); !ok {
+			t.Fail()
+		}
+		if _, ok := ja.GetArray(0); ok {
+			t.Fail()
+		}
+		if _, ok := ja.GetArray(123); ok {
+			t.Fail()
+		}
+
+		ja.Remove(4)
+		if len(ja.Values) != 7 {
+			t.Fail()
+		}
+	})
+
 	t.Run("errors", func(t *testing.T) {
 		var ja *Array
 		s := ja.String()
