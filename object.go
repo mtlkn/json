@@ -137,6 +137,36 @@ func (jo *Object) Add(name string, value interface{}) *Object {
 	return jo
 }
 
+func (jo *Object) Remove(name string) *Object {
+	jo.indexNames()
+
+	i, ok := jo.names[name]
+	if !ok {
+		return jo
+	}
+
+	names := make(map[string]int)
+	var (
+		jps   []*Property
+		count int
+	)
+
+	for k, jp := range jo.Properites {
+		if k == i {
+			continue
+		}
+
+		names[jp.Name] = count
+		jps = append(jps, jp)
+		count++
+	}
+
+	jo.Properites = jps
+	jo.names = names
+
+	return jo
+}
+
 func (jo *Object) indexNames() {
 	if jo.names != nil {
 		return

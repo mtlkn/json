@@ -192,6 +192,29 @@ func TestObject(t *testing.T) {
 			t.Fail()
 		}
 		fmt.Println(jo.String())
+
+		jo.Remove("xyz")
+		if len(jo.Properites) != 4 {
+			t.Fail()
+		}
+
+		jo.Remove("ap")
+		if len(jo.Properites) != 3 {
+			t.Fail()
+		}
+		fmt.Println(jo.String())
+
+		jo.Remove("name")
+		if len(jo.Properites) != 2 {
+			t.Fail()
+		}
+		fmt.Println(jo.String())
+
+		jo.Remove("test")
+		if len(jo.Properites) != 1 {
+			t.Fail()
+		}
+		fmt.Println(jo.String())
 	})
 
 	t.Run("errors", func(t *testing.T) {
