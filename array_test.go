@@ -235,7 +235,7 @@ func TestArray(t *testing.T) {
 		}
 
 		jo, ok := ja.GetObject(5)
-		if !ok || len(jo.Properites) != 1 {
+		if !ok || len(jo.Properties) != 1 {
 			t.Fail()
 		}
 		if _, ok := ja.GetObject(0); ok {

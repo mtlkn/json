@@ -93,7 +93,7 @@ func parseObject(bs []byte, start, last int) (*Object, int, error) {
 
 		if b == '}' {
 			return &Object{
-				Properites: jps,
+				Properties: jps,
 			}, end, nil
 		}
 

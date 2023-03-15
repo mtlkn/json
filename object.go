@@ -10,7 +10,7 @@ type Property struct {
 }
 
 type Object struct {
-	Properites []*Property
+	Properties []*Property
 	names      map[string]int
 }
 
@@ -19,7 +19,7 @@ func New() *Object {
 }
 
 func (jo *Object) GetProperty(name string) (*Property, bool) {
-	if jo == nil || len(jo.Properites) == 0 {
+	if jo == nil || len(jo.Properties) == 0 {
 		return nil, false
 	}
 
@@ -29,7 +29,7 @@ func (jo *Object) GetProperty(name string) (*Property, bool) {
 		return nil, false
 	}
 
-	return jo.Properites[i], true
+	return jo.Properties[i], true
 }
 
 func (jo *Object) GetString(name string) (string, bool) {
@@ -95,10 +95,10 @@ func (jo *Object) Add(name string, value interface{}) *Object {
 
 	i, ok := jo.names[name]
 	if ok {
-		jo.Properites[i].Value = v
+		jo.Properties[i].Value = v
 	} else {
-		jo.names[name] = len(jo.Properites)
-		jo.Properites = append(jo.Properites, &Property{
+		jo.names[name] = len(jo.Properties)
+		jo.Properties = append(jo.Properties, &Property{
 			Name:  name,
 			Value: v,
 		})
@@ -121,7 +121,7 @@ func (jo *Object) Remove(name string) *Object {
 		count int
 	)
 
-	for k, jp := range jo.Properites {
+	for k, jp := range jo.Properties {
 		if k == i {
 			continue
 		}
@@ -131,7 +131,7 @@ func (jo *Object) Remove(name string) *Object {
 		count++
 	}
 
-	jo.Properites = jps
+	jo.Properties = jps
 	jo.names = names
 
 	return jo
@@ -142,7 +142,7 @@ func (jo *Object) String() string {
 		return ""
 	}
 
-	if len(jo.Properites) == 0 {
+	if len(jo.Properties) == 0 {
 		return "{}"
 	}
 
@@ -150,7 +150,7 @@ func (jo *Object) String() string {
 
 	sb.WriteByte('{')
 
-	for i, jp := range jo.Properites {
+	for i, jp := range jo.Properties {
 		if i > 0 {
 			sb.WriteByte(',')
 		}
@@ -173,7 +173,7 @@ func (jo *Object) indexNames() {
 	}
 
 	jo.names = make(map[string]int)
-	for i, jp := range jo.Properites {
+	for i, jp := range jo.Properties {
 		jo.names[jp.Name] = i
 	}
 }

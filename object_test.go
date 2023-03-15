@@ -17,11 +17,11 @@ func TestObject(t *testing.T) {
 			return
 		}
 
-		if len(jo.Properites) != 11 {
+		if len(jo.Properties) != 11 {
 			t.Fail()
 		}
 
-		for _, jp := range jo.Properites {
+		for _, jp := range jo.Properties {
 			v, err := jp.Value.GetValue()
 			if err != nil {
 				t.Fail()
@@ -53,7 +53,7 @@ func TestObject(t *testing.T) {
 			return
 		}
 
-		for _, jp := range jo.Properites {
+		for _, jp := range jo.Properties {
 			v, err := jp.Value.GetValue()
 			if err != nil {
 				t.Fail()
@@ -135,7 +135,7 @@ func TestObject(t *testing.T) {
 		}
 
 		o, ok := jo.GetObject("obj")
-		if !ok || o == nil || len(o.Properites) != 5 {
+		if !ok || o == nil || len(o.Properties) != 5 {
 			t.Fail()
 		}
 
@@ -188,30 +188,30 @@ func TestObject(t *testing.T) {
 		jo.Add("name", "YM").Add("age", 27).Add("ap", false)
 		jo.Add("test", []float32{3.14})
 		jo.Add("ap", true)
-		if len(jo.Properites) != 4 {
+		if len(jo.Properties) != 4 {
 			t.Fail()
 		}
 		fmt.Println(jo.String())
 
 		jo.Remove("xyz")
-		if len(jo.Properites) != 4 {
+		if len(jo.Properties) != 4 {
 			t.Fail()
 		}
 
 		jo.Remove("ap")
-		if len(jo.Properites) != 3 {
+		if len(jo.Properties) != 3 {
 			t.Fail()
 		}
 		fmt.Println(jo.String())
 
 		jo.Remove("name")
-		if len(jo.Properites) != 2 {
+		if len(jo.Properties) != 2 {
 			t.Fail()
 		}
 		fmt.Println(jo.String())
 
 		jo.Remove("test")
-		if len(jo.Properites) != 1 {
+		if len(jo.Properties) != 1 {
 			t.Fail()
 		}
 		fmt.Println(jo.String())
