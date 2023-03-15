@@ -273,12 +273,6 @@ func BenchmarkObjectParsers(b *testing.B) {
 		}
 	})
 
-	// b.Run("js parser", func(b *testing.B) {
-	// 	for n := 0; n < b.N; n++ {
-	// 		js.ParseObject(bs)
-	// 	}
-	// })
-
 	b.Run("this parser", func(b *testing.B) {
 		for n := 0; n < b.N; n++ {
 			ParseObject(bs)
@@ -295,12 +289,6 @@ func BenchmarkLargeObjectParsers(b *testing.B) {
 			json.Unmarshal(bs, &obj)
 		}
 	})
-
-	// b.Run("js parser", func(b *testing.B) {
-	// 	for n := 0; n < b.N; n++ {
-	// 		js.ParseObject(bs)
-	// 	}
-	// })
 
 	b.Run("this parser", func(b *testing.B) {
 		for n := 0; n < b.N; n++ {
