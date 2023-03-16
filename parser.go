@@ -82,7 +82,9 @@ func parseObject(bs []byte, start, last int) (*Object, int, error) {
 			return nil, end, err
 		}
 
-		jps = append(jps, jp)
+		if jp != nil {
+			jps = append(jps, jp)
+		}
 
 		b := bs[end]
 
