@@ -60,6 +60,14 @@ func TestParser(t *testing.T) {
 			t.Fail()
 		}
 
+		if _, err := ParseObjectString(`{"name": {"pi": } }`); err == nil {
+			t.Fail()
+		}
+
+		if _, err := ParseObjectString(`{"name": {"pi": }`); err == nil {
+			t.Fail()
+		}
+
 		if _, err := ParseObjectString(`{"name": [}`); err == nil {
 			t.Fail()
 		}
@@ -120,5 +128,8 @@ func TestParser(t *testing.T) {
 			t.Fail()
 		}
 
+		if _, _, err := parseValue([]byte("  123"), 0, 3); err == nil {
+			t.Fail()
+		}
 	})
 }

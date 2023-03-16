@@ -35,6 +35,21 @@ func TestArray(t *testing.T) {
 		if v.Type != ARRAY {
 			t.Fail()
 		}
+
+		if _, err := ParseArrayString("[]"); err != nil {
+			t.Fail()
+			t.Error()
+		}
+
+		if _, err := ParseArrayString(" [ ] "); err != nil {
+			t.Fail()
+			t.Error()
+		}
+
+		if _, err := ParseObjectString(`{ "x": []}`); err != nil {
+			t.Fail()
+			t.Error()
+		}
 	})
 
 	t.Run("create array", func(t *testing.T) {

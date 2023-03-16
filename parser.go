@@ -121,6 +121,8 @@ func parseProperty(bs []byte, start, last int) (*Property, int, error) {
 			name = bytesToString(bs[i+1 : end])
 			start = end + 1
 			break
+		} else if bs[i] == '}' {
+			return nil, i, nil
 		} else if !isWS(bs[i]) {
 			return nil, i, parsingError("property name", i)
 		}
@@ -136,7 +138,7 @@ func parseProperty(bs []byte, start, last int) (*Property, int, error) {
 			start = i + 1
 			break
 		} else if !isWS(bs[i]) {
-			return nil, i, parsingError("properrty", i)
+			return nil, i, parsingError("property", i)
 		}
 	}
 
@@ -147,6 +149,10 @@ func parseProperty(bs []byte, start, last int) (*Property, int, error) {
 	value, end, err := parseValue(bs, start, last)
 	if err != nil {
 		return nil, end, err
+	}
+
+	if value == nil {
+		return nil, end, parsingError("property", start)
 	}
 
 	return &Property{
@@ -169,7 +175,9 @@ func parseArray(bs []byte, start, last int) (*Array, int, error) {
 			return nil, end, err
 		}
 
-		vs = append(vs, v)
+		if v != nil {
+			vs = append(vs, v)
+		}
 
 		b := bs[end]
 
@@ -247,6 +255,11 @@ func parseValue(bs []byte, start, last int) (*Value, int, error) {
 			}
 
 			start = end + 1
+			break
+		}
+
+		if b == '}' || b == ']' {
+			start = i
 			break
 		}
 

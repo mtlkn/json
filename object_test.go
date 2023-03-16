@@ -42,6 +42,21 @@ func TestObject(t *testing.T) {
 		if v.Type != OBJECT {
 			t.Fail()
 		}
+
+		if _, err := ParseObjectString("{}"); err != nil {
+			t.Fail()
+			t.Error()
+		}
+
+		if _, err := ParseObjectString(" { } "); err != nil {
+			t.Fail()
+			t.Error()
+		}
+
+		if _, err := ParseObjectString(`{ "x": {}}`); err != nil {
+			t.Fail()
+			t.Error()
+		}
 	})
 
 	t.Run("parse complex object", func(t *testing.T) {
