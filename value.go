@@ -317,6 +317,9 @@ func newValue(x interface{}) *Value {
 	case []*Object, []*Array:
 		t = ARRAY
 		v = NewArray(x)
+	case []interface{}:
+		t = ARRAY
+		v = NewArray(x)
 	}
 
 	if t == 0 {

@@ -62,6 +62,11 @@ func TestValue(t *testing.T) {
 			t.Fail()
 		}
 
+		v = newValue([]any{1, 2})
+		if v.Type != ARRAY || v.String() != "[1,2]" {
+			t.Fail()
+		}
+
 		v = newValue([]*Object{New().Add("name", "YM")})
 		if v.Type != ARRAY || v.String() != `[{"name":"YM"}]` {
 			t.Fail()
