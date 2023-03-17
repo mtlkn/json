@@ -137,6 +137,12 @@ func TestArray(t *testing.T) {
 		}
 		fmt.Println(ja.String())
 
+		ja = NewArray([]any{1, 2})
+		if ja == nil || len(ja.Values) != 2 || ja.Values[0].String() != "1" {
+			t.Fail()
+		}
+		fmt.Println(ja.String())
+
 		ja = NewArray("xyz")
 		if ja == nil || len(ja.Values) != 1 || ja.Values[0].String() != `"xyz"` {
 			t.Fail()

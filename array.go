@@ -77,6 +77,10 @@ func NewArray(x interface{}) *Array {
 		for _, v := range x {
 			vs = append(vs, newValue(v))
 		}
+	case []interface{}:
+		for _, v := range x {
+			vs = append(vs, newValue(v))
+		}
 	default:
 		if x == nil {
 			return nil
