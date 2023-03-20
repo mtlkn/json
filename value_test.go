@@ -37,13 +37,34 @@ func TestValue(t *testing.T) {
 			t.Fail()
 		}
 
+		if _, ok := v.GetStrings(); ok {
+			t.Fail()
+		}
+		if _, ok := v.GetInts(); ok {
+			t.Fail()
+		}
+		if _, ok := v.GetFloats(); ok {
+			t.Fail()
+		}
+		if _, ok := v.GetObjects(); ok {
+			t.Fail()
+		}
+
 		v = newValue([]string{"abc", "xyz"})
 		if v.Type != ARRAY || v.String() != `["abc","xyz"]` {
+			t.Fail()
+		}
+		ss, ok := v.GetStrings()
+		if !ok || len(ss) != 2 || ss[1] != "xyz" {
 			t.Fail()
 		}
 
 		v = newValue([]int{1, 2})
 		if v.Type != ARRAY || v.String() != "[1,2]" {
+			t.Fail()
+		}
+		is, ok := v.GetInts()
+		if !ok || len(is) != 2 || is[1] != 2 {
 			t.Fail()
 		}
 
@@ -54,6 +75,10 @@ func TestValue(t *testing.T) {
 
 		v = newValue([]float64{3.14, 0.2e-3})
 		if v.Type != ARRAY || v.String() != "[3.14,0.0002]" {
+			t.Fail()
+		}
+		fs, ok := v.GetFloats()
+		if !ok || len(fs) != 2 || fs[0] != 3.14 {
 			t.Fail()
 		}
 
@@ -69,6 +94,10 @@ func TestValue(t *testing.T) {
 
 		v = newValue([]*Object{New().Add("name", "YM")})
 		if v.Type != ARRAY || v.String() != `[{"name":"YM"}]` {
+			t.Fail()
+		}
+		vs, ok := v.GetObjects()
+		if !ok || len(vs) != 1 {
 			t.Fail()
 		}
 

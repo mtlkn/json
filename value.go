@@ -220,6 +220,42 @@ func (jv *Value) GetArray() (*Array, bool) {
 	return ja, ok
 }
 
+func (jv *Value) GetStrings() ([]string, bool) {
+	ja, ok := jv.GetArray()
+	if !ok {
+		return nil, false
+	}
+
+	return ja.GetStrings()
+}
+
+func (jv *Value) GetInts() ([]int, bool) {
+	ja, ok := jv.GetArray()
+	if !ok {
+		return nil, false
+	}
+
+	return ja.GetInts()
+}
+
+func (jv *Value) GetFloats() ([]float64, bool) {
+	ja, ok := jv.GetArray()
+	if !ok {
+		return nil, false
+	}
+
+	return ja.GetFloats()
+}
+
+func (jv *Value) GetObjects() ([]*Object, bool) {
+	ja, ok := jv.GetArray()
+	if !ok {
+		return nil, false
+	}
+
+	return ja.GetObjects()
+}
+
 func (jv *Value) toString() string {
 	if jv.value == nil {
 		return "null"
