@@ -58,18 +58,42 @@ func TestArray(t *testing.T) {
 			t.Fail()
 		}
 		fmt.Println(ja.String())
+		ss, ok := ja.GetStrings()
+		if !ok || ss[1] != "xyz" {
+			t.Fail()
+		}
+		if _, ok := ja.GetInts(); ok {
+			t.Fail()
+		}
+		if _, ok := ja.GetFloats(); ok {
+			t.Fail()
+		}
+		if _, ok := ja.GetObjects(); ok {
+			t.Fail()
+		}
 
 		ja = NewArray([]int{1, 2})
 		if ja == nil || len(ja.Values) != 2 || ja.Values[0].String() != "1" {
 			t.Fail()
 		}
 		fmt.Println(ja.String())
+		is, ok := ja.GetInts()
+		if !ok || is[1] != 2 {
+			t.Fail()
+		}
+		if _, ok := ja.GetStrings(); ok {
+			t.Fail()
+		}
 
 		ja = NewArray([]float64{3.14, 0.2e-2})
 		if ja == nil || len(ja.Values) != 2 || ja.Values[0].String() != "3.14" {
 			t.Fail()
 		}
 		fmt.Println(ja.String())
+		fs, ok := ja.GetFloats()
+		if !ok || fs[0] != 3.14 {
+			t.Fail()
+		}
 
 		ja = NewArray([]float32{3.14, 0.2e-2})
 		if ja == nil || len(ja.Values) != 2 || ja.Values[0].String() != "3.14" {
@@ -172,6 +196,10 @@ func TestArray(t *testing.T) {
 			t.Fail()
 		}
 		fmt.Println(ja.String())
+		os, ok := ja.GetObjects()
+		if !ok || len(os) != 2 {
+			t.Fail()
+		}
 
 		ja = NewArray([]*Array{NewArray("xyz"), NewArray([]int{1, 2})})
 		if ja == nil || len(ja.Values) != 2 || ja.Values[0].Type != ARRAY {

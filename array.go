@@ -166,6 +166,58 @@ func (ja *Array) GetArray(pos int) (*Array, bool) {
 	return jv.GetArray()
 }
 
+func (ja *Array) GetStrings() ([]string, bool) {
+	var vs []string
+	for _, jv := range ja.Values {
+		v, ok := jv.GetString()
+		if !ok {
+			return nil, false
+		}
+		vs = append(vs, v)
+	}
+
+	return vs, true
+}
+
+func (ja *Array) GetInts() ([]int, bool) {
+	var vs []int
+	for _, jv := range ja.Values {
+		v, ok := jv.GetInt()
+		if !ok {
+			return nil, false
+		}
+		vs = append(vs, v)
+	}
+
+	return vs, true
+}
+
+func (ja *Array) GetFloats() ([]float64, bool) {
+	var vs []float64
+	for _, jv := range ja.Values {
+		v, ok := jv.GetFloat()
+		if !ok {
+			return nil, false
+		}
+		vs = append(vs, v)
+	}
+
+	return vs, true
+}
+
+func (ja *Array) GetObjects() ([]*Object, bool) {
+	var vs []*Object
+	for _, jv := range ja.Values {
+		v, ok := jv.GetObject()
+		if !ok {
+			return nil, false
+		}
+		vs = append(vs, v)
+	}
+
+	return vs, true
+}
+
 func (ja *Array) Add(value interface{}) *Array {
 	ja.Values = append(ja.Values, newValue(value))
 	return ja

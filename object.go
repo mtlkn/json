@@ -88,6 +88,38 @@ func (jo *Object) GetArray(name string) (*Array, bool) {
 	return jp.Value.GetArray()
 }
 
+func (jo *Object) GetStrings(name string) ([]string, bool) {
+	ja, ok := jo.GetArray(name)
+	if !ok {
+		return nil, false
+	}
+	return ja.GetStrings()
+}
+
+func (jo *Object) GetInts(name string) ([]int, bool) {
+	ja, ok := jo.GetArray(name)
+	if !ok {
+		return nil, false
+	}
+	return ja.GetInts()
+}
+
+func (jo *Object) GetFloats(name string) ([]float64, bool) {
+	ja, ok := jo.GetArray(name)
+	if !ok {
+		return nil, false
+	}
+	return ja.GetFloats()
+}
+
+func (jo *Object) GetObjects(name string) ([]*Object, bool) {
+	ja, ok := jo.GetArray(name)
+	if !ok {
+		return nil, false
+	}
+	return ja.GetObjects()
+}
+
 func (jo *Object) Add(name string, value interface{}) *Object {
 	jo.indexNames()
 

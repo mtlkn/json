@@ -196,6 +196,44 @@ func TestObject(t *testing.T) {
 		if ok {
 			t.Fail()
 		}
+
+		jo, _ = ParseObjectString(`{"name": [ "abc", "xyz" ]}`)
+		ss, ok := jo.GetStrings("name")
+		if !ok || ss[1] != "xyz" {
+			t.Fail()
+		}
+
+		jo, _ = ParseObjectString(`{"ids": [ 1, 2, 3 ]}`)
+		is, ok := jo.GetInts("ids")
+		if !ok || is[1] != 2 {
+			t.Fail()
+		}
+
+		jo, _ = ParseObjectString(`{"ai": [ 0.2, 3.14 ]}`)
+		fs, ok := jo.GetFloats("ai")
+		if !ok || fs[1] != 3.14 {
+			t.Fail()
+		}
+
+		jo, _ = ParseObjectString(`{"orgs": [ { "id": "abc"}, { "id": "xyz"} ]}`)
+		vs, ok := jo.GetObjects("orgs")
+		if !ok || len(vs) != 2 {
+			t.Fail()
+		}
+
+		jo, _ = ParseObjectString(`{"name":"abc"}`)
+		if _, ok := jo.GetStrings("name"); ok {
+			t.Fail()
+		}
+		if _, ok := jo.GetInts("name"); ok {
+			t.Fail()
+		}
+		if _, ok := jo.GetFloats("name"); ok {
+			t.Fail()
+		}
+		if _, ok := jo.GetObjects("name"); ok {
+			t.Fail()
+		}
 	})
 
 	t.Run("add properties", func(t *testing.T) {
