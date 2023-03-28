@@ -199,6 +199,10 @@ func (jo *Object) String() string {
 	return sb.String()
 }
 
+func (jo *Object) Bytes() []byte {
+	return stringToBytes(jo.String())
+}
+
 func (jo *Object) indexNames() {
 	if jo.names != nil {
 		return

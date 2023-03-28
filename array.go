@@ -258,3 +258,7 @@ func (ja *Array) String() string {
 
 	return sb.String()
 }
+
+func (ja *Array) Bytes() []byte {
+	return stringToBytes(ja.String())
+}
