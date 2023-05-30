@@ -241,7 +241,7 @@ func (ja *Array) Merge(merge *Array) *Array {
 
 	for _, jv := range merge.Values {
 		v, err := jv.GetValue()
-		if err != nil {
+		if err == nil {
 			ja.Add(v)
 		}
 	}

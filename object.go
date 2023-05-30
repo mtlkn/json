@@ -176,7 +176,7 @@ func (jo *Object) Merge(merge *Object) *Object {
 
 	for _, jp := range merge.Properties {
 		v, err := jp.Value.GetValue()
-		if err != nil {
+		if err == nil {
 			jo.Add(jp.Name, v)
 		}
 	}
