@@ -169,6 +169,21 @@ func (jo *Object) Remove(name string) *Object {
 	return jo
 }
 
+func (jo *Object) Merge(merge *Object) *Object {
+	if merge == nil || len(merge.Properties) == 0 {
+		return jo
+	}
+
+	for _, jp := range merge.Properties {
+		v, err := jp.Value.GetValue()
+		if err != nil && v != nil {
+			jo.Add(jp.Name, v)
+		}
+	}
+
+	return jo
+}
+
 func (jo *Object) String() string {
 	if jo == nil {
 		return ""

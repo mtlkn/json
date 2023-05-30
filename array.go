@@ -234,6 +234,21 @@ func (ja *Array) Remove(pos int) *Array {
 	return ja
 }
 
+func (ja *Array) Merge(merge *Array) *Array {
+	if merge == nil || len(merge.Values) == 0 {
+		return ja
+	}
+
+	for _, jv := range merge.Values {
+		v, err := jv.GetValue()
+		if err != nil && v != nil {
+			ja.Add(v)
+		}
+	}
+
+	return ja
+}
+
 func (ja *Array) String() string {
 	if ja == nil {
 		return ""
