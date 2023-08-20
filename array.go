@@ -277,3 +277,33 @@ func (ja *Array) String() string {
 func (ja *Array) Bytes() []byte {
 	return stringToBytes(ja.String())
 }
+
+func (ja *Array) Equals(other *Array) bool {
+	if ja == nil && other != nil {
+		return false
+	}
+
+	if ja != nil && other == nil {
+		return false
+	}
+
+	if len(ja.Values) != len(other.Values) {
+		return false
+	}
+
+	for _, lv := range ja.Values {
+		var ok bool
+		for _, rv := range other.Values {
+			if lv.Equals(rv) {
+				ok = true
+				break
+			}
+		}
+
+		if !ok {
+			return false
+		}
+	}
+
+	return true
+}

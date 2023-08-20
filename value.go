@@ -256,6 +256,61 @@ func (jv *Value) GetObjects() ([]*Object, bool) {
 	return ja.GetObjects()
 }
 
+func (jv *Value) Equals(other *Value) bool {
+	if jv == nil && other != nil {
+		return false
+	}
+
+	if jv != nil && other == nil {
+		return false
+	}
+
+	if jv.Type != other.Type {
+		return false
+	}
+
+	switch jv.Type {
+	case OBJECT:
+		lv, ok := jv.GetObject()
+		if !ok {
+			return false
+		}
+
+		rv, ok := jv.GetObject()
+		if !ok {
+			return false
+		}
+
+		return lv.Equals(rv)
+	case ARRAY:
+		lv, ok := jv.GetArray()
+		if !ok {
+			return false
+		}
+
+		rv, ok := jv.GetArray()
+		if !ok {
+			return false
+		}
+
+		return lv.Equals(rv)
+	case NULL:
+		return true
+	default:
+		lv, err := jv.GetValue()
+		if err != nil {
+			return false
+		}
+
+		rv, err := other.GetValue()
+		if err != nil {
+			return false
+		}
+
+		return lv == rv
+	}
+}
+
 func (jv *Value) toString() string {
 	if jv.value == nil {
 		return "null"
