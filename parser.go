@@ -74,6 +74,7 @@ func parseObject(bs []byte, start, last int) (*Object, int, error) {
 	}
 
 	var jps []*Property
+	names := make(map[string]int)
 
 	i := start
 	for i < last {
@@ -83,6 +84,7 @@ func parseObject(bs []byte, start, last int) (*Object, int, error) {
 		}
 
 		if jp != nil {
+			names[jp.Name] = len(jps)
 			jps = append(jps, jp)
 		}
 
@@ -96,6 +98,7 @@ func parseObject(bs []byte, start, last int) (*Object, int, error) {
 		if b == '}' {
 			return &Object{
 				Properties: jps,
+				names:      names,
 			}, end, nil
 		}
 

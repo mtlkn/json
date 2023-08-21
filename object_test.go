@@ -288,6 +288,14 @@ func TestObject(t *testing.T) {
 			t.Fail()
 		}
 	})
+
+	t.Run("equality", func(t *testing.T) {
+		lv := New().Add("name", "YM").Add("age", 27).Add("scores", []float64{3.14, 0.95})
+		rv, _ := ParseObjectString(`{"name":"YM", "age":27,"scores":[0.95,3.14]}`)
+		if !lv.Equals(rv) {
+			t.Fail()
+		}
+	})
 }
 
 func TestProperty(t *testing.T) {

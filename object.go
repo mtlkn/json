@@ -237,7 +237,17 @@ func (jo *Object) Equals(other *Object) bool {
 			return false
 		}
 
-		if !jp.Value.Equals(other.Properties[i].Value) {
+		if _, err := jp.Value.GetValue(); err != nil {
+			return false
+		}
+
+		rv := other.Properties[i].Value
+
+		if _, err := rv.GetValue(); err != nil {
+			return false
+		}
+
+		if !jp.Value.Equals(rv) {
 			return false
 		}
 	}
