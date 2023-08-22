@@ -152,4 +152,24 @@ func TestValue(t *testing.T) {
 			t.Fail()
 		}
 	})
+
+	t.Run("equality", func(t *testing.T) {
+		if !newValue("abc").Equals(&Value{
+			Type:  STRING,
+			value: "abc",
+		}) {
+			t.Fail()
+		}
+
+		if !newValue(123).Equals(newValue(123)) {
+			t.Fail()
+		}
+
+		if !newValue(true).Equals(&Value{
+			Type: BOOL,
+			data: []byte("true"),
+		}) {
+			t.Fail()
+		}
+	})
 }

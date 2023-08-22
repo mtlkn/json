@@ -218,6 +218,43 @@ func (jo *Object) Bytes() []byte {
 	return stringToBytes(jo.String())
 }
 
+func (jo *Object) Equals(other *Object) bool {
+	if jo == nil && other != nil {
+		return false
+	}
+
+	if jo != nil && other == nil {
+		return false
+	}
+
+	if len(jo.Properties) != len(other.Properties) {
+		return false
+	}
+
+	for _, jp := range jo.Properties {
+		i, ok := other.names[jp.Name]
+		if !ok {
+			return false
+		}
+
+		if _, err := jp.Value.GetValue(); err != nil {
+			return false
+		}
+
+		rv := other.Properties[i].Value
+
+		if _, err := rv.GetValue(); err != nil {
+			return false
+		}
+
+		if !jp.Value.Equals(rv) {
+			return false
+		}
+	}
+
+	return true
+}
+
 func (jo *Object) indexNames() {
 	if jo.names != nil {
 		return
