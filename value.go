@@ -276,7 +276,7 @@ func (jv *Value) Equals(other *Value) bool {
 			return false
 		}
 
-		rv, ok := jv.GetObject()
+		rv, ok := other.GetObject()
 		if !ok {
 			return false
 		}
@@ -288,7 +288,7 @@ func (jv *Value) Equals(other *Value) bool {
 			return false
 		}
 
-		rv, ok := jv.GetArray()
+		rv, ok := other.GetArray()
 		if !ok {
 			return false
 		}

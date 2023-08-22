@@ -291,9 +291,25 @@ func (ja *Array) Equals(other *Array) bool {
 		return false
 	}
 
-	for _, lv := range ja.Values {
+	var lh []*Value
+	for _, v := range ja.Values {
+		if _, err := v.GetValue(); err != nil {
+			return false
+		}
+		lh = append(lh, v)
+	}
+
+	var rh []*Value
+	for _, v := range other.Values {
+		if _, err := v.GetValue(); err != nil {
+			return false
+		}
+		rh = append(rh, v)
+	}
+
+	for _, lv := range lh {
 		var ok bool
-		for _, rv := range other.Values {
+		for _, rv := range rh {
 			if lv.Equals(rv) {
 				ok = true
 				break
