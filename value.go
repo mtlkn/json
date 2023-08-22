@@ -308,6 +308,8 @@ func newValue(x interface{}) *Value {
 		t = OBJECT
 	case *Array:
 		t = ARRAY
+	case *Value:
+		return v.(*Value)
 	case int8:
 		t = INT
 		v = int(x)
