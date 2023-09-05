@@ -185,11 +185,7 @@ func (jo *Object) Merge(merge *Object) *Object {
 }
 
 func (jo *Object) String() string {
-	if jo == nil {
-		return ""
-	}
-
-	if len(jo.Properties) == 0 {
+	if jo == nil || len(jo.Properties) == 0 {
 		return "{}"
 	}
 

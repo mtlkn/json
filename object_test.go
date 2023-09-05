@@ -270,6 +270,19 @@ func TestObject(t *testing.T) {
 		fmt.Println(jo.String())
 	})
 
+	t.Run("test nil values", func(t *testing.T) {
+		var (
+			o *Object
+			a *Array
+			v []int
+		)
+		jo := New().Add("v", v).Add("o", o).Add("a", a)
+		if jo.String() != `{"v":[],"o":{},"a":[]}` {
+			t.Fail()
+			fmt.Println(jo.String())
+		}
+	})
+
 	t.Run("errors", func(t *testing.T) {
 		var jo *Object
 		s := jo.String()

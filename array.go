@@ -250,11 +250,7 @@ func (ja *Array) Merge(merge *Array) *Array {
 }
 
 func (ja *Array) String() string {
-	if ja == nil {
-		return ""
-	}
-
-	if len(ja.Values) == 0 {
+	if ja == nil || len(ja.Values) == 0 {
 		return "[]"
 	}
 
